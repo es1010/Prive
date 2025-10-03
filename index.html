@@ -91,7 +91,27 @@
             font-style: italic;
         }
 
-        /* Styles pour le groupe de 3 images */
+        /* Photo de profil (ronde) */
+        .photo-placeholder {
+            margin: 1.5rem auto;
+            width: 150px;
+            height: 150px;
+            border: 3px dashed rgba(255,255,255,0.5);
+            border-radius: 50%; /* ROND par défaut pour la photo de profil */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: rgba(255,255,255,0.7);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+            text-align: center;
+            padding: 1rem;
+            overflow: hidden;
+            position: relative; 
+        }
+
+        /* NOUVEAU: Styles pour le groupe de 3 images carrées dans les jalons */
         .milestone-image-group {
             display: flex;
             justify-content: space-around;
@@ -103,25 +123,23 @@
             background: #f1f8e9;
         }
         
-        /* Styles pour les placeholders */
-        .photo-placeholder {
-            margin: 0; /* Important pour les groupes d'images */
+        /* Styles pour les placeholders carrés (150x150) à l'intérieur des jalons */
+        .milestone-image-group .photo-placeholder {
+            margin: 0; /* Annule le margin: 1.5rem auto du .photo-placeholder générique */
             width: 150px;
             height: 150px;
             border: 3px solid #81c784; 
-            border-radius: 10px; /* Carré/Rectangle, pas rond */
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            border-radius: 10px; /* CARRÉ */
             color: rgba(0,0,0,0.5);
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-size: 0.9rem;
-            text-align: center;
-            overflow: hidden;
-            position: relative; 
+            background: white; 
         }
-        
+
+        .milestone-image-group .photo-placeholder:hover {
+            border-color: #4caf50;
+            transform: scale(1.05);
+            color: rgba(0,0,0,0.8);
+        }
+
         .photo-placeholder img {
              width: 100%;
              height: 100%;
@@ -131,7 +149,8 @@
         }
 
         .photo-placeholder:hover {
-            border-color: #4caf50;
+            border-color: rgba(255,255,255,0.8);
+            color: rgba(255,255,255,0.9);
             transform: scale(1.05);
         }
 
@@ -145,7 +164,7 @@
             box-shadow: 0 20px 60px rgba(0,0,0,0.3);
             backdrop-filter: blur(10px);
         }
-        
+
         .compass {
             position: absolute;
             top: 20px;
@@ -198,6 +217,17 @@
             animation: fadeInUp 1s ease forwards;
         }
 
+        .milestone:nth-child(1) { animation-delay: 0.3s; }
+        .milestone:nth-child(2) { animation-delay: 0.6s; }
+        .milestone:nth-child(3) { animation-delay: 0.9s; }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
         .milestone-content {
             background: white;
             padding: 2.5rem;
@@ -215,18 +245,15 @@
             box-shadow: 0 25px 50px rgba(0,0,0,0.15);
         }
 
-        /* Style pour alternance Gauche/Droite */
+        /* Retour à la mise en page originale (45% de chaque côté de la ligne) */
         .milestone:nth-child(odd) .milestone-content {
             margin-left: 0;
-            padding-right: 2.5rem;
         }
 
         .milestone:nth-child(even) .milestone-content {
             margin-left: 55%;
-            padding-left: 2.5rem;
         }
 
-        /* NOUVEAU: Icone sur la ligne */
         .milestone-icon {
             position: absolute;
             left: 50%;
@@ -250,7 +277,19 @@
             transform: translate(-50%, -50%) scale(1.15) rotate(5deg);
         }
 
-        /* ... Styles pour period-badge, milestone-content h3/p, highlight, territories non modifiés ... */
+        .past .milestone-icon {
+            background: linear-gradient(135deg, #8bc34a, #689f38);
+        }
+
+        .present .milestone-icon {
+            background: linear-gradient(135deg, #4caf50, #2e7d32);
+        }
+
+        .future .milestone-icon {
+            background: linear-gradient(135deg, #2e7d32, #1b5e20);
+        }
+
+        /* ... styles period-badge, milestone-content h3/p, highlight, territories non modifiés ... */
 
         .skills-grid {
             display: grid;
@@ -259,25 +298,16 @@
             margin-top: 1.5rem;
         }
         
-        /* Ajustement de la grille pour le jalon Vision */
+        /* NOUVEAU: Grille 2x2 pour la Vision (futur) */
         .milestone.future .skills-grid {
-             grid-template-columns: repeat(2, 1fr); /* 2 colonnes pour Vision */
+            grid-template-columns: repeat(2, 1fr); 
         }
-        
-        .milestone.future .skills-grid .skill-category:nth-child(1) {
-            grid-column: 1 / -1; /* Domaines d'expertise sur toute la largeur */
-        }
-        .milestone.future .skills-grid .skill-category:nth-child(2) {
-            grid-column: 1 / 2; /* Compétences en développement (gauche) */
-        }
-        .milestone.future .skills-grid .skill-category:nth-child(3) {
-            grid-column: 2 / 3; /* Postes Cibles (droite) */
-        }
-        .milestone.future .skills-grid .skill-category:nth-child(4) {
-            grid-column: 1 / 2; /* Organismes Visés (gauche, sous Compétences) */
-        }
-        .milestone.future .skills-grid .skill-category:nth-child(5) {
-            grid-column: 2 / 3; /* Compétences en développement (droite, sous Postes) */
+
+        .skill-category {
+            background: #f1f8e9;
+            padding: 1rem;
+            border-radius: 12px;
+            border: 2px solid #c8e6c9;
         }
         
         /* Styles pour les organismes cliquables */
@@ -308,45 +338,52 @@
             margin-top: 1rem;
             justify-content: center;
         }
-        
-        /* ... Styles engagement-section non modifiés ... */
 
         .networks-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            /* Forcer 3 colonnes pour les 3 catégories restantes */
+            grid-template-columns: repeat(3, 1fr); 
             gap: 2rem;
             margin-top: 2rem;
         }
 
-        /* ... Styles network-category et network-tag non modifiés ... */
-
-        /* NOUVEAU: Suppression de loisirs et confirmation de la grille à 3 catégories */
-        .networks-grid {
-             grid-template-columns: repeat(3, 1fr);
-        }
-        
-        /* Style spécifique pour le logo Bluesky (fa-feather-alt est utilisé en proxy) */
+        /* NOUVEAU: Style pour le logo Bluesky (fa-feather-alt est utilisé en proxy) */
         .fa-feather-alt {
-            /* Si l'utilisateur veut utiliser une image custom pour Bluesky */
-            /* width: 20px; height: 20px; background-image: url('bluesky_logo.png'); background-size: cover; display: inline-block; */
+            /* Masque l'icône Font Awesome */
+            display: inline-block;
+            font-size: 0 !important; 
+            /* Définit la taille et utilise votre image */
+            width: 30px; 
+            height: 30px; 
+            background-image: url('bluesky_logo.png'); /* Utilisation du fichier confirmé dans le même dossier */
+            background-size: contain;
+            background-repeat: no-repeat;
+            vertical-align: middle; 
         }
-        
+
         @media (max-width: 1200px) {
-            /* En mode responsive, les jalons prennent toute la largeur, mais l'icône reste centrée */
-            .journey-path::before {
-                left: 50%;
-            }
-            .milestone-icon {
-                left: 50%;
-            }
-            .milestone-content {
-                width: 100%;
-                margin-left: 0 !important;
-                padding: 2rem;
-            }
+            /* Responsive pour les images: alignement vertical et taille adaptée */
             .milestone-image-group {
                 flex-direction: column;
                 align-items: center;
+            }
+            .milestone-image-group .photo-placeholder {
+                width: 100%; /* Full width in mobile */
+                height: 150px; 
+                max-width: 250px; /* Max size for mobile */
+            }
+            
+            /* Responsive pour le contenu: full width pour les jalons */
+            .milestone-content {
+                width: 100%;
+                margin-left: 0 !important;
+                padding-left: 2.5rem;
+                padding-right: 2.5rem;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .networks-grid {
+                grid-template-columns: 1fr;
             }
             .milestone.future .skills-grid {
                 grid-template-columns: 1fr;
@@ -377,9 +414,9 @@
                         <h3>🎓 Formation & Premiers Terrains</h3>
                         
                         <div class="milestone-image-group">
-                            <div class="photo-placeholder"><img src="[URL_IMG_FONDATION_1]" alt="Image Formation"></div>
-                            <div class="photo-placeholder"><img src="[URL_IMG_FONDATION_2]" alt="Image Cours"></div>
-                            <div class="photo-placeholder"><img src="[URL_IMG_FONDATION_3]" alt="Image SIG"></div>
+                            <div class="photo-placeholder">Image Fond. 1</div>
+                            <div class="photo-placeholder">Image Fond. 2</div>
+                            <div class="photo-placeholder">Image Fond. 3</div>
                         </div>
 
                         <p><strong>2018-2022 :</strong> Construction de ma base technique et découverte des territoires tropicaux.</p>
@@ -394,7 +431,7 @@
                             <span class="territory">🎓 Paris</span>
                             <span class="territory">🌍 France ultramarine</span>
                         </div>
-                        
+
                         <div class="skills-grid">
                             <div class="skill-category">
                                 <h4>🛰️ SIG & Cartographie</h4>
@@ -442,9 +479,9 @@
                         <h3>🌳 Consolidation & Innovation</h3>
                         
                         <div class="milestone-image-group">
-                            <div class="photo-placeholder"><img src="[URL_IMG_EXPERTISE_1]" alt="Image Terrain Cameroun"></div>
-                            <div class="photo-placeholder"><img src="[URL_IMG_EXPERTISE_2]" alt="Image Cartographie"></div>
-                            <div class="photo-placeholder"><img src="[URL_IMG_EXPERTISE_3]" alt="Image Événementiel"></div>
+                            <div class="photo-placeholder">Image Exp. 1</div>
+                            <div class="photo-placeholder">Image Exp. 2</div>
+                            <div class="photo-placeholder">Image Exp. 3</div>
                         </div>
 
                         <p><strong>2022-2024 :</strong> Montée en expertise et développement d'approches participatives.</p>
@@ -515,9 +552,9 @@
                         <h3>🌍 Coopération Sud-Sud & Impact</h3>
                         
                         <div class="milestone-image-group">
-                            <div class="photo-placeholder"><img src="[URL_IMG_VISION_1]" alt="Image Coopération Sud-Sud"></div>
-                            <div class="photo-placeholder"><img src="[URL_IMG_VISION_2]" alt="Image Innovation"></div>
-                            <div class="photo-placeholder"><img src="[URL_IMG_VISION_3]" alt="Image Télédétection"></div>
+                            <div class="photo-placeholder">Image Vis. 1</div>
+                            <div class="photo-placeholder">Image Vis. 2</div>
+                            <div class="photo-placeholder">Image Vis. 3</div>
                         </div>
 
                         <p><strong>2024-2030 :</strong> Développement de projets d'envergure et coopération internationale.</p>
@@ -544,22 +581,22 @@
                                     <span class="skill-tag">Justice environnementale</span>
                                 </div>
                             </div>
-                            <div class="skill-category">
-                                <h4>📈 Compétences en développement</h4>
-                                <div class="skill-tags">
-                                    <span class="skill-tag">Python avancé (priorité haute)</span>
-                                    <span class="skill-tag">LiDAR & imagerie (priorité haute)</span>
-                                    <span class="skill-tag">Webmapping open source</span>
-                                    <span class="skill-tag">IA géospatiale</span>
-                                </div>
-                            </div>
-                            <div class="skill-category">
+                             <div class="skill-category">
                                 <h4>💼 Postes cibles</h4>
                                 <div class="skill-tags">
                                     <span class="skill-tag">Responsable SIG & environnement</span>
                                     <span class="skill-tag">Coordinatrice cartographie participative</span>
                                     <span class="skill-tag">Ingénieure télédétection/LiDAR</span>
                                     <span class="skill-tag">Consultante diagnostic territorial</span>
+                                </div>
+                            </div>
+                             <div class="skill-category">
+                                <h4>📈 Compétences en développement</h4>
+                                <div class="skill-tags">
+                                    <span class="skill-tag">Python avancé (priorité haute)</span>
+                                    <span class="skill-tag">LiDAR & imagerie (priorité haute)</span>
+                                    <span class="skill-tag">Webmapping open source</span>
+                                    <span class="skill-tag">IA géospatiale</span>
                                 </div>
                             </div>
                             <div class="skill-category">
@@ -585,29 +622,29 @@
                 <div class="network-category">
                     <h3>🎬 Culture & Éducation</h3>
                     <div class="network-items">
-                        <div class="network-tag"><a href="[URL_APCAG]" target="_blank">APCAG (cinéma Antilles-Guyane)</a></div>
-                        <div class="network-tag"><a href="[URL_REZ_971]" target="_blank">Rézylians 971 (éducation populaire)</a></div>
-                        <div class="network-tag"><a href="[URL_TERRA_FESTIVAL]" target="_blank">Terra Festival (ciné-débats transition)</a></div>
+                        <div class="network-tag"><a href="#" target="_blank">APCAG (cinéma Antilles-Guyane)</a></div>
+                        <div class="network-tag"><a href="#" target="_blank">Rézylians 971 (éducation populaire)</a></div>
+                        <div class="network-tag"><a href="#" target="_blank">Terra Festival (ciné-débats transition)</a></div>
                     </div>
                 </div>
                 <div class="network-category">
                     <h3>🗺️ Géomatique Solidaire</h3>
                     <div class="network-items">
-                        <div class="network-tag"><a href="[URL_HOTOSM_LAC]" target="_blank">HOTOSM – Latin America Caribbean hub</a></div>
-                        <div class="network-tag"><a href="[URL_CARTONG]" target="_blank">CARTONG</a></div>
-                        <div class="network-tag"><a href="[URL_UN_DRR]" target="_blank">UN Risk & Disaster Network LatAm</a></div>
+                        <div class="network-tag"><a href="#" target="_blank">HOTOSM – Latin America Caribbean hub</a></div>
+                        <div class="network-tag"><a href="#" target="_blank">CARTONG</a></div>
+                        <div class="network-tag"><a href="#" target="_blank">UN Risk & Disaster Network LatAm</a></div>
                     </div>
                 </div>
-                <div class="network-category">
+                 <div class="network-category">
                     <h3>🌍 Justice Environnementale</h3>
                     <div class="network-items">
-                        <div class="network-tag"><a href="[URL_AMNESTY_INT]" target="_blank">Amnesty International</a></div>
-                        <div class="network-tag"><a href="[URL_CYEN]" target="_blank">CYEN</a></div>
-                        <div class="network-tag"><a href="[URL_WYCJ]" target="_blank">WYCJ (climate justice youth)</a></div>
-                        <div class="network-tag"><a href="[URL_CARIB_INIT]" target="_blank">Caribaea Initiative</a></div>
+                        <div class="network-tag"><a href="#" target="_blank">Amnesty International</a></div>
+                        <div class="network-tag"><a href="#" target="_blank">CYEN</a></div>
+                        <div class="network-tag"><a href="#" target="_blank">WYCJ (climate justice youth)</a></div>
+                        <div class="network-tag"><a href="#" target="_blank">Caribaea Initiative</a></div>
                     </div>
                 </div>
-            </div>
+                </div>
         </div>
 
         <div class="action-panel">
@@ -620,14 +657,12 @@
                 <a href="#portfolio-section" class="cta-button" id="cta-portfolio">
                     <i class="fas fa-folder-open"></i> Découvrir mes réalisations
                 </a>
-            </div>
+                </div>
             
             <div class="social-links">
                 <a href="[URL_LinkedIn]" target="_blank" class="social-link" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
                 <a href="[URL_GitHub]" target="_blank" class="social-link" title="GitHub"><i class="fab fa-github-square"></i></a>
-                <a href="[URL_Bluesky]" target="_blank" class="social-link" title="Bluesky">
-                    <i class="fas fa-feather-alt"></i> 
-                </a>
+                <a href="[URL_Bluesky]" target="_blank" class="social-link" title="Bluesky"><i class="fas fa-feather-alt"></i></a> 
                 <a href="[URL_Autre]" target="_blank" class="social-link" title="ResearchGate/Autre"><i class="fas fa-globe"></i></a>
             </div>
         </div>
@@ -646,7 +681,8 @@
         // Interaction avec les icônes de jalons (pulsation)
         document.querySelectorAll('.milestone-icon').forEach(icon => {
             icon.addEventListener('click', function() {
-                const content = this.parentElement.querySelector('.milestone-content');
+                const milestone = this.parentElement; 
+                const content = milestone.querySelector('.milestone-content');
 
                 // Animation de pulsation
                 this.style.transform = 'translate(-50%, -50%) scale(1.3)';
@@ -660,17 +696,18 @@
         });
 
         // Animation des tags de compétences (hover)
-        document.querySelectorAll('.skill-tag, .organization-tags a').forEach(tag => {
+        document.querySelectorAll('.skill-tag, .organization-tags a, .loisir-tag a').forEach(tag => {
             tag.addEventListener('mouseenter', function() {
                 this.style.background = '#c8e6c9';
                 this.style.color = '#1b5e20';
             });
             tag.addEventListener('mouseleave', function() {
+                // Gérer le retour à l'état initial selon le type d'élément
                 if (this.tagName === 'A') {
-                     this.style.background = '#c8e6c9'; 
+                     this.style.background = '#c8e6c9'; // Organismes/Loisirs cliquables
                      this.style.color = '#1b5e20';
                 } else {
-                     this.style.background = 'white'; 
+                     this.style.background = 'white'; // Skill tags
                      this.style.color = '#2e7d32';
                 }
             });
@@ -692,6 +729,7 @@
                     message = 'Redirection vers la section "Portfolio" (URL à ajouter pour la navigation)...';
                 }
 
+                // Animation de feedback
                 this.style.transform = 'scale(0.95)';
                 setTimeout(() => {
                     this.style.transform = 'translateY(-3px)';
