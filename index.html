@@ -17,20 +17,6 @@
             overflow-x: hidden;
         }
 
-        body::before {
-            content: '';
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-image: 
-                radial-gradient(circle at 20% 80%, rgba(46, 125, 50, 0.1) 0%, transparent 50%),
-                radial-gradient(circle at 80% 20%, rgba(27, 94, 32, 0.1) 0%, transparent 50%),
-                radial-gradient(circle at 40% 40%, rgba(56, 142, 60, 0.05) 0%, transparent 50%);
-            z-index: -1;
-        }
-
         .container {
             max-width: 1200px;
             margin: 0 auto;
@@ -45,85 +31,30 @@
             position: relative;
         }
 
-        .header::before {
-            content: '🗺️';
-            position: absolute;
-            top: -30px;
-            left: 50%;
-            transform: translateX(-50%);
-            font-size: 4rem;
-            opacity: 0.3;
-        }
-
         .header h1 {
             font-size: 3.5rem;
             margin-bottom: 1rem;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
-            background: linear-gradient(45deg, #81c784, #4caf50, #2e7d32);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            color: white; /* couleur fixe */
             font-family: 'Georgia', 'Times New Roman', serif;
-            font-weight: 300;
+            font-weight: 700;
             letter-spacing: 2px;
+            text-shadow: none; /* pas d'ombre */
+            -webkit-text-fill-color: unset; 
+            background: none; /* pas de transparence */
         }
 
         .header .subtitle {
             font-size: 2rem;
-            opacity: 0.95;
             margin-bottom: 0.8rem;
             font-weight: 600;
             color: #81c784;
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
         }
 
-        .header .speciality-line {
-            font-size: 1.2rem;
-            opacity: 0.9;
-            margin-bottom: 0.5rem;
-            font-weight: 500;
-        }
-
-        .header .speciality {
-            font-size: 1rem;
-            opacity: 0.8;
-            font-style: italic;
-        }
-
-        .photo-placeholder {
+        .placeholder-img {
+            display: block;
             margin: 1.5rem auto;
-            width: 150px;
-            height: 150px;
-            border: 3px dashed rgba(255,255,255,0.5);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: rgba(255,255,255,0.7);
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-size: 0.9rem;
-            text-align: center;
-            padding: 1rem;
-        }
-
-        .photo-placeholder:hover {
-            border-color: rgba(255,255,255,0.8);
-            color: rgba(255,255,255,0.9);
-            transform: scale(1.05);
-        }
-
-        .photo-placeholder.landscape {
-            width: 300px;
-            height: 200px;
             border-radius: 15px;
-        }
-
-        .photo-placeholder.project {
-            width: 250px;
-            height: 180px;
-            border-radius: 10px;
-            margin: 1rem auto;
+            max-width: 100%;
         }
 
         .map-container {
@@ -134,64 +65,6 @@
             border-radius: 20px;
             padding: 3rem;
             box-shadow: 0 20px 60px rgba(0,0,0,0.3);
-            backdrop-filter: blur(10px);
-        }
-
-        .illustration-sidebar {
-            position: absolute;
-            right: -200px;
-            top: 50px;
-            width: 150px;
-            display: flex;
-            flex-direction: column;
-            gap: 2rem;
-            z-index: 1;
-        }
-
-        .illustration-placeholder {
-            width: 150px;
-            height: 120px;
-            border: 2px dashed #4caf50;
-            border-radius: 15px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: rgba(255,255,255,0.9);
-            color: #2e7d32;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-size: 0.8rem;
-            text-align: center;
-            padding: 0.5rem;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-        }
-
-        .illustration-placeholder:hover {
-            border-color: #2e7d32;
-            background: rgba(232, 245, 232, 0.95);
-            transform: scale(1.05);
-        }
-
-        .compass {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            width: 80px;
-            height: 80px;
-            background: radial-gradient(circle, #2e7d32, #1b5e20);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 1.5rem;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-            animation: rotate 20s linear infinite;
-        }
-
-        @keyframes rotate {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
         }
 
         .journey-path {
@@ -199,33 +72,9 @@
             margin: 2rem 0;
         }
 
-        .journey-path::before {
-            content: '';
-            position: absolute;
-            left: 50%;
-            top: 0;
-            bottom: 0;
-            width: 6px;
-            background: linear-gradient(to bottom, #8bc34a 0%, #4caf50 33%, #2e7d32 66%, #1b5e20 100%);
-            transform: translateX(-50%);
-            border-radius: 3px;
-            box-shadow: 0 0 10px rgba(76, 175, 80, 0.3);
-        }
-
         .milestone {
             position: relative;
             margin: 4rem 0;
-            opacity: 0;
-            transform: translateY(30px);
-            animation: fadeInUp 1s ease forwards;
-        }
-
-        .milestone:nth-child(1) { animation-delay: 0.3s; }
-        .milestone:nth-child(2) { animation-delay: 0.6s; }
-        .milestone:nth-child(3) { animation-delay: 0.9s; }
-
-        @keyframes fadeInUp {
-            to { opacity: 1; transform: translateY(0); }
         }
 
         .milestone-content {
@@ -233,70 +82,14 @@
             padding: 2.5rem;
             border-radius: 20px;
             box-shadow: 0 15px 35px rgba(0,0,0,0.1);
-            width: 45%;
-            position: relative;
-            border: 3px solid transparent;
-            background-clip: padding-box;
-            transition: all 0.4s ease;
+            width: 80%;
+            margin: 0 auto;
         }
-
-        .milestone-content:hover {
-            transform: translateY(-8px) scale(1.02);
-            box-shadow: 0 25px 50px rgba(0,0,0,0.15);
-        }
-
-        .milestone:nth-child(odd) .milestone-content { margin-left: 0; }
-        .milestone:nth-child(even) .milestone-content { margin-left: 55%; }
-
-        .milestone-icon {
-            position: absolute;
-            left: 50%;
-            top: 2.5rem;
-            transform: translateX(-50%);
-            width: 80px;
-            height: 80px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 2rem;
-            color: white;
-            z-index: 2;
-            transition: all 0.4s ease;
-            cursor: pointer;
-            box-shadow: 0 8px 25px rgba(0,0,0,0.2);
-        }
-
-        .milestone-icon:hover { transform: translateX(-50%) scale(1.15) rotate(5deg); }
-
-        .past .milestone-icon { background: linear-gradient(135deg, #8bc34a, #689f38); }
-        .present .milestone-icon { background: linear-gradient(135deg, #4caf50, #2e7d32); }
-        .future .milestone-icon { background: linear-gradient(135deg, #2e7d32, #1b5e20); }
-
-        .period-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            padding: 0.8rem 1.5rem;
-            border-radius: 25px;
-            font-size: 0.9rem;
-            font-weight: bold;
-            margin-bottom: 1.5rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        .past .period-badge { background: linear-gradient(135deg, #c8e6c9, #a5d6a7); color: #1b5e20; }
-        .present .period-badge { background: linear-gradient(135deg, #a5d6a7, #81c784); color: #1b5e20; }
-        .future .period-badge { background: linear-gradient(135deg, #81c784, #66bb6a); color: #1b5e20; }
 
         .milestone-content h3 {
             font-size: 1.8rem;
             margin-bottom: 1.5rem;
             color: #1b5e20;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
         }
 
         .milestone-content p {
@@ -304,208 +97,43 @@
             margin-bottom: 1.2rem;
             color: #2e7d32;
         }
-
-        .highlight {
-            background: linear-gradient(120deg, #e8f5e8 0%, #c8e6c9 100%);
-            padding: 1.5rem;
-            border-radius: 15px;
-            margin: 1rem 0;
-            border-left: 4px solid #4caf50;
-        }
-
-        .skills-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1rem;
-            margin-top: 1.5rem;
-        }
-
-        .skill-category {
-            background: #f1f8e9;
-            padding: 1rem;
-            border-radius: 12px;
-            border: 2px solid #c8e6c9;
-        }
-
-        .skill-category h4 {
-            color: #2e7d32;
-            margin-bottom: 0.5rem;
-            font-size: 0.9rem;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        .skill-tags {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.4rem;
-        }
-
-        .skill-tag {
-            background: white;
-            padding: 0.3rem 0.8rem;
-            border-radius: 15px;
-            font-size: 0.75rem;
-            color: #2e7d32;
-            border: 1px solid #a5d6a7;
-            transition: all 0.3s ease;
-        }
-
-        .skill-tag:hover { background: #e8f5e8; transform: translateY(-1px); }
-
-        .territories {
-            display: flex;
-            justify-content: center;
-            gap: 1rem;
-            margin: 1rem 0;
-            flex-wrap: wrap;
-        }
-
-        .territory {
-            background: linear-gradient(135deg, #4caf50, #2e7d32);
-            color: white;
-            padding: 0.5rem 1rem;
-            border-radius: 20px;
-            font-size: 0.9rem;
-            display: flex;
-            align-items: center;
-            gap: 0.3rem;
-        }
-
-        .engagement-section {
-            background: rgba(255,255,255,0.95);
-            padding: 3rem;
-            border-radius: 20px;
-            margin-top: 4rem;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
-            backdrop-filter: blur(10px);
-        }
-
-        .engagement-section h2 {
-            color: #1b5e20;
-            text-align: center;
-            margin-bottom: 1rem;
-            font-size: 2rem;
-        }
-
-        .engagement-section p {
-            text-align: center;
-            color: #2e7d32;
-            margin-bottom: 2rem;
-            font-size: 1.1rem;
-        }
-
-        .networks-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            margin-top: 2rem;
-        }
-
-        .network-category {
-            background: #f1f8e9;
-            padding: 1.5rem;
-            border-radius: 15px;
-            border: 2px solid #c8e6c9;
-        }
-
-        .network-category h3 {
-            color: #1b5e20;
-            margin-bottom: 1rem;
-            font-size: 1.2rem;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .network-items {
-            display: flex;
-            flex-direction: column;
-            gap: 0.5rem;
-        }
-
-        .network-tag {
-            background: white;
-            padding: 0.8rem 1rem;
-            border-radius: 10px;
-            font-size: 0.9rem;
-            color: #2e7d32;
-            border: 1px solid #a5d6a7;
-            transition: all 0.3s ease;
-        }
-
-        .network-tag:hover {
-            background: #e8f5e8;
-            transform: translateX(5px);
-            border-color: #4caf50;
-        }
-
-        .action-panel {
-            background: linear-gradient(135deg, rgba(46, 125, 50, 0.9), rgba(27, 94, 32, 0.9));
-            padding: 3rem;
-            border-radius: 20px;
-            text-align: center;
-            margin-top: 4rem;
-            backdrop-filter: blur(10px);
-            border: 2px solid rgba(255,255,255,0.1);
-        }
-
-        .action-panel h2 {
-            color: white;
-            margin-bottom: 1rem;
-            font-size: 2rem;
-        }
-
-        .action-panel p {
-            color: rgba(255,255,255,0.9);
-            margin-bottom: 2rem;
-            font-size: 1.1rem;
-        }
-
-        .cta-buttons {
-            display: flex;
-            justify-content: center;
-            gap: 1rem;
-            flex-wrap: wrap;
-        }
-
-        .cta-button {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            padding: 1rem 2rem;
-            background: linear-gradient(135deg, #81c784, #4caf50);
-            color: white;
-            text-decoration: none;
-            border-radius: 30px;
-            font-weight: bold;
-            transition: all 0.3s ease;
-            border: 2px solid transparent;
-        }
-
-        .cta-button:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
-            background: linear-gradient(135deg, #66bb6a, #2e7d32);
-        }
-
-        @media (max-width: 1200px) {
-            .illustration-sidebar { right: -180px; }
-            .illustration-placeholder { width: 130px; height: 100px; font-size: 0.7rem; }
-        }
-
-        @media (max-width: 768px) {
-            .journey-path::before { left: 30px; }
-            .milestone-content { width: calc(100% - 100px) !important; margin-left: 100px !important; }
-            .milestone-icon { left: 30px; }
-            .header h1 { font-size: 2.5rem; }
-            .container { padding: 1rem; }
-            .map-container { padding: 2rem; }
-            .compass { width: 60px; height: 60px; font-size: 1.2rem; }
-            .illustration-sidebar { display: none; }
-        }
     </style>
 </head>
 <body>
-<div class="container">
-    <!-- Header et photo
+    <div class="container">
+        <div class="header">
+            <h1>Projet Professionnel</h1>
+            <div class="subtitle">Prénom Nom</div>
+            <img src="https://via.placeholder.com/150" alt="Photo de profil" class="placeholder-img">
+        </div>
+
+        <div class="map-container">
+            <div class="journey-path">
+                <div class="milestone past">
+                    <div class="milestone-content">
+                        <h3>🎓 Formation & Premiers Terrains</h3>
+                        <p><strong>2018-2022 :</strong> Construction de ma base technique et découverte des territoires tropicaux.</p>
+                        <img src="https://via.placeholder.com/300x200" alt="Illustration formation" class="placeholder-img">
+                    </div>
+                </div>
+
+                <div class="milestone present">
+                    <div class="milestone-content">
+                        <h3>🌳 Consolidation & Innovation</h3>
+                        <p><strong>2022-2024 :</strong> Montée en expertise et développement d'approches participatives.</p>
+                        <img src="https://via.placeholder.com/250x180" alt="Illustration Cameroun" class="placeholder-img">
+                    </div>
+                </div>
+
+                <div class="milestone future">
+                    <div class="milestone-content">
+                        <h3>🌍 Coopération Sud-Sud & Impact</h3>
+                        <p><strong>2024-2030 :</strong> Développement de projets d'envergure et coopération internationale.</p>
+                        <img src="https://via.placeholder.com/280x180" alt="Illustration vision" class="placeholder-img">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
