@@ -23,10 +23,9 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-image: 
-                radial-gradient(circle at 20% 80%, rgba(46, 125, 50, 0.1) 0%, transparent 50%),
-                radial-gradient(circle at 80% 20%, rgba(27, 94, 32, 0.1) 0%, transparent 50%),
-                radial-gradient(circle at 40% 40%, rgba(56, 142, 60, 0.05) 0%, transparent 50%);
+            background-image: radial-gradient(circle at 20% 80%, rgba(46,125,50,0.1) 0%, transparent 50%),
+                              radial-gradient(circle at 80% 20%, rgba(27,94,32,0.1) 0%, transparent 50%),
+                              radial-gradient(circle at 40% 40%, rgba(56,142,60,0.05) 0%, transparent 50%);
             z-index: -1;
         }
         .container { max-width: 1200px; margin: 0 auto; padding: 2rem; position: relative; }
@@ -39,18 +38,17 @@
         .map-container { position: relative; max-width: 1000px; margin: 0 auto; background: rgba(255,255,255,0.95); border-radius: 20px; padding: 3rem; box-shadow: 0 20px 60px rgba(0,0,0,0.3); }
         .journey-path { position: relative; margin: 2rem 0; }
         .journey-path::before { content: ''; position: absolute; left: 50%; top: 0; bottom: 0; width: 6px; background: linear-gradient(to bottom,#8bc34a,#4caf50,#2e7d32,#1b5e20); transform: translateX(-50%); border-radius: 3px; }
-        .milestone { position: relative; margin: 4rem 0; }
-        .milestone-content { background: white; padding: 2.5rem; border-radius: 20px; box-shadow: 0 15px 35px rgba(0,0,0,0.1); width: 45%; }
+        .milestone { position: relative; margin: 4rem 0; opacity: 0; transform: translateY(30px); animation: fadeInUp 1s ease forwards; }
+        .milestone:nth-child(1) { animation-delay: 0.3s; }
+        .milestone:nth-child(2) { animation-delay: 0.6s; }
+        .milestone:nth-child(3) { animation-delay: 0.9s; }
+        @keyframes fadeInUp { to { opacity: 1; transform: translateY(0); } }
+        .milestone-content { background: white; padding: 2.5rem; border-radius: 20px; box-shadow: 0 15px 35px rgba(0,0,0,0.1); width: 45%; position: relative; border: 3px solid transparent; background-clip: padding-box; transition: all 0.4s ease; }
+        .milestone-content:hover { transform: translateY(-8px) scale(1.02); box-shadow: 0 25px 50px rgba(0,0,0,0.15); }
         .milestone:nth-child(odd) .milestone-content { margin-left: 0; }
         .milestone:nth-child(even) .milestone-content { margin-left: 55%; }
         .skill-tag, .network-tag, .organisme-tag { background: white; padding: 0.8rem 1rem; border-radius: 10px; font-size: 0.9rem; color: #2e7d32; border: 1px solid #a5d6a7; transition: all 0.3s ease; text-decoration:none; display:inline-block; }
         .skill-tag:hover, .network-tag:hover, .organisme-tag:hover { background: #e8f5e8; transform: translateX(5px); border-color: #4caf50; }
-        .engagement-section { background: rgba(255,255,255,0.95); padding: 3rem; border-radius: 20px; margin-top: 4rem; }
-        .engagement-section h2 { color: #1b5e20; text-align: center; margin-bottom: 1rem; font-size: 2rem; }
-        .networks-grid { display: grid; grid-template-columns: repeat(auto-fit,minmax(300px,1fr)); gap:2rem; margin-top:2rem; }
-        .network-category { background: #f1f8e9; padding:1.5rem; border-radius:15px; border:2px solid #c8e6c9; }
-        .network-category h3 { color:#1b5e20; margin-bottom:1rem; font-size:1.2rem; }
-        .network-items { display:flex; flex-direction:column; gap:0.5rem; }
         .action-panel { background: linear-gradient(135deg, rgba(46,125,50,0.9), rgba(27,94,32,0.9)); padding:3rem; border-radius:20px; text-align:center; margin-top:4rem; }
         .cta-buttons { display:flex; justify-content:center; gap:1rem; flex-wrap:wrap; }
         .cta-button { padding:1rem 2rem; background: linear-gradient(135deg,#81c784,#4caf50); color:white; text-decoration:none; border-radius:30px; font-weight:bold; }
@@ -64,7 +62,6 @@
             <div class="subtitle">Prénom Nom</div>
             <div class="speciality-line">SIGiste & Géographe - Socio-écosystèmes Forestiers Intertropicaux</div>
             <div class="speciality">Spécialisée dans la gouvernance environnementale • Développement humain • Transition écologique</div>
-            <!-- Remplacer placeholder par votre photo -->
             <div class="photo-placeholder"><img src="https://via.placeholder.com/300x300" alt="Photo profil"></div>
         </div>
 
@@ -74,7 +71,6 @@
                     <div class="milestone-content">
                         <h3>🎓 Formation & Premiers Terrains</h3>
                         <p><strong>2018-2022 :</strong> Construction de ma base technique et découverte des territoires tropicaux.</p>
-                        <!-- Remplacer placeholder.jpg par votre image réelle -->
                         <div class="photo-placeholder"><img src="https://via.placeholder.com/300x200" alt="Formation"></div>
                     </div>
                 </div>
@@ -93,7 +89,6 @@
                         <p><strong>2024-2030 :</strong> Développement de projets d'envergure et coopération internationale.</p>
                         <h4>Organismes visés</h4>
                         <div class="network-items">
-                            <!-- Remplacer # par vos vrais liens -->
                             <a href="#" class="organisme-tag">INRAE</a>
                             <a href="#" class="organisme-tag">CIRAD</a>
                             <a href="#" class="organisme-tag">HOTOSM</a>
@@ -132,31 +127,37 @@
                         <a href="#" class="network-tag">Caribaea Initiative</a>
                     </div>
                 </div>
-                <div class="network-category">
-                    <h3>🏃‍♀️ Loisirs & Équilibre</h3>
-                    <div class="network-items">
-                        <span class="network-tag">Stand Up Paddle</span>
-                        <span class="network-tag">Capoeira</span>
-                        <span class="network-tag">Escalade</span>
-                        <span class="network-tag">Permis B & Côtier</span>
-                    </div>
-                </div>
             </div>
         </div>
 
         <div class="action-panel">
             <h2>🤝 Construisons ensemble l'avenir des territoires tropicaux</h2>
             <div class="cta-buttons">
-                <!-- Remplacer fake@example.com par votre vrai mail -->
                 <a href="mailto:fake@example.com" class="cta-button">📧 Échanger</a>
-                <!-- Remplacer #portfolio par votre vrai lien -->
                 <a href="#portfolio" class="cta-button">🗂️ Découvrir mes réalisations</a>
                 <div class="cta-socials">
-                    <!-- Remplacer # par vos vrais liens sociaux -->
                     🔗 <a href="#">LinkedIn</a> | <a href="#">ResearchGate</a> | <a href="#">Bluesky</a>
                 </div>
             </div>
         </div>
     </div>
+
+    <script>
+        // Animation d'apparition progressive
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.animationPlayState = 'running';
+                }
+            });
+        }, { threshold: 0.1 });
+        document.querySelectorAll('.milestone').forEach(m => observer.observe(m));
+
+        // Hover sur skill-tags
+        document.querySelectorAll('.skill-tag').forEach(tag => {
+            tag.addEventListener('mouseenter', () => { tag.style.background = '#c8e6c9'; tag.style.color = '#1b5e20'; });
+            tag.addEventListener('mouseleave', () => { tag.style.background = 'white'; tag.style.color = '#2e7d32'; });
+        });
+    </script>
 </body>
 </html>
