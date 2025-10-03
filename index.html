@@ -91,40 +91,35 @@
             font-style: italic;
         }
 
-        /* Photo de profil et placeholders de jalons */
+        /* Styles pour le groupe de 3 images */
+        .milestone-image-group {
+            display: flex;
+            justify-content: space-around;
+            gap: 15px;
+            margin: 1.5rem 0;
+            padding: 1rem;
+            border: 1px solid #c8e6c9;
+            border-radius: 15px;
+            background: #f1f8e9;
+        }
+        
+        /* Styles pour les placeholders */
         .photo-placeholder {
-            margin: 1.5rem auto;
+            margin: 0; /* Important pour les groupes d'images */
             width: 150px;
             height: 150px;
-            border: 3px dashed rgba(255,255,255,0.5);
-            border-radius: 50%;
+            border: 3px solid #81c784; 
+            border-radius: 10px; /* Carré/Rectangle, pas rond */
             display: flex;
             align-items: center;
             justify-content: center;
-            color: rgba(255,255,255,0.7);
+            color: rgba(0,0,0,0.5);
             cursor: pointer;
             transition: all 0.3s ease;
             font-size: 0.9rem;
             text-align: center;
-            padding: 1rem;
             overflow: hidden;
             position: relative; 
-        }
-
-        /* Styles spécifiques pour les images intégrées dans les jalons */
-        .milestone-img-container {
-            margin: 1rem 0;
-            display: flex;
-            justify-content: center;
-        }
-
-        .milestone-img-container .photo-placeholder {
-            /* Styles pour les images intégrées dans les jalons */
-            margin: 0;
-            width: 250px;
-            height: 180px;
-            border-radius: 10px;
-            border: 3px dashed #a5d6a7; /* Couleur plus visible */
         }
         
         .photo-placeholder img {
@@ -136,8 +131,7 @@
         }
 
         .photo-placeholder:hover {
-            border-color: rgba(255,255,255,0.8);
-            color: rgba(255,255,255,0.9);
+            border-color: #4caf50;
             transform: scale(1.05);
         }
 
@@ -151,12 +145,7 @@
             box-shadow: 0 20px 60px rgba(0,0,0,0.3);
             backdrop-filter: blur(10px);
         }
-
-        /* SUPPR: Illustration sidebar - les images sont déplacées dans les jalons */
-        .illustration-sidebar {
-            display: none; 
-        }
-
+        
         .compass {
             position: absolute;
             top: 20px;
@@ -209,17 +198,6 @@
             animation: fadeInUp 1s ease forwards;
         }
 
-        .milestone:nth-child(1) { animation-delay: 0.3s; }
-        .milestone:nth-child(2) { animation-delay: 0.6s; }
-        .milestone:nth-child(3) { animation-delay: 0.9s; }
-
-        @keyframes fadeInUp {
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
         .milestone-content {
             background: white;
             padding: 2.5rem;
@@ -237,48 +215,18 @@
             box-shadow: 0 25px 50px rgba(0,0,0,0.15);
         }
 
-        /* Ajustement des positions pour laisser de la place aux images intégrées */
+        /* Style pour alternance Gauche/Droite */
         .milestone:nth-child(odd) .milestone-content {
             margin-left: 0;
-            padding-right: 1.5rem; /* Ajustement pour l'espace */
+            padding-right: 2.5rem;
         }
 
         .milestone:nth-child(even) .milestone-content {
             margin-left: 55%;
-            padding-left: 1.5rem; /* Ajustement pour l'espace */
-        }
-        
-        /* NOUVEAU: Conteneur Flex pour aligner image et contenu */
-        .milestone-inner {
-            display: flex;
-            align-items: center; /* Centrage vertical optionnel */
-            gap: 20px;
+            padding-left: 2.5rem;
         }
 
-        .milestone:nth-child(even) .milestone-inner {
-            /* Inverser l'ordre pour les jalons pairs (droite) */
-            flex-direction: row-reverse;
-        }
-
-        /* NOUVEAU: Style pour les images intégrées (qui sont maintenant alignées avec le contenu) */
-        .milestone-img-wrapper {
-            width: 40%; 
-            flex-shrink: 0; /* Empêcher la réduction */
-            margin: 0;
-            display: flex;
-            align-self: flex-start; /* Aligner en haut du contenu */
-        }
-
-        .milestone:nth-child(odd) .milestone-content {
-            width: 60%;
-        }
-
-        .milestone:nth-child(even) .milestone-content {
-            width: 60%;
-            margin-left: 0; /* Annuler le margin-left original */
-        }
-
-        /* Repositionnement de l'icône de jalon (point sur la ligne) */
+        /* NOUVEAU: Icone sur la ligne */
         .milestone-icon {
             position: absolute;
             left: 50%;
@@ -302,33 +250,7 @@
             transform: translate(-50%, -50%) scale(1.15) rotate(5deg);
         }
 
-
-        .past .milestone-icon {
-            background: linear-gradient(135deg, #8bc34a, #689f38);
-        }
-
-        .present .milestone-icon {
-            background: linear-gradient(135deg, #4caf50, #2e7d32);
-        }
-
-        .future .milestone-icon {
-            background: linear-gradient(135deg, #2e7d32, #1b5e20);
-        }
-
-        .period-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            padding: 0.8rem 1.5rem;
-            border-radius: 25px;
-            font-size: 0.9rem;
-            font-weight: bold;
-            margin-bottom: 1.5rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        /* ... Styles period-badge, milestone-content h3/p, highlight, territories non modifiés ... */
+        /* ... Styles pour period-badge, milestone-content h3/p, highlight, territories non modifiés ... */
 
         .skills-grid {
             display: grid;
@@ -336,45 +258,30 @@
             gap: 1rem;
             margin-top: 1.5rem;
         }
-
-        .skill-category {
-            background: #f1f8e9;
-            padding: 1rem;
-            border-radius: 12px;
-            border: 2px solid #c8e6c9;
-        }
-
-        .skill-category h4 {
-            color: #2e7d32;
-            margin-bottom: 0.5rem;
-            font-size: 0.9rem;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        .skill-tags {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.4rem;
-        }
-
-        .skill-tag {
-            background: white;
-            padding: 0.3rem 0.8rem;
-            border-radius: 15px;
-            font-size: 0.75rem;
-            color: #2e7d32;
-            border: 1px solid #a5d6a7;
-            transition: all 0.3s ease;
-        }
-
-        .skill-tag:hover {
-            background: #e8f5e8;
-            transform: translateY(-1px);
+        
+        /* Ajustement de la grille pour le jalon Vision */
+        .milestone.future .skills-grid {
+             grid-template-columns: repeat(2, 1fr); /* 2 colonnes pour Vision */
         }
         
-        /* Styles pour les organismes/loisirs cliquables */
-        .organization-tags a, .loisir-tag a {
+        .milestone.future .skills-grid .skill-category:nth-child(1) {
+            grid-column: 1 / -1; /* Domaines d'expertise sur toute la largeur */
+        }
+        .milestone.future .skills-grid .skill-category:nth-child(2) {
+            grid-column: 1 / 2; /* Compétences en développement (gauche) */
+        }
+        .milestone.future .skills-grid .skill-category:nth-child(3) {
+            grid-column: 2 / 3; /* Postes Cibles (droite) */
+        }
+        .milestone.future .skills-grid .skill-category:nth-child(4) {
+            grid-column: 1 / 2; /* Organismes Visés (gauche, sous Compétences) */
+        }
+        .milestone.future .skills-grid .skill-category:nth-child(5) {
+            grid-column: 2 / 3; /* Compétences en développement (droite, sous Postes) */
+        }
+        
+        /* Styles pour les organismes cliquables */
+        .organization-tags a {
             text-decoration: none;
             color: #1b5e20;
             display: inline-block;
@@ -385,15 +292,15 @@
             background: #c8e6c9;
             border: 1px solid #4caf50;
             transition: all 0.3s ease;
+            margin: 0.3rem;
         }
         
-        .organization-tags a:hover, .loisir-tag a:hover {
+        .organization-tags a:hover {
             background: #e8f5e8;
             border-color: #2e7d32;
             transform: scale(1.05);
         }
 
-        /* NOUVEAU: Style pour la grille d'organismes visés */
         .organization-grid {
             display: flex;
             flex-wrap: wrap;
@@ -401,29 +308,8 @@
             margin-top: 1rem;
             justify-content: center;
         }
-
-        .engagement-section {
-            background: rgba(255,255,255,0.95);
-            padding: 3rem;
-            border-radius: 20px;
-            margin-top: 4rem;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
-            backdrop-filter: blur(10px);
-        }
-
-        .engagement-section h2 {
-            color: #1b5e20;
-            text-align: center;
-            margin-bottom: 1rem;
-            font-size: 2rem;
-        }
-
-        .engagement-section p {
-            text-align: center;
-            color: #2e7d32;
-            margin-bottom: 2rem;
-            font-size: 1.1rem;
-        }
+        
+        /* ... Styles engagement-section non modifiés ... */
 
         .networks-grid {
             display: grid;
@@ -432,154 +318,37 @@
             margin-top: 2rem;
         }
 
-        .network-category {
-            background: #f1f8e9;
-            padding: 1.5rem;
-            border-radius: 15px;
-            border: 2px solid #c8e6c9;
-        }
+        /* ... Styles network-category et network-tag non modifiés ... */
 
-        .network-category h3 {
-            color: #1b5e20;
-            margin-bottom: 1rem;
-            font-size: 1.2rem;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .network-items {
-            display: flex;
-            flex-direction: column;
-            gap: 0.5rem;
-        }
-
-        .network-tag a {
-            text-decoration: none;
-            color: #2e7d32; 
-            display: block;
-            padding: 0.8rem 1rem;
-            border-radius: 10px;
-            font-size: 0.9rem;
-            border: 1px solid #a5d6a7;
-            background: white;
-            transition: all 0.3s ease;
-        }
-
-        .network-tag a:hover {
-            background: #e8f5e8;
-            transform: translateX(5px);
-            border-color: #4caf50;
+        /* NOUVEAU: Suppression de loisirs et confirmation de la grille à 3 catégories */
+        .networks-grid {
+             grid-template-columns: repeat(3, 1fr);
         }
         
-        /* NOUVEAU: Style pour la section Loisirs/Organismes déplacée */
-        .loisirs-grid {
-            grid-column: 3; /* Placer la section Loisirs dans la 3e colonne (à droite) */
+        /* Style spécifique pour le logo Bluesky (fa-feather-alt est utilisé en proxy) */
+        .fa-feather-alt {
+            /* Si l'utilisateur veut utiliser une image custom pour Bluesky */
+            /* width: 20px; height: 20px; background-image: url('bluesky_logo.png'); background-size: cover; display: inline-block; */
         }
-
-        .action-panel {
-            background: linear-gradient(135deg, rgba(46, 125, 50, 0.9), rgba(27, 94, 32, 0.9));
-            padding: 3rem;
-            border-radius: 20px;
-            text-align: center;
-            margin-top: 4rem;
-            backdrop-filter: blur(10px);
-            border: 2px solid rgba(255,255,255,0.1);
-        }
-
-        .action-panel h2 {
-            color: white;
-            margin-bottom: 1rem;
-            font-size: 2rem;
-        }
-
-        .action-panel p {
-            color: rgba(255,255,255,0.9);
-            margin-bottom: 2rem;
-            font-size: 1.1rem;
-        }
-
-        .cta-buttons {
-            display: flex;
-            justify-content: center;
-            gap: 1rem;
-            flex-wrap: wrap;
-        }
-
-        .cta-button {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.7rem; 
-            padding: 1rem 2rem;
-            background: linear-gradient(135deg, #81c784, #4caf50);
-            color: white;
-            text-decoration: none;
-            border-radius: 30px;
-            font-weight: bold;
-            transition: all 0.3s ease;
-            border: 2px solid transparent;
-        }
-
-        .cta-button:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
-            background: linear-gradient(135deg, #66bb6a, #2e7d32);
-        }
-
-        .social-links {
-            margin-top: 2rem;
-            display: flex;
-            justify-content: center;
-            gap: 1.5rem;
-        }
-
-        .social-link {
-            color: white;
-            font-size: 1.8rem;
-            transition: color 0.3s ease, transform 0.3s ease;
-        }
-
-        .social-link:hover {
-            color: #81c784;
-            transform: scale(1.15);
-        }
-
+        
         @media (max-width: 1200px) {
-            /* Responsive pour l'alignement des images/contenu */
-            .milestone-inner {
-                flex-direction: column !important;
-                gap: 1.5rem;
-            }
-
-            .milestone:nth-child(odd) .milestone-content,
-            .milestone:nth-child(even) .milestone-content {
-                width: 100%;
-                margin-left: 0;
-                padding-left: 2.5rem;
-                padding-right: 2.5rem;
-            }
-
-            .milestone-img-wrapper {
-                width: 100%;
-                order: 0; /* Image en haut */
-                justify-content: center;
-            }
-
-            .milestone-content {
-                order: 1; /* Contenu en bas */
-            }
-
+            /* En mode responsive, les jalons prennent toute la largeur, mais l'icône reste centrée */
             .journey-path::before {
                 left: 50%;
             }
-
             .milestone-icon {
                 left: 50%;
             }
-        }
-
-        @media (max-width: 768px) {
-            .networks-grid {
+            .milestone-content {
+                width: 100%;
+                margin-left: 0 !important;
+                padding: 2rem;
+            }
+            .milestone-image-group {
+                flex-direction: column;
+                align-items: center;
+            }
+            .milestone.future .skills-grid {
                 grid-template-columns: 1fr;
             }
         }
@@ -603,63 +372,63 @@
             <div class="journey-path">
                 <div class="milestone past">
                     <div class="milestone-icon">🌱</div>
-                    <div class="milestone-inner">
-                        <div class="milestone-img-wrapper">
-                            <div class="photo-placeholder landscape" id="milestone-img-1">
-                                <img src="https://images.unsplash.com/photo-1510414995079-58d55a9071c8?fit=crop&w=300&h=200" alt="Formation / Premiers terrains">
-                            </div>
+                    <div class="milestone-content">
+                        <span class="period-badge">🕰️ Fondations</span>
+                        <h3>🎓 Formation & Premiers Terrains</h3>
+                        
+                        <div class="milestone-image-group">
+                            <div class="photo-placeholder"><img src="[URL_IMG_FONDATION_1]" alt="Image Formation"></div>
+                            <div class="photo-placeholder"><img src="[URL_IMG_FONDATION_2]" alt="Image Cours"></div>
+                            <div class="photo-placeholder"><img src="[URL_IMG_FONDATION_3]" alt="Image SIG"></div>
                         </div>
-                        <div class="milestone-content">
-                            <span class="period-badge">🕰️ Fondations</span>
-                            <h3>🎓 Formation & Premiers Terrains</h3>
-                            <p><strong>2018-2022 :</strong> Construction de ma base technique et découverte des territoires tropicaux.</p>
 
-                            <div class="highlight">
-                                <p><strong>Formations académiques :</strong> Licence Géographie & Aménagement (Sorbonne Université), M1 Gouvernance des Territoires (Paris-Saclay), M2 Dynamiques des Pays Émergents (Panthéon-Sorbonne).</p>
-                                <p><strong>Premières expériences :</strong> Bureau du Développement Touristique CANGT Guadeloupe (2018), découverte des enjeux territoriaux ultramarins et développement de ma sensibilité aux questions de développement local.</p>
+                        <p><strong>2018-2022 :</strong> Construction de ma base technique et découverte des territoires tropicaux.</p>
+
+                        <div class="highlight">
+                            <p><strong>Formations académiques :</strong> Licence Géographie & Aménagement (Sorbonne Université), M1 Gouvernance des Territoires (Paris-Saclay), M2 Dynamiques des Pays Émergents (Panthéon-Sorbonne).</p>
+                            <p><strong>Premières expériences :</strong> Bureau du Développement Touristique CANGT Guadeloupe (2018), découverte des enjeux territoriaux ultramarins et développement de ma sensibilité aux questions de développement local.</p>
+                        </div>
+
+                        <div class="territories">
+                            <span class="territory">🏝️ Guadeloupe</span>
+                            <span class="territory">🎓 Paris</span>
+                            <span class="territory">🌍 France ultramarine</span>
+                        </div>
+                        
+                        <div class="skills-grid">
+                            <div class="skill-category">
+                                <h4>🛰️ SIG & Cartographie</h4>
+                                <div class="skill-tags">
+                                    <span class="skill-tag">QGIS</span>
+                                    <span class="skill-tag">ArcGIS Pro & Apps</span>
+                                    <span class="skill-tag">Production cartographique</span>
+                                    <span class="skill-tag">Collecte données terrain</span>
+                                </div>
                             </div>
-
-                            <div class="territories">
-                                <span class="territory">🏝️ Guadeloupe</span>
-                                <span class="territory">🎓 Paris</span>
-                                <span class="territory">🌍 France ultramarine</span>
+                            <div class="skill-category">
+                                <h4>📊 Analyse & Programmation</h4>
+                                <div class="skill-tags">
+                                    <span class="skill-tag">Python</span>
+                                    <span class="skill-tag">R</span>
+                                    <span class="skill-tag">SQL</span>
+                                    <span class="skill-tag">Analyse statistique</span>
+                                </div>
                             </div>
-
-                            <div class="skills-grid">
-                                <div class="skill-category">
-                                    <h4>🛰️ SIG & Cartographie</h4>
-                                    <div class="skill-tags">
-                                        <span class="skill-tag">QGIS</span>
-                                        <span class="skill-tag">ArcGIS Pro & Apps</span>
-                                        <span class="skill-tag">Production cartographique</span>
-                                        <span class="skill-tag">Collecte données terrain</span>
-                                    </div>
+                            <div class="skill-category">
+                                <h4>🎓 Enseignement & Communication</h4>
+                                <div class="skill-tags">
+                                    <span class="skill-tag">TP universitaire SIG</span>
+                                    <span class="skill-tag">Accompagnement pédagogique</span>
+                                    <span class="skill-tag">Création vidéos</span>
                                 </div>
-                                <div class="skill-category">
-                                    <h4>📊 Analyse & Programmation</h4>
-                                    <div class="skill-tags">
-                                        <span class="skill-tag">Python</span>
-                                        <span class="skill-tag">R</span>
-                                        <span class="skill-tag">SQL</span>
-                                        <span class="skill-tag">Analyse statistique</span>
-                                    </div>
-                                </div>
-                                <div class="skill-category">
-                                    <h4>🎓 Enseignement & Communication</h4>
-                                    <div class="skill-tags">
-                                        <span class="skill-tag">TP universitaire SIG</span>
-                                        <span class="skill-tag">Accompagnement pédagogique</span>
-                                        <span class="skill-tag">Création vidéos</span>
-                                    </div>
-                                </div>
-                                <div class="skill-category">
-                                    <h4>🌐 Langues & Outils</h4>
-                                    <div class="skill-tags">
-                                        <span class="skill-tag">Anglais (TOEIC 985)</span>
-                                        <span class="skill-tag">Espagnol A2</span>
-                                        <span class="skill-tag">Microsoft Office</span>
-                                        <span class="skill-tag">Illustrator/Photoshop</span>
-                                    </div>
+                            </div>
+                            <div class="skill-category">
+                                <h4>🌐 Langues & Outils</h4>
+                                <div class="skill-tags">
+                                    <span class="skill-tag">Anglais (TOEIC 985)</span>
+                                    <span class="skill-tag">Espagnol A2</span>
+                                    <span class="skill-tag">Microsoft Office</span>
+                                    <span class="skill-tag">Illustrator/Photoshop</span>
                                 </div>
                             </div>
                         </div>
@@ -668,71 +437,71 @@
 
                 <div class="milestone present">
                     <div class="milestone-icon">🗺️</div>
-                    <div class="milestone-inner">
-                        <div class="milestone-img-wrapper">
-                            <div class="photo-placeholder project" id="milestone-img-2">
-                                <img src="https://images.unsplash.com/photo-1588691880486-ed6655c68ff8?fit=crop&w=250&h=180" alt="Mission Cameroun">
-                            </div>
+                    <div class="milestone-content">
+                        <span class="period-badge">⚡ Expertise</span>
+                        <h3>🌳 Consolidation & Innovation</h3>
+                        
+                        <div class="milestone-image-group">
+                            <div class="photo-placeholder"><img src="[URL_IMG_EXPERTISE_1]" alt="Image Terrain Cameroun"></div>
+                            <div class="photo-placeholder"><img src="[URL_IMG_EXPERTISE_2]" alt="Image Cartographie"></div>
+                            <div class="photo-placeholder"><img src="[URL_IMG_EXPERTISE_3]" alt="Image Événementiel"></div>
                         </div>
-                        <div class="milestone-content">
-                            <span class="period-badge">⚡ Expertise</span>
-                            <h3>🌳 Consolidation & Innovation</h3>
-                            <p><strong>2022-2024 :</strong> Montée en expertise et développement d'approches participatives.</p>
 
-                            <div class="highlight">
-                                <p><strong>Mastère Spécialisé SIG (AgroParisTech, 2025-présent) :</strong> Formation de "manager de projets géomatique/SIG", placettes LiDAR et soutien SIG pour le service Forêts et Territoires.</p>
+                        <p><strong>2022-2024 :</strong> Montée en expertise et développement d'approches participatives.</p>
 
-                                <p><strong>Expériences terrain marquantes :</strong></p>
-                                <p>• <strong>Alternatives Durables (Cameroun, 2023) :</strong> Chargée d'étude sur la modélisation participative des conflits Homme-Faune, 4 villages périphériques du parc national de Campo Ma'an</p>
-                                <p>• <strong>Agence TROPISME (Guadeloupe, 2021) :</strong> État des lieux et conception de réhabilitation d'une RD, création SIG pour recensement ZAE</p>
-                                <p>• <strong>B.R.L. Ingénierie (2022) :</strong> Diagnostic économique EPCI Guadeloupe, projets AFD et PLUi-H Mayotte</p>
+                        <div class="highlight">
+                            <p><strong>Mastère Spécialisé SIG (AgroParisTech, 2025-présent) :</strong> Formation de "manager de projets géomatique/SIG", placettes LiDAR et soutien SIG pour le service Forêts et Territoires.</p>
 
-                                <p><strong>Coordination événementielle :</strong> 1ère Rencontre Interuniversitaire de la Transition Écologique (Paris, 2022) - coordination associations étudiantes Île-de-France</p>
+                            <p><strong>Expériences terrain marquantes :</strong></p>
+                            <p>• <strong>Alternatives Durables (Cameroun, 2023) :</strong> Chargée d'étude sur la modélisation participative des conflits Homme-Faune, 4 villages périphériques du parc national de Campo Ma'an</p>
+                            <p>• <strong>Agence TROPISME (Guadeloupe, 2021) :</strong> État des lieux et conception de réhabilitation d'une RD, création SIG pour recensement ZAE</p>
+                            <p>• <strong>B.R.L. Ingénierie (2022) :</strong> Diagnostic économique EPCI Guadeloupe, projets AFD et PLUi-H Mayotte</p>
+
+                            <p><strong>Coordination événementielle :</strong> 1ère Rencontre Interuniversitaire de la Transition Écologique (Paris, 2022) - coordination associations étudiantes Île-de-France</p>
+                        </div>
+
+                        <div class="territories">
+                            <span class="territory">🌍 Cameroun - Campo Ma'an</span>
+                            <span class="territory">🏝️ Guadeloupe</span>
+                            <span class="territory">🏝️ Mayotte</span>
+                            <span class="territory">🎓 Paris - Coordination</span>
+                        </div>
+
+                        <div class="skills-grid">
+                            <div class="skill-category">
+                                <h4>🌳 Écologie & Environnement</h4>
+                                <div class="skill-tags">
+                                    <span class="skill-tag">Écologie tropicale</span>
+                                    <span class="skill-tag">Botanique tropicale</span>
+                                    <span class="skill-tag">Conflits Homme-Faune</span>
+                                    <span class="skill-tag">Évaluation environnementale</span>
+                                </div>
                             </div>
-
-                            <div class="territories">
-                                <span class="territory">🌍 Cameroun - Campo Ma'an</span>
-                                <span class="territory">🏝️ Guadeloupe</span>
-                                <span class="territory">🏝️ Mayotte</span>
-                                <span class="territory">🎓 Paris - Coordination</span>
+                            <div class="skill-category">
+                                <h4>📊 Études & Diagnostics</h4>
+                                <div class="skill-tags">
+                                    <span class="skill-tag">Faisabilité socio-économique</span>
+                                    <span class="skill-tag">Modélisation participative</span>
+                                    <span class="skill-tag">Diagnostics territoriaux</span>
+                                    <span class="skill-tag">Géographie physique & sociale</span>
+                                </div>
                             </div>
-
-                            <div class="skills-grid">
-                                <div class="skill-category">
-                                    <h4>🌳 Écologie & Environnement</h4>
-                                    <div class="skill-tags">
-                                        <span class="skill-tag">Écologie tropicale</span>
-                                        <span class="skill-tag">Botanique tropicale</span>
-                                        <span class="skill-tag">Conflits Homme-Faune</span>
-                                        <span class="skill-tag">Évaluation environnementale</span>
-                                    </div>
+                            <div class="skill-category">
+                                <h4>🎯 Management & Événementiel</h4>
+                                <div class="skill-tags">
+                                    <span class="skill-tag">Gestion de projet</span>
+                                    <span class="skill-tag">Organisation conférences</span>
+                                    <span class="skill-tag">Ciné-débats</span>
+                                    <span class="skill-tag">Ateliers participatifs</span>
                                 </div>
-                                <div class="skill-category">
-                                    <h4>📊 Études & Diagnostics</h4>
-                                    <div class="skill-tags">
-                                        <span class="skill-tag">Faisabilité socio-économique</span>
-                                        <span class="skill-tag">Modélisation participative</span>
-                                        <span class="skill-tag">Diagnostics territoriaux</span>
-                                        <span class="skill-tag">Géographie physique & sociale</span>
-                                    </div>
-                                </div>
-                                <div class="skill-category">
-                                    <h4>🎯 Management & Événementiel</h4>
-                                    <div class="skill-tags">
-                                        <span class="skill-tag">Gestion de projet</span>
-                                        <span class="skill-tag">Organisation conférences</span>
-                                        <span class="skill-tag">Ciné-débats</span>
-                                        <span class="skill-tag">Ateliers participatifs</span>
-                                    </div>
-                                </div>
-                                <div class="skill-category">
-                                    <h4>🤝 Engagement Associatif</h4>
-                                    <div class="skill-tags">
-                                        <span class="skill-tag">Amnesty International (2020-2023)</span>
-                                        <span class="skill-tag">Climate Justice Camp Tunisie</span>
-                                        <span class="skill-tag">Secrétaire générale</span>
-                                        <span class="skill-tag">Mobilisation droits humains</span>
-                                    </div>
+                            </div>
+                            <div class="skill-category">
+                                <h4>🤝 Engagement Associatif</h4>
+                                <div class="skill-tags">
+                                    <span class="skill-tag">Amnesty International (2020-2023)</span>
+                                    <span class="skill-tag">Climate Justice Camp Tunisie</span>
+                                    <span class="skill-tag">Secrétaire générale</span>
+                                    <span class="skill-tag">Mobilisation droits humains</span>
                                 </div>
                             </div>
                         </div>
@@ -741,65 +510,65 @@
 
                 <div class="milestone future">
                     <div class="milestone-icon">🚀</div>
-                    <div class="milestone-inner">
-                         <div class="milestone-img-wrapper">
-                            <div class="photo-placeholder project" id="milestone-img-3">
-                                <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?fit=crop&w=250&h=180" alt="Vision & Projets Futurs">
-                            </div>
+                    <div class="milestone-content">
+                        <span class="period-badge">🌟 Vision</span>
+                        <h3>🌍 Coopération Sud-Sud & Impact</h3>
+                        
+                        <div class="milestone-image-group">
+                            <div class="photo-placeholder"><img src="[URL_IMG_VISION_1]" alt="Image Coopération Sud-Sud"></div>
+                            <div class="photo-placeholder"><img src="[URL_IMG_VISION_2]" alt="Image Innovation"></div>
+                            <div class="photo-placeholder"><img src="[URL_IMG_VISION_3]" alt="Image Télédétection"></div>
                         </div>
-                        <div class="milestone-content">
-                            <span class="period-badge">🌟 Vision</span>
-                            <h3>🌍 Coopération Sud-Sud & Impact</h3>
-                            <p><strong>2024-2030 :</strong> Développement de projets d'envergure et coopération internationale.</p>
 
-                            <div class="highlight">
-                                <p><strong>Vision professionnelle :</strong> Mettre en œuvre mes compétences au service d'une organisation innovante dans des projets de développement humain et de transition écologique.</p>
-                                <p><strong>Ambitions à moyen terme :</strong> Rejoindre ou créer une structure axée sur la coopération Sud-Sud, Contribuer à des projets à fort impact local mobilisant des outils spatiaux, Développer le lien entre numérique, nature et société.</p>
+                        <p><strong>2024-2030 :</strong> Développement de projets d'envergure et coopération internationale.</p>
+
+                        <div class="highlight">
+                            <p><strong>Vision professionnelle :</strong> Mettre en œuvre mes compétences au service d'une organisation innovante dans des projets de développement humain et de transition écologique.</p>
+                            <p><strong>Ambitions à moyen terme :</strong> Rejoindre ou créer une structure axée sur la coopération Sud-Sud, Contribuer à des projets à fort impact local mobilisant des outils spatiaux, Développer le lien entre numérique, nature et société.</p>
+                        </div>
+
+                        <div class="territories">
+                            <span class="territory">🌍 Coopération Afrique-Caraïbes</span>
+                            <span class="territory">🌱 Organisations innovantes</span>
+                            <span class="territory">🤝 Projets participatifs</span>
+                            <span class="territory">⚡ Transition écologique</span>
+                        </div>
+
+                        <div class="skills-grid">
+                            <div class="skill-category">
+                                <h4>🎯 Domaines d'expertise visés</h4>
+                                <div class="skill-tags">
+                                    <span class="skill-tag">Socio-écosystèmes forestiers</span>
+                                    <span class="skill-tag">Agroforesterie</span>
+                                    <span class="skill-tag">Coexistence homme-faune</span>
+                                    <span class="skill-tag">Justice environnementale</span>
+                                </div>
                             </div>
-
-                            <div class="territories">
-                                <span class="territory">🌍 Coopération Afrique-Caraïbes</span>
-                                <span class="territory">🌱 Organisations innovantes</span>
-                                <span class="territory">🤝 Projets participatifs</span>
-                                <span class="territory">⚡ Transition écologique</span>
+                            <div class="skill-category">
+                                <h4>📈 Compétences en développement</h4>
+                                <div class="skill-tags">
+                                    <span class="skill-tag">Python avancé (priorité haute)</span>
+                                    <span class="skill-tag">LiDAR & imagerie (priorité haute)</span>
+                                    <span class="skill-tag">Webmapping open source</span>
+                                    <span class="skill-tag">IA géospatiale</span>
+                                </div>
                             </div>
-
-                            <div class="skills-grid">
-                                <div class="skill-category" style="grid-column: 1 / -1; text-align: center;">
-                                    <h4>🎯 Organismes Visés (Vignettes cliquables)</h4>
-                                    <div class="organization-grid">
-                                        <div class="organization-tags"><a href="[URL_INRAE]" target="_blank">INRAE</a></div>
-                                        <div class="organization-tags"><a href="[URL_CIRAD]" target="_blank">CIRAD</a></div>
-                                        <div class="organization-tags"><a href="[URL_HOTOSM]" target="_blank">HOTOSM</a></div>
-                                        <div class="organization-tags"><a href="[URL_AMNESTY]" target="_blank">Amnesty International</a></div>
-                                    </div>
+                            <div class="skill-category">
+                                <h4>💼 Postes cibles</h4>
+                                <div class="skill-tags">
+                                    <span class="skill-tag">Responsable SIG & environnement</span>
+                                    <span class="skill-tag">Coordinatrice cartographie participative</span>
+                                    <span class="skill-tag">Ingénieure télédétection/LiDAR</span>
+                                    <span class="skill-tag">Consultante diagnostic territorial</span>
                                 </div>
-                                <div class="skill-category">
-                                    <h4>🎯 Domaines d'expertise visés</h4>
-                                    <div class="skill-tags">
-                                        <span class="skill-tag">Socio-écosystèmes forestiers</span>
-                                        <span class="skill-tag">Agroforesterie</span>
-                                        <span class="skill-tag">Coexistence homme-faune</span>
-                                        <span class="skill-tag">Justice environnementale</span>
-                                    </div>
-                                </div>
-                                <div class="skill-category">
-                                    <h4>📈 Compétences en développement</h4>
-                                    <div class="skill-tags">
-                                        <span class="skill-tag">Python avancé (priorité haute)</span>
-                                        <span class="skill-tag">LiDAR & imagerie (priorité haute)</span>
-                                        <span class="skill-tag">Webmapping open source</span>
-                                        <span class="skill-tag">IA géospatiale</span>
-                                    </div>
-                                </div>
-                                <div class="skill-category">
-                                    <h4>💼 Postes cibles</h4>
-                                    <div class="skill-tags">
-                                        <span class="skill-tag">Responsable SIG & environnement</span>
-                                        <span class="skill-tag">Coordinatrice cartographie participative</span>
-                                        <span class="skill-tag">Ingénieure télédétection/LiDAR</span>
-                                        <span class="skill-tag">Consultante diagnostic territorial</span>
-                                    </div>
+                            </div>
+                            <div class="skill-category">
+                                <h4>🎯 Organismes Visés (Vignettes cliquables)</h4>
+                                <div class="organization-grid">
+                                    <div class="organization-tags"><a href="[URL_INRAE]" target="_blank">INRAE</a></div>
+                                    <div class="organization-tags"><a href="[URL_CIRAD]" target="_blank">CIRAD</a></div>
+                                    <div class="organization-tags"><a href="[URL_HOTOSM]" target="_blank">HOTOSM</a></div>
+                                    <div class="organization-tags"><a href="[URL_AMNESTY]" target="_blank">Amnesty International</a></div>
                                 </div>
                             </div>
                         </div>
@@ -816,35 +585,26 @@
                 <div class="network-category">
                     <h3>🎬 Culture & Éducation</h3>
                     <div class="network-items">
-                        <div class="network-tag"><a href="#" target="_blank">APCAG (cinéma Antilles-Guyane)</a></div>
-                        <div class="network-tag"><a href="#" target="_blank">Rézylians 971 (éducation populaire)</a></div>
-                        <div class="network-tag"><a href="#" target="_blank">Terra Festival (ciné-débats transition)</a></div>
+                        <div class="network-tag"><a href="[URL_APCAG]" target="_blank">APCAG (cinéma Antilles-Guyane)</a></div>
+                        <div class="network-tag"><a href="[URL_REZ_971]" target="_blank">Rézylians 971 (éducation populaire)</a></div>
+                        <div class="network-tag"><a href="[URL_TERRA_FESTIVAL]" target="_blank">Terra Festival (ciné-débats transition)</a></div>
                     </div>
                 </div>
                 <div class="network-category">
                     <h3>🗺️ Géomatique Solidaire</h3>
                     <div class="network-items">
-                        <div class="network-tag"><a href="#" target="_blank">HOTOSM – Latin America Caribbean hub</a></div>
-                        <div class="network-tag"><a href="#" target="_blank">CARTONG</a></div>
-                        <div class="network-tag"><a href="#" target="_blank">UN Risk & Disaster Network LatAm</a></div>
+                        <div class="network-tag"><a href="[URL_HOTOSM_LAC]" target="_blank">HOTOSM – Latin America Caribbean hub</a></div>
+                        <div class="network-tag"><a href="[URL_CARTONG]" target="_blank">CARTONG</a></div>
+                        <div class="network-tag"><a href="[URL_UN_DRR]" target="_blank">UN Risk & Disaster Network LatAm</a></div>
                     </div>
                 </div>
-                <div class="network-category loisirs-grid">
-                    <h3>🤸 Loisirs & Équilibre</h3>
-                    <div class="network-items">
-                         <div class="loisir-tag"><a href="#" target="_blank">Stand Up Paddle</a></div>
-                        <div class="loisir-tag"><a href="#" target="_blank">Capoeira</a></div>
-                        <div class="loisir-tag"><a href="#" target="_blank">Escalade</a></div>
-                        <div class="loisir-tag"><a href="#" target="_blank">Permis B & Côtier</a></div>
-                    </div>
-                </div>
-                 <div class="network-category">
+                <div class="network-category">
                     <h3>🌍 Justice Environnementale</h3>
                     <div class="network-items">
-                        <div class="network-tag"><a href="#" target="_blank">Amnesty International</a></div>
-                        <div class="network-tag"><a href="#" target="_blank">CYEN</a></div>
-                        <div class="network-tag"><a href="#" target="_blank">WYCJ (climate justice youth)</a></div>
-                        <div class="network-tag"><a href="#" target="_blank">Caribaea Initiative</a></div>
+                        <div class="network-tag"><a href="[URL_AMNESTY_INT]" target="_blank">Amnesty International</a></div>
+                        <div class="network-tag"><a href="[URL_CYEN]" target="_blank">CYEN</a></div>
+                        <div class="network-tag"><a href="[URL_WYCJ]" target="_blank">WYCJ (climate justice youth)</a></div>
+                        <div class="network-tag"><a href="[URL_CARIB_INIT]" target="_blank">Caribaea Initiative</a></div>
                     </div>
                 </div>
             </div>
@@ -860,12 +620,15 @@
                 <a href="#portfolio-section" class="cta-button" id="cta-portfolio">
                     <i class="fas fa-folder-open"></i> Découvrir mes réalisations
                 </a>
-                </div>
+            </div>
             
             <div class="social-links">
                 <a href="[URL_LinkedIn]" target="_blank" class="social-link" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
                 <a href="[URL_GitHub]" target="_blank" class="social-link" title="GitHub"><i class="fab fa-github-square"></i></a>
-                <a href="[URL_Bluesky]" target="_blank" class="social-link" title="Bluesky"><i class="fab fa-twitter"></i></a> <a href="[URL_Autre]" target="_blank" class="social-link" title="ResearchGate/Autre"><i class="fas fa-globe"></i></a>
+                <a href="[URL_Bluesky]" target="_blank" class="social-link" title="Bluesky">
+                    <i class="fas fa-feather-alt"></i> 
+                </a>
+                <a href="[URL_Autre]" target="_blank" class="social-link" title="ResearchGate/Autre"><i class="fas fa-globe"></i></a>
             </div>
         </div>
     </div>
@@ -883,9 +646,7 @@
         // Interaction avec les icônes de jalons (pulsation)
         document.querySelectorAll('.milestone-icon').forEach(icon => {
             icon.addEventListener('click', function() {
-                // Pas de contenu à côté, on cible le conteneur du jalon
-                const milestone = this.parentElement; 
-                const content = milestone.querySelector('.milestone-content');
+                const content = this.parentElement.querySelector('.milestone-content');
 
                 // Animation de pulsation
                 this.style.transform = 'translate(-50%, -50%) scale(1.3)';
@@ -899,18 +660,17 @@
         });
 
         // Animation des tags de compétences (hover)
-        document.querySelectorAll('.skill-tag, .organization-tags a, .loisir-tag a').forEach(tag => {
+        document.querySelectorAll('.skill-tag, .organization-tags a').forEach(tag => {
             tag.addEventListener('mouseenter', function() {
                 this.style.background = '#c8e6c9';
                 this.style.color = '#1b5e20';
             });
             tag.addEventListener('mouseleave', function() {
-                // Gérer le retour à l'état initial selon le type d'élément
                 if (this.tagName === 'A') {
-                     this.style.background = '#c8e6c9'; // Organismes/Loisirs cliquables
+                     this.style.background = '#c8e6c9'; 
                      this.style.color = '#1b5e20';
                 } else {
-                     this.style.background = 'white'; // Skill tags
+                     this.style.background = 'white'; 
                      this.style.color = '#2e7d32';
                 }
             });
@@ -932,7 +692,6 @@
                     message = 'Redirection vers la section "Portfolio" (URL à ajouter pour la navigation)...';
                 }
 
-                // Animation de feedback
                 this.style.transform = 'scale(0.95)';
                 setTimeout(() => {
                     this.style.transform = 'translateY(-3px)';
