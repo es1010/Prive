@@ -205,14 +205,14 @@
         /* NOUVEAU : Ajustements Marqueurs d'Échelle */
         .scale-marker {
             position: absolute;
-            right: 51.5%; /* Déplace plus à gauche pour s'éloigner de la zone de contenu */
-            left: auto; 
+            left: 51.5%; /* Déplacé à droite de la ligne centrale (50% + 1.5% de décalage) */
+            right: auto; 
             transform: none; 
-            width: 85px; /* Réduit la largeur */
-            text-align: right; 
+            width: 60px; /* RÉDUCTION DE LA LARGEUR pour ne prendre que le texte '50km' */
+            text-align: left; /* ALIGNEMENT À GAUCHE pour que le texte parte de la ligne */
             color: white;
             font-weight: bold;
-            font-size: 0.9rem; /* Réduit la taille du texte */
+            font-size: 0.9rem; 
             background: #1b5e20;
             padding: 4px 8px;
             border-radius: 5px;
@@ -221,6 +221,14 @@
             pointer-events: none;
             box-shadow: 0 2px 5px rgba(0,0,0,0.3);
             margin-top: 15px; 
+        }
+        
+        /* Marqueur de Début et Fin (Restent à gauche de la ligne) */
+        .scale-marker.start, .scale-marker.end { 
+             right: 51.5%; /* Retour à gauche de la ligne */
+             left: auto;
+             text-align: right;
+             width: 85px;
         }
         .scale-marker.start { top: -25px; margin-top: 0; }
         .scale-marker.end { bottom: -25px; margin-top: 0; }
@@ -275,7 +283,7 @@
         
         /* Jalon Impair (Fondations, Vision) : Contenu à DROITE (Décalé à 54% pour la marge) */
         .milestone:nth-child(odd) .milestone-content {
-            margin-left: 54%; /* Ancien 55% -> 54% + 44% = 98%. Crée une marge de 2% entre la barre et le bloc */ 
+            margin-left: 54%; /* 54% + 44% = 98%. Marge de 2% entre la barre et le bloc */ 
         }
 
         /* Jalon Pair (Expertise) : Contenu à GAUCHE (Marges conservées) */
@@ -527,6 +535,10 @@
                 text-align: left; 
                 width: 80px; 
             } 
+            /* On s'assure que le 50km est bien à droite de la ligne mobile (s'il est présent) */
+            .scale-marker.middle { 
+                left: 45px;
+            }
             .milestone-content {
                 width: calc(100% - 70px);
                 margin-left: 70px !important;
