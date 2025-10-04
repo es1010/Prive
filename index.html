@@ -388,6 +388,27 @@
             transform: translateY(-1px);
         }
 
+        /* 1. Vignettes Organismes Visés (style Réseaux Actifs) */
+        .organization-tags a {
+            text-decoration: none;
+            color: #2e7d32;
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            border-radius: 10px;
+            font-size: 0.9rem;
+            font-weight: normal;
+            background: #e8f5e8; /* Fond vert clair */
+            border: 1px solid #a5d6a7;
+            transition: all 0.3s ease;
+            margin: 0.3rem 0.3rem 0.3rem 0; /* Ajuste la marge pour l'alignement */
+        }
+
+        .organization-tags a:hover {
+            background: #c8e6c9;
+            transform: translateY(-1px);
+            border-color: #4caf50;
+        }
+
         .territories {
             display: flex;
             justify-content: center;
@@ -426,7 +447,6 @@
         }
 
         .network-tag {
-            /* 2. Style des liens Réseaux Actifs : Fond vert clair */
             background: #e8f5e8; 
             padding: 0.8rem 1rem;
             border-radius: 10px;
@@ -435,15 +455,14 @@
             transition: all 0.3s ease;
         }
 
-        /* 2. Style des liens Réseaux Actifs : Supprimer le soulignement et couleur du texte */
         .network-tag a {
             color: #2e7d32; 
             text-decoration: none; 
-            display: block; /* Rendre toute la vignette cliquable */
+            display: block; 
         }
 
         .network-tag:hover {
-            background: #c8e6c9; /* Couleur plus marquée au survol */
+            background: #c8e6c9; 
             transform: translateX(5px);
             border-color: #4caf50;
         }
@@ -460,29 +479,20 @@
             border: 2px solid rgba(255,255,255,0.1);
         }
 
-        .cta-button {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            padding: 1rem 2rem;
-            background: linear-gradient(135deg, #81c784, #4caf50);
-            color: white;
-            text-decoration: none;
-            border-radius: 30px;
-            font-weight: bold;
-            transition: all 0.3s ease;
-            border: 2px solid transparent;
+        /* 2. Marge supérieure pour éloigner les icônes des CTA */
+        .social-links {
+            margin-top: 1rem; 
         }
 
-        /* 1. Taille et Couleur des icônes sociales */
+        /* Taille et Couleur des icônes sociales */
         .social-links a i {
-            font-size: 2rem; /* Taille augmentée */
-            color: #000; /* Couleur noire */
+            font-size: 2rem; 
+            color: #000; 
             transition: color 0.3s ease;
         }
         
         .social-links a:hover i {
-             color: #c8e6c9; /* Couleur claire au survol */
+             color: #c8e6c9; 
         }
 
         /* 3. Logo Bluesky forcé (Image) */
@@ -491,9 +501,9 @@
             display: inline-block;
             width: 30px; 
             height: 30px;
-            font-size: 1px; /* Rendre l'icône FA presque invisible */
+            font-size: 1px; 
             vertical-align: middle;
-            color: transparent !important; /* Cache l'icône par couleur */
+            color: transparent !important; 
         }
         
         .fa-feather-alt::after {
@@ -826,8 +836,8 @@
             <div class="social-links">
                 <a href="[URL_LinkedIn]" target="_blank" class="social-link" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
                 <a href="[URL_GitHub]" target="_blank" class="social-link" title="GitHub"><i class="fab fa-github-square"></i></a>
-                <a href="[URL_Bluesky]" target="_blank" class="social-link" title="Bluesky"><i class="fas fa-feather-alt"></i></a> 
                 <a href="[URL_Autre]" target="_blank" class="social-link" title="ResearchGate/Autre"><i class="fas fa-globe"></i></a>
+                <a href="[URL_Bluesky]" target="_blank" class="social-link" title="Bluesky"><i class="fas fa-feather-alt"></i></a> 
             </div>
         </div>
     </div>
@@ -859,13 +869,13 @@
             });
         });
 
-        // Correction du JavaScript pour la nouvelle structure des liens de réseaux actifs
+        // Animation des tags de compétences (hover)
         document.querySelectorAll('.skill-tag, .organization-tags a, .network-tag').forEach(tag => {
             tag.addEventListener('mouseenter', function() {
                 if (this.classList.contains('network-tag')) {
                     this.style.background = '#c8e6c9'; 
                 } else if (this.tagName === 'A') {
-                     this.style.background = '#e8f5e8';
+                     this.style.background = '#c8e6c9'; /* Pour les organismes et autres liens A */
                      this.style.color = '#1b5e20';
                 } else {
                      this.style.background = '#e8f5e8';
@@ -876,8 +886,8 @@
                 if (this.classList.contains('network-tag')) {
                     this.style.background = '#e8f5e8';
                 } else if (this.tagName === 'A') {
-                     this.style.background = '#c8e6c9'; 
-                     this.style.color = '#1b5e20';
+                     this.style.background = '#e8f5e8'; /* Pour les organismes et autres liens A */
+                     this.style.color = '#2e7d32';
                 } else {
                      this.style.background = 'white'; 
                      this.style.color = '#2e7d32';
