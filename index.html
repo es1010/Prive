@@ -138,35 +138,36 @@
 
         /* BOUSSOLE FIXÉE EN HAUT À DROITE ET AGRANDIE */
         .compass {
-            position: fixed; 
-            top: 20px; /* POSITIONNEMENT EN HAUT */
+            position: fixed; /* GARANTIT QU'IL SUIT LE SCROLL */
+            top: 20px; 
             right: 20px;
-            width: 80px; /* AGRANDISSEMENT */
-            height: 80px; /* AGRANDISSEMENT */
-            background: radial-gradient(circle, #2e7d32, #1b5e20);
+            width: 80px; 
+            height: 80px; 
+            /* MODIFICATIONS DEMANDÉES : vert clair semi-transparent et couleur de l'icône */
+            background: rgba(129, 199, 132, 0.9); 
+            border: 3px solid #1b5e20; 
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: white;
-            font-size: 2.5rem; /* AGRANDISSEMENT DE L'ICÔNE */
+            color: #1b5e20; /* Icône en vert foncé pour contraste */
+            font-size: 2.5rem; 
             z-index: 100;
             cursor: pointer;
             transition: background-color 0.3s ease, transform 0.1s ease; 
-            box-shadow: 0 0 15px rgba(0,0,0,0.6);
-            /* Suppression des propriétés JS de visibilité et rotation */
-            transform: none !important; /* On annule la rotation JS précédente si elle existait */
+            box-shadow: 0 5px 15px rgba(0,0,0,0.4); 
+            transform: none !important; 
         }
         .compass:hover {
-            background: radial-gradient(circle, #1b5e20, #004d40);
-            transform: scale(1.05); /* Légère mise à l'échelle au survol */
+            background: #81c784; /* Vert clair sans transparence au survol */
+            transform: scale(1.05); 
         }
         .compass::before {
             content: '▲'; 
             position: absolute;
             top: 5px;
-            font-size: 1.5rem; /* Ajustement de la taille du triangle */
-            color: white; 
+            font-size: 1.5rem; 
+            color: #1b5e20; /* Triangle en vert foncé */
         }
         @media (max-width: 1040px) {
             .compass {
@@ -237,9 +238,9 @@
         .scale-marker.middle {
             top: 50%; 
             transform: translateY(-50%);
-            left: 51.5%; /* S'assure qu'il est à droite de la ligne */
+            left: 51.5%; 
             right: auto;
-            width: 60px; /* Conserve la largeur réduite */
+            width: 60px; 
         }
 
 
@@ -754,18 +755,14 @@
         const scrollCompass = document.getElementById('scroll-compass');
 
         if (scrollCompass) {
-            // Le JavaScript a été simplifié. La rotation et le changement de visibilité 
-            // au scroll ne sont plus nécessaires car la boussole est fixe en haut.
-
+            // Le "fixed" CSS garantit qu'il suit le scroll. 
+            // On ne garde que l'action de scroll au top.
             scrollCompass.addEventListener('click', function() {
                 window.scrollTo({
                     top: 0,
                     behavior: 'smooth' 
                 });
             });
-
-            // On retire l'écouteur d'événement de scroll qui gérait la rotation et la visibilité
-            // window.addEventListener('scroll', toggleCompass);
         }
 
         // Animation des tags de compétences (hover)
