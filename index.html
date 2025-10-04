@@ -518,59 +518,61 @@
             margin: 0 0.5rem; 
             text-decoration: none;
             position: relative; 
-            width: 2.2rem; 
+            width: 2.2rem; /* Taille de l'encadré */
             height: 2.2rem;
             display: inline-flex; 
             align-items: center;
             justify-content: center;
         }
 
-        .social-links a i {
-            font-size: 2rem; 
-            color: white; 
-            transition: color 0.3s ease;
-            position: relative; 
-            z-index: 2;
-        }
-        
-        .social-links a:hover i {
-             color: #c8e6c9; 
-        }
-
-        /* Cadre blanc pour toutes les icônes */
+        /* Cadre blanc CARRÉ pour TOUTES les icônes */
         .social-links a::before {
             content: '';
             position: absolute;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            width: 2.2rem; 
+            width: 2.2rem; /* Taille du cadre */
             height: 2.2rem;
-            border-radius: 50%; 
-            background: rgba(255, 255, 255, 0.2); 
-            transition: background 0.3s ease;
+            border-radius: 5px; /* ✅ Changé à Carré */
+            background: white; /* ✅ Changé à Blanc Opaque */
+            transition: all 0.3s ease;
             z-index: 1; 
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
         }
         
         .social-links a:hover::before {
-            background: rgba(255, 255, 255, 0.35); 
+            background: #e8f5e8; /* Légèrement plus clair au survol */
+        }
+        
+        /* Couleur des icônes Font Awesome */
+        .social-links a i {
+            font-size: 1.8rem; /* Légèrement réduit pour être mieux centré dans l'encadré */
+            color: #1b5e20; /* ✅ Changé à Vert Foncé */
+            transition: color 0.3s ease;
+            position: relative; 
+            z-index: 2;
+        }
+        
+        .social-links a:hover i {
+             color: #4caf50; /* Vert clair au survol */
         }
 
-        /* Styles spécifiques pour l'image Bluesky */
+        /* Styles spécifiques pour l'image Bluesky (réduction taille et recoloration en vert) */
         .social-links img.social-logo {
-            width: 1.6rem; 
+            width: 1.6rem; /* Taille du logo PNG */
             height: 1.6rem;
             object-fit: contain; 
             position: relative;
             z-index: 2;
-            /* Recolor le PNG en vert foncé et rend les parties blanches transparentes */
+            /* Recolor le PNG en vert foncé (la cible de la couleur pour #1b5e20 est complexe) */
             filter: brightness(0) saturate(100%) invert(18%) sepia(87%) saturate(1478%) hue-rotate(106deg) brightness(97%) contrast(93%);
             transition: filter 0.3s ease;
         }
 
         .social-links a:hover img.social-logo {
-            /* Changement de couleur au survol pour correspondre au #c8e6c9 */
-            filter: brightness(0) saturate(100%) invert(80%) sepia(10%) saturate(600%) hue-rotate(80deg) brightness(100%) contrast(90%);
+            /* Changement de couleur au survol (vert clair #4caf50) */
+            filter: brightness(0) saturate(100%) invert(39%) sepia(61%) saturate(543%) hue-rotate(85deg) brightness(97%) contrast(95%);
         }
         
         /* Responsive */
