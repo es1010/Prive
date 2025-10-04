@@ -388,7 +388,7 @@
             transform: translateY(-1px);
         }
 
-        /* 1. Vignettes Organismes Visés (style Réseaux Actifs) */
+        /* Style des Organismes Visés (vignette) */
         .organization-tags a {
             text-decoration: none;
             color: #2e7d32;
@@ -479,7 +479,32 @@
             border: 2px solid rgba(255,255,255,0.1);
         }
 
-        /* 2. Marge supérieure pour éloigner les icônes des CTA */
+        /* REVERSION DEMANDÉE : Style des boutons CTA */
+        .cta-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 1rem 2rem;
+            background: white; /* Revert to white background */
+            color: #1b5e20; /* Dark green text */
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            border: 2px solid #1b5e20; /* Dark green border */
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .cta-button:hover {
+            background: #e8f5e8; /* Light green on hover */
+            color: #1b5e20;
+            border-color: #4caf50;
+            transform: translateY(-3px); /* Add a slight lift */
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+        }
+        /* FIN REVERSION */
+
+        /* Marge supérieure pour éloigner les icônes des CTA */
         .social-links {
             margin-top: 1rem; 
         }
@@ -495,7 +520,7 @@
              color: #c8e6c9; 
         }
 
-        /* 3. Logo Bluesky forcé (Image) */
+        /* Logo Bluesky forcé (Image) */
         .fa-feather-alt {
             position: relative;
             display: inline-block;
@@ -875,7 +900,7 @@
                 if (this.classList.contains('network-tag')) {
                     this.style.background = '#c8e6c9'; 
                 } else if (this.tagName === 'A') {
-                     this.style.background = '#c8e6c9'; /* Pour les organismes et autres liens A */
+                     this.style.background = '#c8e6c9'; 
                      this.style.color = '#1b5e20';
                 } else {
                      this.style.background = '#e8f5e8';
@@ -886,7 +911,7 @@
                 if (this.classList.contains('network-tag')) {
                     this.style.background = '#e8f5e8';
                 } else if (this.tagName === 'A') {
-                     this.style.background = '#e8f5e8'; /* Pour les organismes et autres liens A */
+                     this.style.background = '#e8f5e8'; 
                      this.style.color = '#2e7d32';
                 } else {
                      this.style.background = 'white'; 
