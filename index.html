@@ -245,13 +245,13 @@
             }
         }
         
-        /* NOUVEAU : Réduction de la largeur du contenu à 45% */
+        /* CORRECTION : Décalage des blocs et réduction de la largeur à 44% */
         .milestone-content {
             background: white;
             padding: 2.5rem;
             border-radius: 20px;
             box-shadow: 0 15px 35px rgba(0,0,0,0.1);
-            width: 45%; /* Réduction pour éviter de croiser la barre */
+            width: 44%; /* Réduit la largeur pour éviter de croiser la barre */
             position: relative;
             transition: all 0.4s ease;
             z-index: 2;
@@ -261,33 +261,34 @@
             transform: translateY(-8px) scale(1.01);
             box-shadow: 0 25px 50px rgba(0,0,0,0.15);
         }
-
-        /* NOUVEAU : LOGIQUE D'ALTERNANCE */
         
-        /* Jalon Impair (Fondations, Vision) : Contenu à DROITE */
-        .milestone:nth-child(odd) .milestone-content {
-            margin-left: 55%; 
-        }
-
-        /* Jalon Pair (Expertise) : Contenu à GAUCHE */
-        .milestone:nth-child(even) .milestone-content {
-             margin-left: 0; 
-        }
-
-        /* PLACEMENT LATÉRAL DES IMAGES (45% de largeur) */
+        /* CORRECTION : Largeur des conteneurs d'images */
         .milestone-image-group-wrapper {
             position: absolute;
-            width: 45%; /* Réduction pour éviter de croiser la barre */
+            width: 44%; /* Réduit la largeur pour éviter de croiser la barre */
             top: 50%;
             transform: translateY(-50%);
             z-index: 2;
         }
+
+        /* LOGIQUE D'ALTERNANCE */
+        
+        /* Jalon Impair (Fondations, Vision) : Contenu à DROITE (Décalé à 54% pour la marge) */
+        .milestone:nth-child(odd) .milestone-content {
+            margin-left: 54%; /* Ancien 55% -> 54% + 44% = 98%. Crée une marge de 2% entre la barre et le bloc */ 
+        }
+
+        /* Jalon Pair (Expertise) : Contenu à GAUCHE (Marges conservées) */
+        .milestone:nth-child(even) .milestone-content {
+             margin-left: 0; 
+        }
+
         /* Jalon Impair (Fondations, Vision) : Images GAUCHE */
         .milestone:nth-child(odd) .milestone-image-group-wrapper {
             left: 0; 
             right: auto;
         }
-        /* Jalon Pair (Expertise) : Images DROITE */
+        /* Jalon Pair (Expertise) : Images DROITE (avec 44% de largeur, la gauche est à 56% de la boite) */
         .milestone:nth-child(even) .milestone-image-group-wrapper {
             right: 0; 
             left: auto;
