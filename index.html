@@ -47,7 +47,7 @@
             position: relative;
         }
 
-        /* ✅ MODIFICATIONS CSS : Hauteur conservée (320px) et position verticale déplacée vers le bas (60%) */
+        /* ✅ MODIFICATIONS CSS : Hauteur conservée (320px) et position verticale déplacée TRÈS VERS LE BAS (80%) */
         .header-banner {
             width: 100vw; /* Pleine largeur de la fenêtre */
             max-width: none; /* Annule le max-width du .container pour s'étendre */
@@ -62,7 +62,7 @@
             width: 100%;
             height: 100%; /* Force l'image à prendre 100% de la hauteur du conteneur */
             object-fit: cover; /* Recouvre le conteneur */
-            object-position: center 60%; /* Ajuste la position verticale pour centrer le texte */
+            object-position: center 80%; /* Ajuste la position verticale TRÈS VERS LE BAS */
             display: block;
         }
 
@@ -577,13 +577,13 @@
                 width: calc(100% - 70px);
                 margin-left: 70px !important;
             }
-            /* ✅ RESPONSIVE MODIFIÉ : Hauteur réduite sur mobile, position déplacée vers le bas */
+            /* ✅ RESPONSIVE MODIFIÉ : Position déplacée très bas */
             .header-banner {
                 max-height: 180px; 
                 margin-bottom: 1rem;
             }
             .header-banner img {
-                 object-position: center 60%; /* Assure que le texte reste visible */
+                 object-position: center 80%; /* Assure que le texte reste visible */
             }
         }
     </style>
