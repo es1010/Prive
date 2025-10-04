@@ -47,12 +47,12 @@
             position: relative;
         }
 
-        /* ✅ MODIFICATIONS CSS : Hauteur TRÈS réduite (200px) et position verticale forcée à l'extrême bas (bottom) */
+        /* ✅ MODIFICATIONS CSS : Hauteur TRÈS réduite (100px) et position verticale forcée à l'extrême bas (bottom) */
         .header-banner {
             width: 100vw; 
             max-width: none; 
             margin-left: calc(50% - 50vw); 
-            max-height: 200px; /* Hauteur considérablement réduite pour maximiser le rognage du haut */
+            max-height: 100px; /* Hauteur très fine pour garantir l'affichage du bas */
             overflow: hidden; 
             margin-bottom: 2rem;
             box-shadow: 0 5px 15px rgba(0,0,0,0.5);
@@ -576,9 +576,9 @@
                 width: calc(100% - 70px);
                 margin-left: 70px !important;
             }
-            /* ✅ RESPONSIVE MODIFIÉ : Hauteur réduite sur mobile, position forcée au bas */
+            /* ✅ RESPONSIVE MODIFIÉ : Hauteur extrêmement réduite sur mobile, position forcée au bas */
             .header-banner {
-                max-height: 120px; /* Encore plus réduit pour mobile */
+                max-height: 60px; /* Encore plus réduit pour mobile */
                 margin-bottom: 1rem;
             }
             .header-banner img {
