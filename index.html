@@ -522,6 +522,22 @@
              color: #c8e6c9; 
         }
         
+        /* ✅ NOUVEAU STYLE POUR L'IMAGE BLUESKY */
+        .social-links img.social-logo {
+            width: 2rem; 
+            height: 2rem;
+            vertical-align: middle;
+            margin: 0 0.5rem;
+            /* Inverser les couleurs pour le rendre blanc et ajuster le contraste/luminosité */
+            filter: invert(100%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(100%) contrast(100%); 
+            transition: filter 0.3s ease;
+        }
+
+        .social-links a:hover img.social-logo {
+            /* Similaire au survol des autres icônes (couleur #c8e6c9) */
+            filter: invert(80%) sepia(10%) saturate(600%) hue-rotate(80deg) brightness(100%) contrast(90%); 
+        }
+        
         /* Responsive */
         @media (max-width: 1200px) {
              /* Rangement des images dans le flow pour les petits écrans */
@@ -787,7 +803,9 @@
                 <a href="[URL_LinkedIn]" target="_blank" class="social-link" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
                 <a href="[URL_GitHub]" target="_blank" class="social-link" title="GitHub"><i class="fab fa-github-square"></i></a>
                 <a href="[URL_ResearchGate]" target="_blank" class="social-link" title="ResearchGate"><i class="fab fa-researchgate"></i></a>
-                <a href="[URL_Bluesky]" target="_blank" class="social-link" title="Bluesky"><i class="fas fa-skyatlas"></i></a>
+                <a href="[URL_Bluesky]" target="_blank" class="social-link" title="Bluesky">
+                    <img src="bluesky_logo.png" alt="Logo Bluesky" class="social-logo">
+                </a>
             </div>
 
         </div>
