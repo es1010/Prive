@@ -46,27 +46,25 @@
             color: white;
             position: relative;
         }
-        
-        /* ✅ AJOUT : STYLES POUR LA BANNIÈRE (Hauteur limitée) */
+
+        /* ✅ NOUVEAUX STYLES POUR LA BANNIÈRE DU HEADER */
         .header-banner {
             width: 100vw; /* Pleine largeur de la fenêtre */
-            max-width: none;
+            max-width: none; /* Annule le max-width du .container pour s'étendre */
             margin-left: calc(50% - 50vw); /* Centre le bloc sur toute la largeur de l'écran */
-            max-height: 180px; /* ✅ NOUVEAU : Hauteur maximale modérée */
-            overflow: hidden; /* Cache ce qui dépasse la hauteur */
+            max-height: 250px; /* Hauteur maximale légèrement rognée */
+            overflow: hidden; /* Coupe ce qui dépasse */
             margin-bottom: 2rem;
             box-shadow: 0 5px 15px rgba(0,0,0,0.5);
-            /* Assure que la bannière ne soit pas affectée par le padding du container */
         }
 
         .header-banner img {
             width: 100%;
-            height: 100%; /* Force l'image à prendre 100% de la hauteur du conteneur (180px max) */
-            object-fit: cover; /* Recouvre l'espace, acceptant le rognage latéral/vertical */
-            object-position: center center; /* ✅ NOUVEAU : Priorise le centre de l'image (le texte de citation) */
+            height: 100%; /* Force l'image à prendre 100% de la hauteur du conteneur */
+            object-fit: cover; /* Recouvre le conteneur */
+            object-position: center 50%; /* ✅ Point clé : Assure que le centre (le texte) est visible en priorité */
             display: block;
         }
-
 
         .header h1 {
             font-size: 3.5rem;
@@ -118,7 +116,7 @@
             position: relative; 
         }
 
-        /* Styles VIGNETTES DANS LES JALONS (Inchangés) */
+        /* Styles VIGNETTES DANS LES JALONS */
         .milestone-image-group {
             flex-direction: column;
             display: flex;
@@ -157,7 +155,7 @@
             backdrop-filter: blur(10px);
         }
 
-        /* BOUSSOLE FIXÉE EN HAUT À DROITE (Inchangée) */
+        /* BOUSSOLE FIXÉE EN HAUT À DROITE ET AGRANDIE (Rétablie avec le PNG/rotation) */
         .compass {
             position: fixed; 
             top: 20px; 
@@ -170,24 +168,29 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            color: #1b5e20; 
-            font-size: 2.5rem; 
+            color: transparent; 
+            font-size: 0; 
             z-index: 100;
             cursor: pointer;
             transition: background-color 0.3s ease, transform 0.1s ease; 
             box-shadow: 0 5px 15px rgba(0,0,0,0.4); 
             transform: none !important; 
+            overflow: hidden;
         }
         .compass:hover {
             background: #81c784; 
             transform: scale(1.05); 
         }
         .compass::before {
-            content: '▲'; 
-            position: absolute;
-            top: 5px;
-            font-size: 1.5rem; 
-            color: #1b5e20; 
+            content: none !important;
+        }
+        
+        /* Style pour le PNG de la boussole */
+        #compass-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0s; 
         }
         @media (max-width: 1040px) {
             .compass {
@@ -203,7 +206,7 @@
             padding-bottom: 2rem; 
         }
 
-        /* BARRE D'ÉCHELLE (Inchangée) */
+        /* BARRE D'ÉCHELLE (Effet strié/gradué) */
         .journey-path::before {
             content: '';
             position: absolute;
@@ -225,7 +228,7 @@
             border: 1px solid #1b5e20;
         }
         
-        /* Ajustements Marqueurs d'Échelle (Inchangés) */
+        /* Ajustements Marqueurs d'Échelle */
         .scale-marker {
             position: absolute;
             left: 51.5%; 
@@ -246,7 +249,7 @@
             margin-top: 15px; 
         }
         
-        /* Marqueur de Début et Fin (Inchangés) */
+        /* Marqueur de Début et Fin (Restent à gauche de la ligne) */
         .scale-marker.start, .scale-marker.end { 
              right: 51.5%; 
              left: auto;
@@ -279,7 +282,7 @@
             }
         }
         
-        /* Décalage des blocs et réduction de la largeur à 44% (Inchangés) */
+        /* Décalage des blocs et réduction de la largeur à 44% */
         .milestone-content {
             background: white;
             padding: 2.5rem;
@@ -296,7 +299,7 @@
             box-shadow: 0 25px 50px rgba(0,0,0,0.15);
         }
         
-        /* Largeur des conteneurs d'images (Inchangés) */
+        /* Largeur des conteneurs d'images */
         .milestone-image-group-wrapper {
             position: absolute;
             width: 44%; 
@@ -305,7 +308,7 @@
             z-index: 2;
         }
 
-        /* LOGIQUE D'ALTERNANCE (Inchangée) */
+        /* LOGIQUE D'ALTERNANCE */
         
         /* Jalon Impair (Fondations, Vision) : Contenu à DROITE */
         .milestone:nth-child(odd) .milestone-content {
@@ -333,7 +336,7 @@
              display: none !important; 
         }
 
-        /* Styles de contenu (Inchangés) */
+        /* Styles de contenu (conservés) */
         .period-badge {
             display: inline-flex;
             align-items: center;
@@ -436,7 +439,7 @@
             border-color: #4caf50;
         }
 
-        /* Styles de la section Engagement et Action (Inchangés) */
+        /* Styles de la section Engagement et Action (Conservés) */
         .engagement-section {
             max-width: 1000px; 
             margin: 4rem auto; 
@@ -518,7 +521,7 @@
              color: #c8e6c9; 
         }
         
-        /* Responsive (Inchangés sauf pour la bannière) */
+        /* Responsive */
         @media (max-width: 1200px) {
              /* Rangement des images dans le flow pour les petits écrans */
             .milestone-image-group-wrapper {
@@ -574,20 +577,24 @@
                 width: calc(100% - 70px);
                 margin-left: 70px !important;
             }
-            
-            /* ✅ CORRECTION RESPONSIVE : Hauteur plus petite sur mobile, toujours centrée */
+            /* ✅ RESPONSIVE : Hauteur maximale plus petite sur mobile */
             .header-banner {
-                max-height: 100px;
+                max-height: 150px; 
                 margin-bottom: 1rem;
             }
         }
     </style>
 </head>
 <body>
+    
+    <div class="compass" id="scroll-compass" title="Remonter en haut de page">
+        <img src="classic-compass-vector.png" alt="Boussole" id="compass-image"> 
+    </div>
+    
     <div class="container">
         <div class="header">
             <div class="header-banner">
-                <img src="citation_carte.jpg" alt="Bannière de citation cartographique">
+                <img src="citation_carte.png" alt="Bannière de citation cartographique">
             </div>
             
             <h1>Projet Professionnel</h1>
@@ -600,8 +607,6 @@
         </div>
 
         <div class="map-container">
-            <div class="compass" id="scroll-compass" title="Remonter en haut de page">🧭</div>
-
             <div class="journey-path">
                 <div class="scale-marker start">1 km</div>
 
@@ -783,9 +788,22 @@
 
     <script>
         const scrollCompass = document.getElementById('scroll-compass');
+        const compassImage = document.getElementById('compass-image'); 
+        
+        if (scrollCompass && compassImage) {
+            
+            // Fonction pour calculer et appliquer la rotation du PNG
+            function rotateCompassOnScroll() {
+                const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
+                const scrolled = window.scrollY;
+                const scrollPercentage = scrolled / scrollHeight;
+                const rotationAngle = Math.min(scrollPercentage, 1) * 360; 
+                compassImage.style.transform = `rotate(${rotationAngle}deg)`;
+            }
 
-        if (scrollCompass) {
-            // L'action de scroll au top reste.
+            window.addEventListener('scroll', rotateCompassOnScroll);
+            rotateCompassOnScroll();
+
             scrollCompass.addEventListener('click', function() {
                 window.scrollTo({
                     top: 0,
@@ -793,7 +811,7 @@
                 });
             });
         }
-
+        
         // Animation des tags de compétences (hover)
         document.querySelectorAll('.skill-tag, .organization-tags a, .network-tag').forEach(tag => {
             tag.addEventListener('mouseenter', function() {
