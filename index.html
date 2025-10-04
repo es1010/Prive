@@ -47,16 +47,7 @@
             position: relative;
         }
 
-        .header::before {
-            content: '🗺️';
-            position: absolute;
-            top: -30px;
-            left: 50%;
-            transform: translateX(-50%);
-            font-size: 4rem;
-            opacity: 0.3;
-        }
-
+        /* Suppression de l'icône de header: .header::before */
         .header h1 {
             font-size: 3.5rem;
             margin-bottom: 1rem;
@@ -64,9 +55,6 @@
             font-family: 'Georgia', 'Times New Roman', serif;
             font-weight: 700;
             letter-spacing: 2px;
-            text-shadow: none;
-            background: none;
-            -webkit-text-fill-color: unset;
         }
 
         .header .subtitle {
@@ -110,20 +98,22 @@
             position: relative; 
         }
 
+        /* MODIFICATION POUR ALIGNEMENT VERTICAL DES IMAGES */
         .milestone-image-group {
-            display: flex;
-            justify-content: space-around;
+            /* Changé de flex-direction: row à column pour empiler les images */
+            flex-direction: column;
+            display: flex; /* Assure le flex pour l'empilement */
             gap: 15px;
-            margin: 1.5rem 0;
             padding: 1rem;
             border: 1px solid #c8e6c9;
             border-radius: 15px;
             background: #f1f8e9;
+            margin: 0; /* Supprimer les marges internes pour la position absolue */
         }
         
         .milestone-image-group .photo-placeholder {
             margin: 0;
-            width: 150px;
+            width: 100%; /* Prend toute la largeur de son conteneur (35%) */
             height: 150px;
             border: 3px solid #81c784; 
             border-radius: 10px;
@@ -133,7 +123,7 @@
 
         .milestone-image-group .photo-placeholder:hover {
             border-color: #4caf50;
-            transform: scale(1.05);
+            transform: scale(1.03);
             color: rgba(0,0,0,0.8);
         }
 
@@ -148,13 +138,13 @@
             backdrop-filter: blur(10px);
         }
 
-        /* 2. BOUSSOLE DYNAMIQUE (Modification) */
+        /* BOUSSOLE SCROLL-TO-TOP (Correction : Fixée en bas à droite) */
         .compass {
-            position: fixed; /* Fixée pour suivre le scroll */
-            top: 20px;
-            right: calc(50% - 500px + 20px); /* Positionnement relatif au map-container */
-            width: 80px;
-            height: 80px;
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 60px; 
+            height: 60px;
             background: radial-gradient(circle, #2e7d32, #1b5e20);
             border-radius: 50%;
             display: flex;
@@ -162,70 +152,89 @@
             justify-content: center;
             color: white;
             font-size: 1.5rem;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-            z-index: 10;
-            transition: transform 0.1s linear; /* Transition douce pour le mouvement */
+            z-index: 100;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.4);
+        }
+        .compass:hover {
+            background: radial-gradient(circle, #1b5e20, #004d40);
+            transform: scale(1.1);
         }
         .compass::before {
             content: '▲'; 
             position: absolute;
             top: 5px;
             font-size: 1.2rem;
-            color: red; /* Flèche rouge pour le nord/pointeur */
+            color: white; 
         }
-        
+        /* Suppression des styles complexes de rotation de la boussole */
         @media (max-width: 1040px) {
-             /* La boussole revient à un positionnement normal à l'intérieur du map-container quand il n'y a pas assez d'espace */
             .compass {
-                position: absolute;
-                right: 20px;
-                top: 20px;
-                transform: none !important; /* Annule la rotation basée sur le scroll pour cet affichage */
-                animation: rotate 20s linear infinite; /* Réactive la rotation décorative */
+                right: 10px;
+                bottom: 10px;
+                position: fixed; /* On le garde fixé en mobile */
             }
         }
-         @keyframes rotate {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
-        }
+        /* Suppression de @keyframes rotate */
 
         .journey-path {
             position: relative;
             margin: 2rem 0;
-            padding-bottom: 2rem; /* Espace après le dernier jalon */
+            padding-bottom: 2rem; 
         }
 
-        /* 1. BARRE D'ÉCHELLE (Modification) */
+        /* BARRE D'ÉCHELLE (Correction : Effet strié/gradué) */
         .journey-path::before {
             content: '';
             position: absolute;
             left: 50%;
             top: 0;
             bottom: 0;
-            width: 8px; /* Épaisseur un peu plus importante */
-            background: linear-gradient(to bottom, 
-                #8bc34a 0%, 
-                #4caf50 33%, 
-                #2e7d32 66%, 
-                #1b5e20 100%);
+            width: 12px; 
+            background: repeating-linear-gradient( /* Changement pour effet strié */
+                to bottom,
+                #8bc34a,
+                #8bc34a 10px,
+                #2e7d32 10px,
+                #2e7d32 20px
+            ); 
             transform: translateX(-50%);
-            border-radius: 4px;
+            border-radius: 0;
             box-shadow: 0 0 10px rgba(76, 175, 80, 0.5);
-            z-index: 1; /* Assurer que la ligne est en dessous des icônes */
+            z-index: 1; 
+            border: 1px solid #1b5e20;
         }
 
-        /* Repères de la barre d'échelle */
+        /* Repères de la barre d'échelle (Supprimés car inutiles sans les icônes) */
         .milestone::after {
-            content: '';
+            content: none; 
+        }
+        
+        /* Nouveaux Marqueurs de l'échelle (1 km, 50 km, 100 km) */
+        .scale-marker {
             position: absolute;
             left: 50%;
-            top: 50%;
-            width: 15px; /* Longueur du trait */
-            height: 4px;
-            background: #1b5e20; /* Couleur du trait */
-            transform: translate(-50%, -50%);
-            z-index: 3; 
+            transform: translateX(-50%);
+            width: 100px;
+            text-align: center;
+            color: white;
+            font-weight: bold;
+            font-size: 1rem;
+            background: #1b5e20;
+            padding: 5px 10px;
+            border-radius: 5px;
+            border: 1px solid #a5d6a7;
+            z-index: 5; /* Au-dessus de la ligne */
+            pointer-events: none;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.3);
         }
+        .scale-marker.start { top: -25px; }
+        .scale-marker.end { bottom: -25px; }
+        .scale-marker.middle {
+            top: calc(50% - 15px); 
+        }
+
 
         .milestone {
             position: relative;
@@ -251,56 +260,51 @@
             padding: 2.5rem;
             border-radius: 20px;
             box-shadow: 0 15px 35px rgba(0,0,0,0.1);
-            width: 40%; /* Ajustement de la largeur pour plus d'espace */
+            width: 60%; /* MODIFIÉ : 60% pour laisser 35% aux images */
             position: relative;
-            border: 3px solid transparent;
-            background-clip: padding-box;
             transition: all 0.4s ease;
             z-index: 2;
         }
 
         .milestone-content:hover {
-            transform: translateY(-8px) scale(1.02);
+            transform: translateY(-8px) scale(1.01); /* Légère modification d'échelle */
             box-shadow: 0 25px 50px rgba(0,0,0,0.15);
         }
 
-        /* Ajustement du décalage (Ajustement) */
+        /* Ajustement du décalage */
         .milestone:nth-child(odd) .milestone-content {
             margin-left: 0;
         }
 
         .milestone:nth-child(even) .milestone-content {
-            margin-left: 60%; /* Ajusté de 55% à 60% */
+            margin-left: 40%; 
         }
 
+        /* Icônes de jalons (Supprimés du CSS) */
         .milestone-icon {
+             display: none !important; 
+        }
+        /* Suppression des styles d'icônes .past .milestone-icon, etc. */
+
+
+        /* NOUVEAU : PLACEMENT LATÉRAL DES IMAGES */
+        .milestone-image-group-wrapper {
             position: absolute;
-            left: 50%;
-            top: 50%; 
-            transform: translate(-50%, -50%);
-            width: 80px;
-            height: 80px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 2rem;
-            color: white;
-            z-index: 4; /* Au-dessus de la ligne et des repères */
-            transition: all 0.4s ease;
-            cursor: pointer;
-            box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+            width: 35%; /* Laisse un petit espace avec la ligne centrale */
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 2; /* Au-dessus de la ligne de temps (z-index: 1) */
+        }
+        /* Jalon Impair (Content Left) -> Images Right */
+        .milestone:nth-child(odd) .milestone-image-group-wrapper {
+            right: 0;
+        }
+        /* Jalon Pair (Content Right) -> Images Left */
+        .milestone:nth-child(even) .milestone-image-group-wrapper {
+            left: 0;
         }
 
-        .milestone-icon:hover {
-            transform: translate(-50%, -50%) scale(1.15) rotate(5deg);
-        }
-
-        .past .milestone-icon { background: linear-gradient(135deg, #8bc34a, #689f38); }
-        .present .milestone-icon { background: linear-gradient(135deg, #4caf50, #2e7d32); }
-        .future .milestone-icon { background: linear-gradient(135deg, #2e7d32, #1b5e20); }
-
-        /* Styles de contenu (gardés les mêmes) */
+        /* Les styles de contenu suivants sont conservés. */
         .period-badge {
             display: inline-flex;
             align-items: center;
@@ -383,7 +387,6 @@
             transition: all 0.3s ease;
         }
 
-        /* Style des Organismes Visés (vignette) */
         .organization-tags a {
             text-decoration: none;
             color: #2e7d32;
@@ -404,7 +407,7 @@
             border-color: #4caf50;
         }
 
-        /* Section Engagement et Action (Gardé le même) */
+        /* Styles de la section Engagement et Action (Conservés) */
         .engagement-section {
             max-width: 1000px; 
             margin: 4rem auto; 
@@ -448,7 +451,6 @@
             border: 2px solid rgba(255,255,255,0.1);
         }
 
-        /* Style des boutons CTA (Réversé comme demandé) */
         .cta-button {
             display: inline-flex;
             align-items: center;
@@ -479,41 +481,25 @@
 
         .social-links a i {
             font-size: 2rem; 
-            color: #000; 
+            color: white; /* Changé à blanc pour la cohérence */
             transition: color 0.3s ease;
         }
         
         .social-links a:hover i {
              color: #c8e6c9; 
         }
-
-        /* Logo Bluesky */
-        .fa-feather-alt {
-            position: relative;
-            display: inline-block;
-            width: 30px; 
-            height: 30px;
-            font-size: 1px; 
-            vertical-align: middle;
-            color: transparent !important; 
-        }
+        /* Suppression du style fa-feather-alt complexe */
         
-        .fa-feather-alt::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-image: url('bluesky_logo.png'); 
-            background-size: contain;
-            background-repeat: no-repeat;
-            background-position: center; 
-            z-index: 10;
-        }
-
         /* Responsive */
         @media (max-width: 1200px) {
+             /* Rangement des images dans le flow pour les petits écrans */
+            .milestone-image-group-wrapper {
+                position: static;
+                width: 100%;
+                top: auto;
+                transform: none;
+                margin-bottom: 1.5rem; 
+            }
             .milestone-content {
                 width: 100%;
                 margin-left: 0 !important;
@@ -536,10 +522,8 @@
             .milestone::after {
                 left: 30px;
             }
-            .milestone-icon {
-                left: 30px;
-                transform: translate(-50%, -50%) scale(0.8);
-            }
+            /* L'icône de jalon étant supprimée, on peut retirer son style d'adaptation mobile. */
+            /* .milestone-icon { left: 30px; transform: translate(-50%, -50%) scale(0.8); } */
             .milestone-content {
                 width: calc(100% - 70px);
                 margin-left: 70px !important;
@@ -560,21 +544,16 @@
         </div>
 
         <div class="map-container">
-            <div class="compass" id="scroll-compass">🧭</div>
+            <div class="compass" id="scroll-compass" title="Remonter en haut de page">🧭</div>
 
             <div class="journey-path">
+                <div class="scale-marker start">1 km</div>
+
                 <div class="milestone past">
-                    <div class="milestone-icon">🌱</div>
                     <div class="milestone-content">
                         <span class="period-badge">🕰️ Fondations</span>
                         <h3>🎓 Formation & Premiers Terrains</h3>
                         
-                        <div class="milestone-image-group">
-                            <div class="photo-placeholder">Image Fond. 1</div>
-                            <div class="photo-placeholder">Image Fond. 2</div>
-                            <div class="photo-placeholder">Image Fond. 3</div>
-                        </div>
-
                         <p><strong>2018-2022 :</strong> Construction de ma base technique et découverte des territoires tropicaux.</p>
 
                         <div class="highlight">
@@ -597,20 +576,30 @@
                             </div>
                         </div>
                     </div>
+                    <div class="milestone-image-group-wrapper">
+                        <div class="milestone-image-group">
+                            <div class="photo-placeholder">Image Fond. 1</div>
+                            <div class="photo-placeholder">Image Fond. 2</div>
+                            <div class="photo-placeholder">Image Fond. 3</div>
+                        </div>
+                    </div>
                 </div>
+                
+                <div class="scale-marker middle">50 km</div>
 
                 <div class="milestone present">
-                    <div class="milestone-icon">🗺️</div>
-                    <div class="milestone-content">
-                        <span class="period-badge">⚡ Expertise</span>
-                        <h3>🌳 Consolidation & Innovation</h3>
-                        
+                    <div class="milestone-image-group-wrapper">
                         <div class="milestone-image-group">
                             <div class="photo-placeholder">Image Exp. 1</div>
                             <div class="photo-placeholder">Image Exp. 2</div>
                             <div class="photo-placeholder">Image Exp. 3</div>
                         </div>
+                    </div>
 
+                    <div class="milestone-content">
+                        <span class="period-badge">⚡ Expertise</span>
+                        <h3>🌳 Consolidation & Innovation</h3>
+                        
                         <p><strong>2022-2024 :</strong> Montée en expertise et développement d'approches participatives.</p>
 
                         <div class="highlight">
@@ -639,17 +628,10 @@
                 </div>
 
                 <div class="milestone future">
-                    <div class="milestone-icon">🚀</div>
                     <div class="milestone-content">
                         <span class="period-badge">🌟 Vision</span>
                         <h3>🌍 Coopération Sud-Sud & Impact</h3>
                         
-                        <div class="milestone-image-group">
-                            <div class="photo-placeholder">Image Vis. 1</div>
-                            <div class="photo-placeholder">Image Vis. 2</div>
-                            <div class="photo-placeholder">Image Vis. 3</div>
-                        </div>
-
                         <p><strong>2024-2030 :</strong> Développement de projets d'envergure et coopération internationale.</p>
 
                         <div class="highlight">
@@ -677,7 +659,16 @@
                             </div>
                         </div>
                     </div>
+                    <div class="milestone-image-group-wrapper">
+                        <div class="milestone-image-group">
+                            <div class="photo-placeholder">Image Vis. 1</div>
+                            <div class="photo-placeholder">Image Vis. 2</div>
+                            <div class="photo-placeholder">Image Vis. 3</div>
+                        </div>
+                    </div>
                 </div>
+                
+                <div class="scale-marker end">100 km</div>
             </div>
         </div>
 
@@ -736,63 +727,38 @@
     </div>
 
     <script>
-        // Fonction de rotation de la boussole en fonction du scroll
+        // Fonction Scroll-to-Top pour la boussole (clic)
         const scrollCompass = document.getElementById('scroll-compass');
 
-        function updateCompassRotation() {
-            // Calcul de la hauteur de la zone de défilement pertinente (du haut de la page au bas du journey-path)
-            const mapContainer = document.querySelector('.map-container');
-            const journeyPath = document.querySelector('.journey-path');
+        if (scrollCompass) {
+            // Afficher/Cacher la boussole au scroll
+            const toggleCompass = () => {
+                if (window.scrollY > 300) {
+                    scrollCompass.style.opacity = 1;
+                    scrollCompass.style.visibility = 'visible';
+                } else {
+                    scrollCompass.style.opacity = 0;
+                    scrollCompass.style.visibility = 'hidden';
+                }
+            };
             
-            // Si le mapContainer ou journeyPath n'existent pas, on arrête
-            if (!mapContainer || !journeyPath) return;
+            scrollCompass.addEventListener('click', function() {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth' 
+                });
+            });
 
-            // Hauteur totale de la zone à suivre pour la progression
-            const totalScrollHeight = journeyPath.offsetHeight;
+            window.addEventListener('scroll', toggleCompass);
+            document.addEventListener('DOMContentLoaded', toggleCompass);
             
-            // Position actuelle du scroll par rapport au début du journey-path
-            // On prend le scroll global (window.scrollY) et on retire le début du map-container.
-            const journeyTop = mapContainer.offsetTop + journeyPath.offsetTop;
-            const currentScroll = window.scrollY - journeyTop;
-
-            // Calcul du pourcentage de progression
-            let progress = 0;
-            if (totalScrollHeight > 0) {
-                 progress = Math.min(1, Math.max(0, currentScroll / (totalScrollHeight - window.innerHeight * 0.5)));
-            }
-
-            // Mappage de la progression (0 à 1) sur une rotation (90 degrés à 360+90 degrés = 450 degrés)
-            // 90deg (haut de page) -> 450deg (bas de page)
-            // Rotation de 0 à 360 (un tour complet)
-            const rotationDegree = progress * 360; 
-
-            // Application de la rotation CSS
-            // On ajoute 90deg pour que la flèche rouge (le ::before) soit orientée vers le haut au début (0%)
-            scrollCompass.style.transform = `rotate(${rotationDegree}deg)`;
+            scrollCompass.style.opacity = 0; // Masquer au chargement initial
+            scrollCompass.style.visibility = 'hidden';
         }
 
-        // Événements d'écoute pour la boussole et le scroll
-        window.addEventListener('scroll', updateCompassRotation);
-        window.addEventListener('resize', updateCompassRotation);
-        document.addEventListener('DOMContentLoaded', updateCompassRotation);
+        // --- Animations et interactions conservées (Nettoyage de l'écoute des icônes) ---
 
-        // --- Animations et interactions conservées ---
-
-        // Interaction avec les icônes de jalons (pulsation)
-        document.querySelectorAll('.milestone-icon').forEach(icon => {
-            icon.addEventListener('click', function() {
-                const milestone = this.parentElement; 
-                const content = milestone.querySelector('.milestone-content');
-
-                this.style.transform = 'translate(-50%, -50%) scale(1.3)';
-                content.style.transform = 'translateY(-5px) scale(1.03)';
-
-                setTimeout(() => {
-                    this.style.transform = 'translate(-50%, -50%) scale(1)';
-                    content.style.transform = 'translateY(0) scale(1)';
-                }, 300);
-            });
-        });
+        // SUPPRIMÉ : l'Interaction avec les icônes de jalons (pulsation)
 
         // Animation des tags de compétences (hover)
         document.querySelectorAll('.skill-tag, .organization-tags a, .network-tag').forEach(tag => {
