@@ -512,30 +512,65 @@
             margin-top: 1rem; 
         }
 
+        /* Styles pour les liens sociaux */
+        .social-links a {
+            display: inline-block; 
+            margin: 0 0.5rem; 
+            text-decoration: none;
+            position: relative; 
+            width: 2.2rem; 
+            height: 2.2rem;
+            display: inline-flex; 
+            align-items: center;
+            justify-content: center;
+        }
+
         .social-links a i {
             font-size: 2rem; 
-            color: white;
+            color: white; 
             transition: color 0.3s ease;
+            position: relative; 
+            z-index: 2;
         }
         
         .social-links a:hover i {
              color: #c8e6c9; 
         }
+
+        /* Cadre blanc pour toutes les icônes */
+        .social-links a::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 2.2rem; 
+            height: 2.2rem;
+            border-radius: 50%; 
+            background: rgba(255, 255, 255, 0.2); 
+            transition: background 0.3s ease;
+            z-index: 1; 
+        }
         
-        /* ✅ NOUVEAU STYLE POUR L'IMAGE BLUESKY */
+        .social-links a:hover::before {
+            background: rgba(255, 255, 255, 0.35); 
+        }
+
+        /* Styles spécifiques pour l'image Bluesky */
         .social-links img.social-logo {
-            width: 2rem; 
-            height: 2rem;
-            vertical-align: middle;
-            margin: 0 0.5rem;
-            /* Inverser les couleurs pour le rendre blanc et ajuster le contraste/luminosité */
-            filter: invert(100%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(100%) contrast(100%); 
+            width: 1.6rem; 
+            height: 1.6rem;
+            object-fit: contain; 
+            position: relative;
+            z-index: 2;
+            /* Recolor le PNG en vert foncé et rend les parties blanches transparentes */
+            filter: brightness(0) saturate(100%) invert(18%) sepia(87%) saturate(1478%) hue-rotate(106deg) brightness(97%) contrast(93%);
             transition: filter 0.3s ease;
         }
 
         .social-links a:hover img.social-logo {
-            /* Similaire au survol des autres icônes (couleur #c8e6c9) */
-            filter: invert(80%) sepia(10%) saturate(600%) hue-rotate(80deg) brightness(100%) contrast(90%); 
+            /* Changement de couleur au survol pour correspondre au #c8e6c9 */
+            filter: brightness(0) saturate(100%) invert(80%) sepia(10%) saturate(600%) hue-rotate(80deg) brightness(100%) contrast(90%);
         }
         
         /* Responsive */
