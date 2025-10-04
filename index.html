@@ -47,14 +47,14 @@
             position: relative;
         }
 
-        /* ✅ MODIFICATIONS CSS MAJEURES POUR L'IMAGE HEADER */
+        /* ✅ MODIFICATIONS CSS MAJEURES POUR L'IMAGE HEADER (corrigées selon la demande précédente) */
         .header-banner {
             width: 100vw; 
             max-width: none; 
             margin-left: calc(50% - 50vw); 
-            max-height: 400px; /* HAUTEUR AUGMENTÉE pour montrer le centre de l'image */
-            height: 30vw; /* Utilise une hauteur relative pour les grands écrans */
-            min-height: 200px; /* Hauteur minimale pour les petits écrans avant responsive */
+            max-height: 400px; 
+            height: 30vw; 
+            min-height: 200px; 
             overflow: hidden; 
             margin-bottom: 2rem;
             box-shadow: 0 5px 15px rgba(0,0,0,0.5);
@@ -62,9 +62,9 @@
 
         .header-banner img {
             width: 100%;
-            height: 100%; /* Force l'image à prendre 100% de la hauteur du conteneur */
-            object-fit: cover; /* Recouvre le conteneur */
-            object-position: center; /* ALIGNEMENT CENTRAL pour voir la partie importante */
+            height: 100%; 
+            object-fit: cover; 
+            object-position: center; 
             display: block;
         }
         /* FIN DES MODIFICATIONS CSS MAJEURES */
@@ -193,7 +193,7 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
-            transition: transform 0s; 
+            /* Retire le 'transition: transform 0s' car il sera géré par JS */
         }
         @media (max-width: 1040px) {
             .compass {
@@ -581,13 +581,13 @@
             }
             /* ✅ RESPONSIVE MODIFIÉ : Hauteur ajustée sur mobile, position centrale */
             .header-banner {
-                max-height: 250px; /* Moins haut que desktop mais suffisant */
+                max-height: 250px; 
                 min-height: 150px;
-                height: 40vw; /* Utilise une hauteur relative sur mobile */
+                height: 40vw; 
                 margin-bottom: 1rem;
             }
             .header-banner img {
-                 object-position: center; /* ALIGNEMENT CENTRAL conservé pour mobile */
+                 object-position: center; 
             }
         }
     </style>
@@ -822,6 +822,31 @@
         milestones.forEach(milestone => {
             milestoneObserver.observe(milestone);
             milestone.style.animationPlayState = 'paused'; // Assure que l'animation n'est pas jouée au chargement
+        });
+
+        // ✅ NOUVELLE FONCTION : Rotation de la boussole lors du défilement
+        window.addEventListener('scroll', function() {
+            const compassImage = document.getElementById('compass-image');
+            
+            // Hauteur totale de la page défilable
+            const totalHeight = document.documentElement.scrollHeight - window.innerHeight;
+            
+            // Position de défilement actuelle
+            const scrollPosition = window.scrollY;
+            
+            // Calcul du pourcentage de défilement (de 0 à 1)
+            const scrollPercent = scrollPosition / totalHeight;
+            
+            // Définir la rotation maximale (360 degrés)
+            const maxRotation = 360; 
+            
+            // Calcul de la rotation en degrés
+            const rotationDegrees = scrollPercent * maxRotation;
+            
+            // Appliquer la transformation CSS
+            if (compassImage) {
+                 compassImage.style.transform = `rotate(${rotationDegrees}deg)`;
+            }
         });
 
     </script>
