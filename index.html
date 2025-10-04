@@ -6,6 +6,7 @@
     <title>Parcours Cartographique - Géographie Tropicale</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
+        /* CSS GENERAL (Gardé le même pour la cohérence) */
         body {
             box-sizing: border-box;
             margin: 0;
@@ -18,7 +19,6 @@
             overflow-x: hidden;
         }
 
-        /* Fond animé avec motifs tropicaux */
         body::before {
             content: '';
             position: fixed;
@@ -91,13 +91,12 @@
             font-style: italic;
         }
 
-        /* Photo de profil (ronde) */
         .photo-placeholder {
             margin: 1.5rem auto;
             width: 150px;
             height: 150px;
             border: 3px dashed rgba(255,255,255,0.5);
-            border-radius: 50%; /* ROND par défaut pour la photo de profil */
+            border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -111,7 +110,6 @@
             position: relative; 
         }
 
-        /* Styles pour le groupe de 3 images carrées dans les jalons */
         .milestone-image-group {
             display: flex;
             justify-content: space-around;
@@ -123,13 +121,12 @@
             background: #f1f8e9;
         }
         
-        /* Styles pour les placeholders carrés (150x150) à l'intérieur des jalons */
         .milestone-image-group .photo-placeholder {
-            margin: 0; /* Annule le margin: 1.5rem auto du .photo-placeholder générique */
+            margin: 0;
             width: 150px;
             height: 150px;
             border: 3px solid #81c784; 
-            border-radius: 10px; /* CARRÉ */
+            border-radius: 10px;
             color: rgba(0,0,0,0.5);
             background: white; 
         }
@@ -138,20 +135,6 @@
             border-color: #4caf50;
             transform: scale(1.05);
             color: rgba(0,0,0,0.8);
-        }
-
-        .photo-placeholder img {
-             width: 100%;
-             height: 100%;
-             object-fit: cover;
-             display: block;
-             border-radius: inherit;
-        }
-
-        .photo-placeholder:hover {
-            border-color: rgba(255,255,255,0.8);
-            color: rgba(255,255,255,0.9);
-            transform: scale(1.05);
         }
 
         .map-container {
@@ -165,10 +148,11 @@
             backdrop-filter: blur(10px);
         }
 
+        /* 2. BOUSSOLE DYNAMIQUE (Modification) */
         .compass {
-            position: absolute;
+            position: fixed; /* Fixée pour suivre le scroll */
             top: 20px;
-            right: 20px;
+            right: calc(50% - 500px + 20px); /* Positionnement relatif au map-container */
             width: 80px;
             height: 80px;
             background: radial-gradient(circle, #2e7d32, #1b5e20);
@@ -179,10 +163,28 @@
             color: white;
             font-size: 1.5rem;
             box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-            animation: rotate 20s linear infinite;
+            z-index: 10;
+            transition: transform 0.1s linear; /* Transition douce pour le mouvement */
         }
-
-        @keyframes rotate {
+        .compass::before {
+            content: '▲'; 
+            position: absolute;
+            top: 5px;
+            font-size: 1.2rem;
+            color: red; /* Flèche rouge pour le nord/pointeur */
+        }
+        
+        @media (max-width: 1040px) {
+             /* La boussole revient à un positionnement normal à l'intérieur du map-container quand il n'y a pas assez d'espace */
+            .compass {
+                position: absolute;
+                right: 20px;
+                top: 20px;
+                transform: none !important; /* Annule la rotation basée sur le scroll pour cet affichage */
+                animation: rotate 20s linear infinite; /* Réactive la rotation décorative */
+            }
+        }
+         @keyframes rotate {
             from { transform: rotate(0deg); }
             to { transform: rotate(360deg); }
         }
@@ -190,23 +192,39 @@
         .journey-path {
             position: relative;
             margin: 2rem 0;
+            padding-bottom: 2rem; /* Espace après le dernier jalon */
         }
 
+        /* 1. BARRE D'ÉCHELLE (Modification) */
         .journey-path::before {
             content: '';
             position: absolute;
             left: 50%;
             top: 0;
             bottom: 0;
-            width: 6px;
+            width: 8px; /* Épaisseur un peu plus importante */
             background: linear-gradient(to bottom, 
                 #8bc34a 0%, 
                 #4caf50 33%, 
                 #2e7d32 66%, 
                 #1b5e20 100%);
             transform: translateX(-50%);
-            border-radius: 3px;
-            box-shadow: 0 0 10px rgba(76, 175, 80, 0.3);
+            border-radius: 4px;
+            box-shadow: 0 0 10px rgba(76, 175, 80, 0.5);
+            z-index: 1; /* Assurer que la ligne est en dessous des icônes */
+        }
+
+        /* Repères de la barre d'échelle */
+        .milestone::after {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            width: 15px; /* Longueur du trait */
+            height: 4px;
+            background: #1b5e20; /* Couleur du trait */
+            transform: translate(-50%, -50%);
+            z-index: 3; 
         }
 
         .milestone {
@@ -233,11 +251,12 @@
             padding: 2.5rem;
             border-radius: 20px;
             box-shadow: 0 15px 35px rgba(0,0,0,0.1);
-            width: 45%;
+            width: 40%; /* Ajustement de la largeur pour plus d'espace */
             position: relative;
             border: 3px solid transparent;
             background-clip: padding-box;
             transition: all 0.4s ease;
+            z-index: 2;
         }
 
         .milestone-content:hover {
@@ -245,19 +264,19 @@
             box-shadow: 0 25px 50px rgba(0,0,0,0.15);
         }
 
-        /* Retour à la mise en page originale (45% de chaque côté de la ligne) */
+        /* Ajustement du décalage (Ajustement) */
         .milestone:nth-child(odd) .milestone-content {
             margin-left: 0;
         }
 
         .milestone:nth-child(even) .milestone-content {
-            margin-left: 55%;
+            margin-left: 60%; /* Ajusté de 55% à 60% */
         }
 
         .milestone-icon {
             position: absolute;
             left: 50%;
-            top: 50%; /* Centré sur la hauteur */
+            top: 50%; 
             transform: translate(-50%, -50%);
             width: 80px;
             height: 80px;
@@ -267,7 +286,7 @@
             justify-content: center;
             font-size: 2rem;
             color: white;
-            z-index: 2;
+            z-index: 4; /* Au-dessus de la ligne et des repères */
             transition: all 0.4s ease;
             cursor: pointer;
             box-shadow: 0 8px 25px rgba(0,0,0,0.2);
@@ -277,18 +296,11 @@
             transform: translate(-50%, -50%) scale(1.15) rotate(5deg);
         }
 
-        .past .milestone-icon {
-            background: linear-gradient(135deg, #8bc34a, #689f38);
-        }
+        .past .milestone-icon { background: linear-gradient(135deg, #8bc34a, #689f38); }
+        .present .milestone-icon { background: linear-gradient(135deg, #4caf50, #2e7d32); }
+        .future .milestone-icon { background: linear-gradient(135deg, #2e7d32, #1b5e20); }
 
-        .present .milestone-icon {
-            background: linear-gradient(135deg, #4caf50, #2e7d32);
-        }
-
-        .future .milestone-icon {
-            background: linear-gradient(135deg, #2e7d32, #1b5e20);
-        }
-
+        /* Styles de contenu (gardés les mêmes) */
         .period-badge {
             display: inline-flex;
             align-items: center;
@@ -302,20 +314,9 @@
             letter-spacing: 1px;
         }
 
-        .past .period-badge {
-            background: linear-gradient(135deg, #c8e6c9, #a5d6a7);
-            color: #1b5e20;
-        }
-
-        .present .period-badge {
-            background: linear-gradient(135deg, #a5d6a7, #81c784);
-            color: #1b5e20;
-        }
-
-        .future .period-badge {
-            background: linear-gradient(135deg, #81c784, #66bb6a);
-            color: #1b5e20;
-        }
+        .past .period-badge { background: linear-gradient(135deg, #c8e6c9, #a5d6a7); color: #1b5e20; }
+        .present .period-badge { background: linear-gradient(135deg, #a5d6a7, #81c784); color: #1b5e20; }
+        .future .period-badge { background: linear-gradient(135deg, #81c784, #66bb6a); color: #1b5e20; }
 
         .milestone-content h3 {
             font-size: 1.8rem;
@@ -347,7 +348,6 @@
             margin-top: 1.5rem;
         }
         
-        /* Grille 2x2 pour la Vision (futur) */
         .milestone.future .skills-grid {
             grid-template-columns: repeat(2, 1fr); 
         }
@@ -383,11 +383,6 @@
             transition: all 0.3s ease;
         }
 
-        .skill-tag:hover {
-            background: #e8f5e8;
-            transform: translateY(-1px);
-        }
-
         /* Style des Organismes Visés (vignette) */
         .organization-tags a {
             text-decoration: none;
@@ -397,10 +392,10 @@
             border-radius: 10px;
             font-size: 0.9rem;
             font-weight: normal;
-            background: #e8f5e8; /* Fond vert clair */
+            background: #e8f5e8;
             border: 1px solid #a5d6a7;
             transition: all 0.3s ease;
-            margin: 0.3rem 0.3rem 0.3rem 0; /* Ajuste la marge pour l'alignement */
+            margin: 0.3rem 0.3rem 0.3rem 0;
         }
 
         .organization-tags a:hover {
@@ -409,26 +404,7 @@
             border-color: #4caf50;
         }
 
-        .territories {
-            display: flex;
-            justify-content: center;
-            gap: 1rem;
-            margin: 1rem 0;
-            flex-wrap: wrap;
-        }
-
-        .territory {
-            background: linear-gradient(135deg, #4caf50, #2e7d32);
-            color: white;
-            padding: 0.5rem 1rem;
-            border-radius: 20px;
-            font-size: 0.9rem;
-            display: flex;
-            align-items: center;
-            gap: 0.3rem;
-        }
-        
-        /* Centrage et largeur des panneaux */
+        /* Section Engagement et Action (Gardé le même) */
         .engagement-section {
             max-width: 1000px; 
             margin: 4rem auto; 
@@ -460,14 +436,7 @@
             text-decoration: none; 
             display: block; 
         }
-
-        .network-tag:hover {
-            background: #c8e6c9; 
-            transform: translateX(5px);
-            border-color: #4caf50;
-        }
         
-        /* Centrage et largeur du panneau d'action */
         .action-panel {
             max-width: 1000px; 
             margin: 4rem auto 2rem auto; 
@@ -479,37 +448,35 @@
             border: 2px solid rgba(255,255,255,0.1);
         }
 
-        /* REVERSION DEMANDÉE : Style des boutons CTA */
+        /* Style des boutons CTA (Réversé comme demandé) */
         .cta-button {
             display: inline-flex;
             align-items: center;
             gap: 0.5rem;
             padding: 1rem 2rem;
-            background: white; /* Revert to white background */
-            color: #1b5e20; /* Dark green text */
+            background: white;
+            color: #1b5e20;
             text-decoration: none;
             border-radius: 30px;
             font-weight: bold;
             transition: all 0.3s ease;
-            border: 2px solid #1b5e20; /* Dark green border */
+            border: 2px solid #1b5e20;
             box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+            margin: 0.5rem;
         }
 
         .cta-button:hover {
-            background: #e8f5e8; /* Light green on hover */
+            background: #e8f5e8; 
             color: #1b5e20;
             border-color: #4caf50;
-            transform: translateY(-3px); /* Add a slight lift */
+            transform: translateY(-3px);
             box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
         }
-        /* FIN REVERSION */
-
-        /* Marge supérieure pour éloigner les icônes des CTA */
+        
         .social-links {
             margin-top: 1rem; 
         }
 
-        /* Taille et Couleur des icônes sociales */
         .social-links a i {
             font-size: 2rem; 
             color: #000; 
@@ -520,7 +487,7 @@
              color: #c8e6c9; 
         }
 
-        /* Logo Bluesky forcé (Image) */
+        /* Logo Bluesky */
         .fa-feather-alt {
             position: relative;
             display: inline-block;
@@ -545,20 +512,8 @@
             z-index: 10;
         }
 
-
+        /* Responsive */
         @media (max-width: 1200px) {
-            /* Responsive pour les images: alignement vertical et taille adaptée */
-            .milestone-image-group {
-                flex-direction: column;
-                align-items: center;
-            }
-            .milestone-image-group .photo-placeholder {
-                width: 100%; /* Full width in mobile */
-                height: 150px; 
-                max-width: 250px; /* Max size for mobile */
-            }
-            
-            /* Responsive pour le contenu: full width pour les jalons */
             .milestone-content {
                 width: 100%;
                 margin-left: 0 !important;
@@ -578,14 +533,16 @@
             .journey-path::before {
                 left: 30px;
             }
-
+            .milestone::after {
+                left: 30px;
+            }
+            .milestone-icon {
+                left: 30px;
+                transform: translate(-50%, -50%) scale(0.8);
+            }
             .milestone-content {
                 width: calc(100% - 70px);
                 margin-left: 70px !important;
-            }
-
-            .milestone-icon {
-                left: 30px;
             }
         }
     </style>
@@ -603,7 +560,7 @@
         </div>
 
         <div class="map-container">
-            <div class="compass">🧭</div>
+            <div class="compass" id="scroll-compass">🧭</div>
 
             <div class="journey-path">
                 <div class="milestone past">
@@ -625,47 +582,18 @@
                             <p><strong>Premières expériences :</strong> Bureau du Développement Touristique CANGT Guadeloupe (2018), découverte des enjeux territoriaux ultramarins et développement de ma sensibilité aux questions de développement local.</p>
                         </div>
 
-                        <div class="territories">
-                            <span class="territory">🏝️ Guadeloupe</span>
-                            <span class="territory">🎓 Paris</span>
-                            <span class="territory">🌍 France ultramarine</span>
-                        </div>
-
                         <div class="skills-grid">
-                            <div class="skill-category">
-                                <h4>🛰️ SIG & Cartographie</h4>
-                                <div class="skill-tags">
-                                    <span class="skill-tag">QGIS</span>
-                                    <span class="skill-tag">ArcGIS Pro & Apps</span>
-                                    <span class="skill-tag">Production cartographique</span>
-                                    <span class="skill-tag">Collecte données terrain</span>
-                                </div>
+                            <div class="skill-category"><h4>🛰️ SIG & Cartographie</h4>
+                                <div class="skill-tags"><span class="skill-tag">QGIS</span><span class="skill-tag">ArcGIS Pro & Apps</span><span class="skill-tag">Production cartographique</span><span class="skill-tag">Collecte données terrain</span></div>
                             </div>
-                            <div class="skill-category">
-                                <h4>📊 Analyse & Programmation</h4>
-                                <div class="skill-tags">
-                                    <span class="skill-tag">Python</span>
-                                    <span class="skill-tag">R</span>
-                                    <span class="skill-tag">SQL</span>
-                                    <span class="skill-tag">Analyse statistique</span>
-                                </div>
+                            <div class="skill-category"><h4>📊 Analyse & Programmation</h4>
+                                <div class="skill-tags"><span class="skill-tag">Python</span><span class="skill-tag">R</span><span class="skill-tag">SQL</span><span class="skill-tag">Analyse statistique</span></div>
                             </div>
-                            <div class="skill-category">
-                                <h4>🎓 Enseignement & Communication</h4>
-                                <div class="skill-tags">
-                                    <span class="skill-tag">TP universitaire SIG</span>
-                                    <span class="skill-tag">Accompagnement pédagogique</span>
-                                    <span class="skill-tag">Création vidéos</span>
-                                </div>
+                            <div class="skill-category"><h4>🎓 Enseignement & Communication</h4>
+                                <div class="skill-tags"><span class="skill-tag">TP universitaire SIG</span><span class="skill-tag">Accompagnement pédagogique</span><span class="skill-tag">Création vidéos</span></div>
                             </div>
-                            <div class="skill-category">
-                                <h4>🌐 Langues & Outils</h4>
-                                <div class="skill-tags">
-                                    <span class="skill-tag">Anglais (TOEIC 985)</span>
-                                    <span class="skill-tag">Espagnol A2</span>
-                                    <span class="skill-tag">Microsoft Office</span>
-                                    <span class="skill-tag">Illustrator/Photoshop</span>
-                                </div>
+                            <div class="skill-category"><h4>🌐 Langues & Outils</h4>
+                                <div class="skill-tags"><span class="skill-tag">Anglais (TOEIC 985)</span><span class="skill-tag">Espagnol A2</span><span class="skill-tag">Microsoft Office</span><span class="skill-tag">Illustrator/Photoshop</span></div>
                             </div>
                         </div>
                     </div>
@@ -691,54 +619,20 @@
                             <p><strong>Expériences terrain marquantes :</strong></p>
                             <p>• <strong>Alternatives Durables (Cameroun, 2023) :</strong> Chargée d'étude sur la modélisation participative des conflits Homme-Faune, 4 villages périphériques du parc national de Campo Ma'an</p>
                             <p>• <strong>Agence TROPISME (Guadeloupe, 2021) :</strong> État des lieux et conception de réhabilitation d'une RD, création SIG pour recensement ZAE</p>
-                            <p>• <strong>B.R.L. Ingénierie (2022) :</strong> Diagnostic économique EPCI Guadeloupe, projets AFD et PLUi-H Mayotte</p>
-
-                            <p><strong>Coordination événementielle :</strong> 1ère Rencontre Interuniversitaire de la Transition Écologique (Paris, 2022) - coordination associations étudiantes Île-de-France</p>
-                        </div>
-
-                        <div class="territories">
-                            <span class="territory">🌍 Cameroun - Campo Ma'an</span>
-                            <span class="territory">🏝️ Guadeloupe</span>
-                            <span class="territory">🏝️ Mayotte</span>
-                            <span class="territory">🎓 Paris - Coordination</span>
                         </div>
 
                         <div class="skills-grid">
-                            <div class="skill-category">
-                                <h4>🌳 Écologie & Environnement</h4>
-                                <div class="skill-tags">
-                                    <span class="skill-tag">Écologie tropicale</span>
-                                    <span class="skill-tag">Botanique tropicale</span>
-                                    <span class="skill-tag">Conflits Homme-Faune</span>
-                                    <span class="skill-tag">Évaluation environnementale</span>
-                                </div>
+                            <div class="skill-category"><h4>🌳 Écologie & Environnement</h4>
+                                <div class="skill-tags"><span class="skill-tag">Écologie tropicale</span><span class="skill-tag">Botanique tropicale</span><span class="skill-tag">Conflits Homme-Faune</span><span class="skill-tag">Évaluation environnementale</span></div>
                             </div>
-                            <div class="skill-category">
-                                <h4>📊 Études & Diagnostics</h4>
-                                <div class="skill-tags">
-                                    <span class="skill-tag">Faisabilité socio-économique</span>
-                                    <span class="skill-tag">Modélisation participative</span>
-                                    <span class="skill-tag">Diagnostics territoriaux</span>
-                                    <span class="skill-tag">Géographie physique & sociale</span>
-                                </div>
+                            <div class="skill-category"><h4>📊 Études & Diagnostics</h4>
+                                <div class="skill-tags"><span class="skill-tag">Faisabilité socio-économique</span><span class="skill-tag">Modélisation participative</span><span class="skill-tag">Diagnostics territoriaux</span><span class="skill-tag">Géographie physique & sociale</span></div>
                             </div>
-                            <div class="skill-category">
-                                <h4>🎯 Management & Événementiel</h4>
-                                <div class="skill-tags">
-                                    <span class="skill-tag">Gestion de projet</span>
-                                    <span class="skill-tag">Organisation conférences</span>
-                                    <span class="skill-tag">Ciné-débats</span>
-                                    <span class="skill-tag">Ateliers participatifs</span>
-                                </div>
+                            <div class="skill-category"><h4>🎯 Management & Événementiel</h4>
+                                <div class="skill-tags"><span class="skill-tag">Gestion de projet</span><span class="skill-tag">Organisation conférences</span><span class="skill-tag">Ciné-débats</span><span class="skill-tag">Ateliers participatifs</span></div>
                             </div>
-                            <div class="skill-category">
-                                <h4>🤝 Engagement Associatif</h4>
-                                <div class="skill-tags">
-                                    <span class="skill-tag">Amnesty International (2020-2023)</span>
-                                    <span class="skill-tag">Climate Justice Camp Tunisie</span>
-                                    <span class="skill-tag">Secrétaire générale</span>
-                                    <span class="skill-tag">Mobilisation droits humains</span>
-                                </div>
+                            <div class="skill-category"><h4>🤝 Engagement Associatif</h4>
+                                <div class="skill-tags"><span class="skill-tag">Amnesty International (2020-2023)</span><span class="skill-tag">Climate Justice Camp Tunisie</span><span class="skill-tag">Secrétaire générale</span><span class="skill-tag">Mobilisation droits humains</span></div>
                             </div>
                         </div>
                     </div>
@@ -763,43 +657,17 @@
                             <p><strong>Ambitions à moyen terme :</strong> Rejoindre ou créer une structure axée sur la coopération Sud-Sud, Contribuer à des projets à fort impact local mobilisant des outils spatiaux, Développer le lien entre numérique, nature et société.</p>
                         </div>
 
-                        <div class="territories">
-                            <span class="territory">🌍 Coopération Afrique-Caraïbes</span>
-                            <span class="territory">🌱 Organisations innovantes</span>
-                            <span class="territory">🤝 Projets participatifs</span>
-                            <span class="territory">⚡ Transition écologique</span>
-                        </div>
-
                         <div class="skills-grid">
-                            <div class="skill-category">
-                                <h4>🎯 Domaines d'expertise visés</h4>
-                                <div class="skill-tags">
-                                    <span class="skill-tag">Socio-écosystèmes forestiers</span>
-                                    <span class="skill-tag">Agroforesterie</span>
-                                    <span class="skill-tag">Coexistence homme-faune</span>
-                                    <span class="skill-tag">Justice environnementale</span>
-                                </div>
+                            <div class="skill-category"><h4>🎯 Domaines d'expertise visés</h4>
+                                <div class="skill-tags"><span class="skill-tag">Socio-écosystèmes forestiers</span><span class="skill-tag">Agroforesterie</span><span class="skill-tag">Coexistence homme-faune</span><span class="skill-tag">Justice environnementale</span></div>
                             </div>
-                             <div class="skill-category">
-                                <h4>💼 Postes cibles</h4>
-                                <div class="skill-tags">
-                                    <span class="skill-tag">Responsable SIG & environnement</span>
-                                    <span class="skill-tag">Coordinatrice cartographie participative</span>
-                                    <span class="skill-tag">Ingénieure télédétection/LiDAR</span>
-                                    <span class="skill-tag">Consultante diagnostic territorial</span>
-                                </div>
+                             <div class="skill-category"><h4>💼 Postes cibles</h4>
+                                <div class="skill-tags"><span class="skill-tag">Responsable SIG & environnement</span><span class="skill-tag">Coordinatrice cartographie participative</span><span class="skill-tag">Ingénieure télédétection/LiDAR</span><span class="skill-tag">Consultante diagnostic territorial</span></div>
                             </div>
-                             <div class="skill-category">
-                                <h4>📈 Compétences en développement</h4>
-                                <div class="skill-tags">
-                                    <span class="skill-tag">Python avancé (priorité haute)</span>
-                                    <span class="skill-tag">LiDAR & imagerie (priorité haute)</span>
-                                    <span class="skill-tag">Webmapping open source</span>
-                                    <span class="skill-tag">IA géospatiale</span>
-                                </div>
+                             <div class="skill-category"><h4>📈 Compétences en développement</h4>
+                                <div class="skill-tags"><span class="skill-tag">Python avancé (priorité haute)</span><span class="skill-tag">LiDAR & imagerie (priorité haute)</span><span class="skill-tag">Webmapping open source</span><span class="skill-tag">IA géospatiale</span></div>
                             </div>
-                            <div class="skill-category">
-                                <h4>🎯 Organismes Visés (Vignettes cliquables)</h4>
+                            <div class="skill-category"><h4>🎯 Organismes Visés (Vignettes cliquables)</h4>
                                 <div class="organization-grid">
                                     <div class="organization-tags"><a href="[URL_INRAE]" target="_blank">INRAE</a></div>
                                     <div class="organization-tags"><a href="[URL_CIRAD]" target="_blank">CIRAD</a></div>
@@ -868,14 +736,47 @@
     </div>
 
     <script>
-        // Animation de la boussole au survol
-        const compass = document.querySelector('.compass');
-        compass.addEventListener('mouseenter', function() {
-            this.style.animationDuration = '2s';
-        });
-        compass.addEventListener('mouseleave', function() {
-            this.style.animationDuration = '20s';
-        });
+        // Fonction de rotation de la boussole en fonction du scroll
+        const scrollCompass = document.getElementById('scroll-compass');
+
+        function updateCompassRotation() {
+            // Calcul de la hauteur de la zone de défilement pertinente (du haut de la page au bas du journey-path)
+            const mapContainer = document.querySelector('.map-container');
+            const journeyPath = document.querySelector('.journey-path');
+            
+            // Si le mapContainer ou journeyPath n'existent pas, on arrête
+            if (!mapContainer || !journeyPath) return;
+
+            // Hauteur totale de la zone à suivre pour la progression
+            const totalScrollHeight = journeyPath.offsetHeight;
+            
+            // Position actuelle du scroll par rapport au début du journey-path
+            // On prend le scroll global (window.scrollY) et on retire le début du map-container.
+            const journeyTop = mapContainer.offsetTop + journeyPath.offsetTop;
+            const currentScroll = window.scrollY - journeyTop;
+
+            // Calcul du pourcentage de progression
+            let progress = 0;
+            if (totalScrollHeight > 0) {
+                 progress = Math.min(1, Math.max(0, currentScroll / (totalScrollHeight - window.innerHeight * 0.5)));
+            }
+
+            // Mappage de la progression (0 à 1) sur une rotation (90 degrés à 360+90 degrés = 450 degrés)
+            // 90deg (haut de page) -> 450deg (bas de page)
+            // Rotation de 0 à 360 (un tour complet)
+            const rotationDegree = progress * 360; 
+
+            // Application de la rotation CSS
+            // On ajoute 90deg pour que la flèche rouge (le ::before) soit orientée vers le haut au début (0%)
+            scrollCompass.style.transform = `rotate(${rotationDegree}deg)`;
+        }
+
+        // Événements d'écoute pour la boussole et le scroll
+        window.addEventListener('scroll', updateCompassRotation);
+        window.addEventListener('resize', updateCompassRotation);
+        document.addEventListener('DOMContentLoaded', updateCompassRotation);
+
+        // --- Animations et interactions conservées ---
 
         // Interaction avec les icônes de jalons (pulsation)
         document.querySelectorAll('.milestone-icon').forEach(icon => {
@@ -883,7 +784,6 @@
                 const milestone = this.parentElement; 
                 const content = milestone.querySelector('.milestone-content');
 
-                // Animation de pulsation
                 this.style.transform = 'translate(-50%, -50%) scale(1.3)';
                 content.style.transform = 'translateY(-5px) scale(1.03)';
 
