@@ -47,22 +47,21 @@
             position: relative;
         }
 
-        /* NOUVEAUX STYLES POUR LA BANNIÈRE DU HEADER */
+        /* ✅ CORRECTION CSS : Pour afficher toute l'image sans rognage excessif */
         .header-banner {
             width: 100vw; /* Pleine largeur de la fenêtre */
             max-width: none; /* Annule le max-width du .container pour s'étendre */
             margin-left: calc(50% - 50vw); /* Centre le bloc sur toute la largeur de l'écran */
-            max-height: 150px; /* Hauteur maximale modérée */
-            overflow: hidden; /* Cache ce qui dépasse la hauteur */
+            /* Suppression de max-height et overflow: hidden pour que l'image définisse la hauteur */
             margin-bottom: 2rem;
             box-shadow: 0 5px 15px rgba(0,0,0,0.5);
         }
 
         .header-banner img {
             width: 100%;
-            height: 100%;
-            object-fit: cover; /* Assure que l'image couvre l'espace sans se déformer */
+            height: auto; /* ✅ NOUVEAU : Conserve l'aspect ratio et affiche toute l'image */
             display: block;
+            /* Suppression de object-fit: cover */
         }
 
 
@@ -162,15 +161,14 @@
             right: 20px;
             width: 80px; 
             height: 80px; 
-            /* MODIFICATIONS DEMANDÉES : vert clair semi-transparent et couleur de l'icône */
             background: rgba(129, 199, 132, 0.9); 
             border: 3px solid #1b5e20; 
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: transparent; /* Masquer l'ancien contenu texte */
-            font-size: 0; /* Masquer l'ancien contenu texte */
+            color: transparent; 
+            font-size: 0; 
             z-index: 100;
             cursor: pointer;
             transition: background-color 0.3s ease, transform 0.1s ease; 
@@ -179,10 +177,9 @@
             overflow: hidden;
         }
         .compass:hover {
-            background: #81c784; /* Vert clair sans transparence au survol */
+            background: #81c784; 
             transform: scale(1.05); 
         }
-        /* Suppression du pseudo-élément car nous utilisons une image */
         .compass::before {
             content: none !important;
         }
@@ -192,7 +189,6 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
-            /* Le JS gère la rotation, donc on supprime les transitions CSS pour 'transform' */
             transition: transform 0s; 
         }
 
@@ -581,9 +577,8 @@
                 width: calc(100% - 70px);
                 margin-left: 70px !important;
             }
-            /* La bannière prend moins de place sur mobile */
+            /* ✅ CORRECTION RESPONSIVE : Laisser l'image déterminer sa hauteur */
             .header-banner {
-                max-height: 80px;
                 margin-bottom: 1rem;
             }
         }
