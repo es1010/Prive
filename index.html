@@ -136,40 +136,42 @@
             backdrop-filter: blur(10px);
         }
 
-        /* BOUSSOLE SCROLL-TO-TOP */
+        /* BOUSSOLE FIXÉE EN HAUT À DROITE ET AGRANDIE */
         .compass {
-            position: fixed; /* Reste fixe même avec un scroll horizontal */
-            bottom: 20px;
+            position: fixed; 
+            top: 20px; /* POSITIONNEMENT EN HAUT */
             right: 20px;
-            width: 60px; 
-            height: 60px;
+            width: 80px; /* AGRANDISSEMENT */
+            height: 80px; /* AGRANDISSEMENT */
             background: radial-gradient(circle, #2e7d32, #1b5e20);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             color: white;
-            font-size: 1.5rem;
+            font-size: 2.5rem; /* AGRANDISSEMENT DE L'ICÔNE */
             z-index: 100;
             cursor: pointer;
-            transition: background-color 0.3s ease, transform 0.1s ease; /* Transition plus courte pour le JS */
-            box-shadow: 0 0 10px rgba(0,0,0,0.4);
+            transition: background-color 0.3s ease, transform 0.1s ease; 
+            box-shadow: 0 0 15px rgba(0,0,0,0.6);
+            /* Suppression des propriétés JS de visibilité et rotation */
+            transform: none !important; /* On annule la rotation JS précédente si elle existait */
         }
         .compass:hover {
             background: radial-gradient(circle, #1b5e20, #004d40);
-            transform: scale(1.1);
+            transform: scale(1.05); /* Légère mise à l'échelle au survol */
         }
         .compass::before {
             content: '▲'; 
             position: absolute;
             top: 5px;
-            font-size: 1.2rem;
+            font-size: 1.5rem; /* Ajustement de la taille du triangle */
             color: white; 
         }
         @media (max-width: 1040px) {
             .compass {
                 right: 10px;
-                bottom: 10px;
+                top: 10px;
                 position: fixed;
             }
         }
@@ -202,14 +204,14 @@
             border: 1px solid #1b5e20;
         }
         
-        /* NOUVEAU : Ajustements Marqueurs d'Échelle */
+        /* Ajustements Marqueurs d'Échelle */
         .scale-marker {
             position: absolute;
-            left: 51.5%; /* Déplacé à droite de la ligne centrale (50% + 1.5% de décalage) */
+            left: 51.5%; 
             right: auto; 
             transform: none; 
-            width: 60px; /* RÉDUCTION DE LA LARGEUR pour ne prendre que le texte '50km' */
-            text-align: left; /* ALIGNEMENT À GAUCHE pour que le texte parte de la ligne */
+            width: 60px; 
+            text-align: left; 
             color: white;
             font-weight: bold;
             font-size: 0.9rem; 
@@ -225,7 +227,7 @@
         
         /* Marqueur de Début et Fin (Restent à gauche de la ligne) */
         .scale-marker.start, .scale-marker.end { 
-             right: 51.5%; /* Retour à gauche de la ligne */
+             right: 51.5%; 
              left: auto;
              text-align: right;
              width: 85px;
@@ -235,6 +237,9 @@
         .scale-marker.middle {
             top: 50%; 
             transform: translateY(-50%);
+            left: 51.5%; /* S'assure qu'il est à droite de la ligne */
+            right: auto;
+            width: 60px; /* Conserve la largeur réduite */
         }
 
 
@@ -253,13 +258,13 @@
             }
         }
         
-        /* CORRECTION : Décalage des blocs et réduction de la largeur à 44% */
+        /* Décalage des blocs et réduction de la largeur à 44% */
         .milestone-content {
             background: white;
             padding: 2.5rem;
             border-radius: 20px;
             box-shadow: 0 15px 35px rgba(0,0,0,0.1);
-            width: 44%; /* Réduit la largeur pour éviter de croiser la barre */
+            width: 44%; 
             position: relative;
             transition: all 0.4s ease;
             z-index: 2;
@@ -270,10 +275,10 @@
             box-shadow: 0 25px 50px rgba(0,0,0,0.15);
         }
         
-        /* CORRECTION : Largeur des conteneurs d'images */
+        /* Largeur des conteneurs d'images */
         .milestone-image-group-wrapper {
             position: absolute;
-            width: 44%; /* Réduit la largeur pour éviter de croiser la barre */
+            width: 44%; 
             top: 50%;
             transform: translateY(-50%);
             z-index: 2;
@@ -281,12 +286,12 @@
 
         /* LOGIQUE D'ALTERNANCE */
         
-        /* Jalon Impair (Fondations, Vision) : Contenu à DROITE (Décalé à 54% pour la marge) */
+        /* Jalon Impair (Fondations, Vision) : Contenu à DROITE */
         .milestone:nth-child(odd) .milestone-content {
-            margin-left: 54%; /* 54% + 44% = 98%. Marge de 2% entre la barre et le bloc */ 
+            margin-left: 54%; 
         }
 
-        /* Jalon Pair (Expertise) : Contenu à GAUCHE (Marges conservées) */
+        /* Jalon Pair (Expertise) : Contenu à GAUCHE */
         .milestone:nth-child(even) .milestone-content {
              margin-left: 0; 
         }
@@ -296,7 +301,7 @@
             left: 0; 
             right: auto;
         }
-        /* Jalon Pair (Expertise) : Images DROITE (avec 44% de largeur, la gauche est à 56% de la boite) */
+        /* Jalon Pair (Expertise) : Images DROITE */
         .milestone:nth-child(even) .milestone-image-group-wrapper {
             right: 0; 
             left: auto;
@@ -515,6 +520,11 @@
                 text-align: right; 
                 width: 100px; 
             }
+             /* La boussole reste fixe en haut à droite */
+            .compass { 
+                top: 20px; 
+                right: 20px;
+            }
         }
         
         @media (max-width: 768px) {
@@ -530,7 +540,7 @@
             }
             /* Adaptation du marqueur d'échelle sur mobile */
              .scale-marker { 
-                left: 45px; /* Décalé à droite de la ligne mobile (30px) */
+                left: 45px; 
                 right: auto;
                 text-align: left; 
                 width: 80px; 
@@ -744,30 +754,9 @@
         const scrollCompass = document.getElementById('scroll-compass');
 
         if (scrollCompass) {
-            const toggleCompass = () => {
-                const scrollPosition = window.scrollY;
-                const documentHeight = document.documentElement.scrollHeight - window.innerHeight;
+            // Le JavaScript a été simplifié. La rotation et le changement de visibilité 
+            // au scroll ne sont plus nécessaires car la boussole est fixe en haut.
 
-                // 1. Visibilité
-                if (scrollPosition > 300) {
-                    scrollCompass.style.opacity = 1;
-                    scrollCompass.style.visibility = 'visible';
-                } else {
-                    scrollCompass.style.opacity = 0;
-                    scrollCompass.style.visibility = 'hidden';
-                }
-
-                // 2. Rotation 360 progressive
-                if (documentHeight > 0) {
-                    // Calcul du pourcentage de défilement (0 à 1)
-                    const scrollPercent = (scrollPosition / documentHeight);
-                    
-                    // Fait tourner la boussole 3 fois (3 * 360 degrés) sur toute la page
-                    const rotation = scrollPercent * 360 * 3; 
-                    scrollCompass.style.transform = `rotate(${rotation}deg)`;
-                }
-            };
-            
             scrollCompass.addEventListener('click', function() {
                 window.scrollTo({
                     top: 0,
@@ -775,13 +764,8 @@
                 });
             });
 
-            window.addEventListener('scroll', toggleCompass);
-            document.addEventListener('DOMContentLoaded', toggleCompass);
-            
-            // Masquer au chargement initial
-            scrollCompass.style.opacity = 0; 
-            scrollCompass.style.visibility = 'hidden';
-            scrollCompass.style.transition = 'opacity 0.3s ease, transform 0.1s linear'; /* Ajout de la transition pour la rotation fluide */
+            // On retire l'écouteur d'événement de scroll qui gérait la rotation et la visibilité
+            // window.addEventListener('scroll', toggleCompass);
         }
 
         // Animation des tags de compétences (hover)
