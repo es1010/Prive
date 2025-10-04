@@ -47,12 +47,14 @@
             position: relative;
         }
 
-        /* ✅ MODIFICATIONS CSS : Hauteur TRÈS réduite (100px) et position verticale forcée à l'extrême bas (bottom) */
+        /* ✅ MODIFICATIONS CSS MAJEURES POUR L'IMAGE HEADER */
         .header-banner {
             width: 100vw; 
             max-width: none; 
             margin-left: calc(50% - 50vw); 
-            max-height: 100px; /* Hauteur très fine pour garantir l'affichage du bas */
+            max-height: 400px; /* HAUTEUR AUGMENTÉE pour montrer le centre de l'image */
+            height: 30vw; /* Utilise une hauteur relative pour les grands écrans */
+            min-height: 200px; /* Hauteur minimale pour les petits écrans avant responsive */
             overflow: hidden; 
             margin-bottom: 2rem;
             box-shadow: 0 5px 15px rgba(0,0,0,0.5);
@@ -62,9 +64,10 @@
             width: 100%;
             height: 100%; /* Force l'image à prendre 100% de la hauteur du conteneur */
             object-fit: cover; /* Recouvre le conteneur */
-            object-position: bottom; /* Force le bas de l'image à être toujours visible */
+            object-position: center; /* ALIGNEMENT CENTRAL pour voir la partie importante */
             display: block;
         }
+        /* FIN DES MODIFICATIONS CSS MAJEURES */
 
         .header h1 {
             font-size: 3.5rem;
@@ -576,13 +579,15 @@
                 width: calc(100% - 70px);
                 margin-left: 70px !important;
             }
-            /* ✅ RESPONSIVE MODIFIÉ : Hauteur extrêmement réduite sur mobile, position forcée au bas */
+            /* ✅ RESPONSIVE MODIFIÉ : Hauteur ajustée sur mobile, position centrale */
             .header-banner {
-                max-height: 60px; /* Encore plus réduit pour mobile */
+                max-height: 250px; /* Moins haut que desktop mais suffisant */
+                min-height: 150px;
+                height: 40vw; /* Utilise une hauteur relative sur mobile */
                 margin-bottom: 1rem;
             }
             .header-banner img {
-                 object-position: bottom; /* Force le bas de l'image à être toujours visible */
+                 object-position: center; /* ALIGNEMENT CENTRAL conservé pour mobile */
             }
         }
     </style>
@@ -782,113 +787,43 @@
             <div class="social-links">
                 <a href="[URL_LinkedIn]" target="_blank" class="social-link" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
                 <a href="[URL_GitHub]" target="_blank" class="social-link" title="GitHub"><i class="fab fa-github-square"></i></a>
-                <a href="[URL_Autre]" target="_blank" class="social-link" title="ResearchGate/Autre"><i class="fas fa-globe"></i></a>
-                <a href="[URL_Bluesky]" target="_blank" class="social-link" title="Bluesky"><i class="fas fa-feather-alt"></i></a> 
+                <a href="[URL_ResearchGate]" target="_blank" class="social-link" title="ResearchGate"><i class="fab fa-researchgate"></i></a>
             </div>
+
         </div>
     </div>
-
+    
     <script>
-        const scrollCompass = document.getElementById('scroll-compass');
-        const compassImage = document.getElementById('compass-image'); 
-        
-        if (scrollCompass && compassImage) {
-            
-            // Fonction pour calculer et appliquer la rotation du PNG
-            function rotateCompassOnScroll() {
-                const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
-                const scrolled = window.scrollY;
-                const scrollPercentage = scrolled / scrollHeight;
-                const rotationAngle = Math.min(scrollPercentage, 1) * 360; 
-                compassImage.style.transform = `rotate(${rotationAngle}deg)`;
-            }
-
-            window.addEventListener('scroll', rotateCompassOnScroll);
-            rotateCompassOnScroll();
-
-            scrollCompass.addEventListener('click', function() {
-                window.scrollTo({
-                    top: 0,
-                    behavior: 'smooth' 
-                });
-            });
-        }
-        
-        // Animation des tags de compétences (hover)
-        document.querySelectorAll('.skill-tag, .organization-tags a, .network-tag').forEach(tag => {
-            tag.addEventListener('mouseenter', function() {
-                if (this.classList.contains('network-tag')) {
-                    this.style.background = '#c8e6c9'; 
-                } else if (this.tagName === 'A') {
-                     this.style.background = '#c8e6c9'; 
-                     this.style.color = '#1b5e20';
-                } else {
-                     this.style.background = '#e8f5e8';
-                     this.style.color = '#1b5e20';
-                }
-            });
-            tag.addEventListener('mouseleave', function() {
-                if (this.classList.contains('network-tag')) {
-                    this.style.background = '#e8f5e8';
-                } else if (this.tagName === 'A') {
-                     this.style.background = '#e8f5e8'; 
-                     this.style.color = '#2e7d32';
-                } else {
-                     this.style.background = 'white'; 
-                     this.style.color = '#2e7d32';
-                }
+        // Fonction pour le défilement vers le haut
+        document.getElementById('scroll-compass').addEventListener('click', function() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
             });
         });
-
-
-        // Gestion des boutons d'action (message d'alerte simulé pour les CTA)
-        document.querySelectorAll('.cta-buttons a').forEach(button => {
-            button.addEventListener('click', function(e) {
-                if (this.id === 'cta-contact') return; 
-                
-                e.preventDefault();
-
-                const text = this.textContent.trim();
-                let message = '';
-
-                if (text.includes('projet')) {
-                    message = 'Ouverture de la messagerie pour discuter de vos projets géospatiaux...';
-                } else if (text.includes('réalisations')) {
-                    message = 'Redirection vers la section "Portfolio" (URL à ajouter pour la navigation)...';
-                }
-
-                // Animation de feedback
-                this.style.transform = 'scale(0.95)';
-                setTimeout(() => {
-                    this.style.transform = 'translateY(-3px)';
-                    alert(message);
-                    
-                    setTimeout(() => {
-                        this.style.transform = 'translateY(0)';
-                    }, 100);
-
-                }, 150);
-            });
-        });
-
-
-        // Animation d'apparition progressive au scroll
+        
+        // Observez le défilement pour animer les jalons
+        const milestones = document.querySelectorAll('.milestone');
         const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.2 // Déclenche quand 20% du jalon est visible
         };
 
-        const observer = new IntersectionObserver((entries) => {
+        const milestoneObserver = new IntersectionObserver((entries, observer) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     entry.target.style.animationPlayState = 'running';
+                    observer.unobserve(entry.target); // Arrête l'observation une fois que l'animation est lancée
                 }
             });
         }, observerOptions);
 
-        document.querySelectorAll('.milestone').forEach(milestone => {
-            observer.observe(milestone);
+        milestones.forEach(milestone => {
+            milestoneObserver.observe(milestone);
+            milestone.style.animationPlayState = 'paused'; // Assure que l'animation n'est pas jouée au chargement
         });
+
     </script>
 </body>
 </html>
