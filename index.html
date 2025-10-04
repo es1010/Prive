@@ -45,26 +45,26 @@
             margin-bottom: 4rem;
             color: white;
             position: relative;
-            /* AJOUTE DE L'ESPACE EN HAUT POUR LE DÉBUT DE LA BANNIÈRE */
-            padding-top: 50px; 
         }
 
-        /* ✅ NOUVEAUX STYLES POUR LA BANNIÈRE DE FOND DANS LE HEADER */
-        .header-banner-placeholder {
-            position: absolute;
-            top: 0;
-            /* Ces valeurs négatives permettent à la bannière d'aller au bord du .container */
-            left: -20px; 
-            right: -20px;
-            height: 150px; /* HAUTEUR FIXE DE LA BANNIÈRE */
-            background-image: url('https://via.placeholder.com/1200x150/1b5e20/FFFFFF?text=Banniere+de+Fond+Ici');
-            background-size: cover;
-            background-position: center;
-            opacity: 0.3; /* Transparence pour ne pas écraser le titre */
-            border-radius: 20px 20px 0 0;
-            z-index: 0; /* Place la bannière derrière le texte de titre */
-            overflow: hidden;
+        /* NOUVEAUX STYLES POUR LA BANNIÈRE DU HEADER */
+        .header-banner {
+            width: 100vw; /* Pleine largeur de la fenêtre */
+            max-width: none; /* Annule le max-width du .container pour s'étendre */
+            margin-left: calc(50% - 50vw); /* Centre le bloc sur toute la largeur de l'écran */
+            max-height: 150px; /* Hauteur maximale modérée */
+            overflow: hidden; /* Cache ce qui dépasse la hauteur */
+            margin-bottom: 2rem;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.5);
         }
+
+        .header-banner img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* Assure que l'image couvre l'espace sans se déformer */
+            display: block;
+        }
+
 
         .header h1 {
             font-size: 3.5rem;
@@ -73,8 +73,6 @@
             font-family: 'Georgia', 'Times New Roman', serif;
             font-weight: 700;
             letter-spacing: 2px;
-            position: relative; /* Assure que le titre a un z-index supérieur à la bannière */
-            z-index: 1;
         }
 
         .header .subtitle {
@@ -84,8 +82,6 @@
             font-weight: 600;
             color: #81c784;
             text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
-            position: relative;
-            z-index: 1;
         }
 
         .header .speciality-line {
@@ -93,16 +89,12 @@
             opacity: 0.9;
             margin-bottom: 0.5rem;
             font-weight: 500;
-            position: relative;
-            z-index: 1;
         }
 
         .header .speciality {
             font-size: 1rem;
             opacity: 0.8;
             font-style: italic;
-            position: relative;
-            z-index: 1;
         }
 
         .photo-placeholder {
@@ -122,7 +114,6 @@
             padding: 1rem;
             overflow: hidden;
             position: relative; 
-            z-index: 1;
         }
 
         /* Styles VIGNETTES DANS LES JALONS */
@@ -196,7 +187,7 @@
             content: none !important;
         }
         
-        /* NOUVEAU STYLE POUR LE PNG DE LA BOUSSOLE */
+        /* STYLE POUR LE PNG DE LA BOUSSOLE */
         #compass-image {
             width: 100%;
             height: 100%;
@@ -590,9 +581,10 @@
                 width: calc(100% - 70px);
                 margin-left: 70px !important;
             }
-            .header-banner-placeholder {
-                left: -20px; /* Assure la pleine largeur même avec le padding */
-                right: -20px;
+            /* La bannière prend moins de place sur mobile */
+            .header-banner {
+                max-height: 80px;
+                margin-bottom: 1rem;
             }
         }
     </style>
@@ -605,7 +597,9 @@
     
     <div class="container">
         <div class="header">
-            <div class="header-banner-placeholder"></div>
+            <div class="header-banner">
+                <img src="citation_carte.png" alt="Bannière de citation cartographique">
+            </div>
             
             <h1>Projet Professionnel</h1>
             <div class="subtitle">Prénom Nom</div>
