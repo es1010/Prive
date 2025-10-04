@@ -46,22 +46,25 @@
             color: white;
             position: relative;
         }
-
-        /* ✅ CORRECTION CSS : Pour afficher toute l'image sans rognage excessif */
+        
+        /* ✅ AJOUT : STYLES POUR LA BANNIÈRE (Hauteur limitée) */
         .header-banner {
             width: 100vw; /* Pleine largeur de la fenêtre */
-            max-width: none; /* Annule le max-width du .container pour s'étendre */
+            max-width: none;
             margin-left: calc(50% - 50vw); /* Centre le bloc sur toute la largeur de l'écran */
-            /* Suppression de max-height et overflow: hidden pour que l'image définisse la hauteur */
+            max-height: 180px; /* ✅ NOUVEAU : Hauteur maximale modérée */
+            overflow: hidden; /* Cache ce qui dépasse la hauteur */
             margin-bottom: 2rem;
             box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+            /* Assure que la bannière ne soit pas affectée par le padding du container */
         }
 
         .header-banner img {
             width: 100%;
-            height: auto; /* ✅ NOUVEAU : Conserve l'aspect ratio et affiche toute l'image */
+            height: 100%; /* Force l'image à prendre 100% de la hauteur du conteneur (180px max) */
+            object-fit: cover; /* Recouvre l'espace, acceptant le rognage latéral/vertical */
+            object-position: center center; /* ✅ NOUVEAU : Priorise le centre de l'image (le texte de citation) */
             display: block;
-            /* Suppression de object-fit: cover */
         }
 
 
@@ -115,7 +118,7 @@
             position: relative; 
         }
 
-        /* Styles VIGNETTES DANS LES JALONS */
+        /* Styles VIGNETTES DANS LES JALONS (Inchangés) */
         .milestone-image-group {
             flex-direction: column;
             display: flex;
@@ -154,9 +157,9 @@
             backdrop-filter: blur(10px);
         }
 
-        /* BOUSSOLE FIXÉE EN HAUT À DROITE ET AGRANDIE */
+        /* BOUSSOLE FIXÉE EN HAUT À DROITE (Inchangée) */
         .compass {
-            position: fixed; /* GARANTIT QU'IL SUIT LE SCROLL */
+            position: fixed; 
             top: 20px; 
             right: 20px;
             width: 80px; 
@@ -167,31 +170,25 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            color: transparent; 
-            font-size: 0; 
+            color: #1b5e20; 
+            font-size: 2.5rem; 
             z-index: 100;
             cursor: pointer;
             transition: background-color 0.3s ease, transform 0.1s ease; 
             box-shadow: 0 5px 15px rgba(0,0,0,0.4); 
             transform: none !important; 
-            overflow: hidden;
         }
         .compass:hover {
             background: #81c784; 
             transform: scale(1.05); 
         }
         .compass::before {
-            content: none !important;
+            content: '▲'; 
+            position: absolute;
+            top: 5px;
+            font-size: 1.5rem; 
+            color: #1b5e20; 
         }
-        
-        /* STYLE POUR LE PNG DE LA BOUSSOLE */
-        #compass-image {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0s; 
-        }
-
         @media (max-width: 1040px) {
             .compass {
                 right: 10px;
@@ -206,7 +203,7 @@
             padding-bottom: 2rem; 
         }
 
-        /* BARRE D'ÉCHELLE (Effet strié/gradué) */
+        /* BARRE D'ÉCHELLE (Inchangée) */
         .journey-path::before {
             content: '';
             position: absolute;
@@ -228,7 +225,7 @@
             border: 1px solid #1b5e20;
         }
         
-        /* Ajustements Marqueurs d'Échelle */
+        /* Ajustements Marqueurs d'Échelle (Inchangés) */
         .scale-marker {
             position: absolute;
             left: 51.5%; 
@@ -249,7 +246,7 @@
             margin-top: 15px; 
         }
         
-        /* Marqueur de Début et Fin (Restent à gauche de la ligne) */
+        /* Marqueur de Début et Fin (Inchangés) */
         .scale-marker.start, .scale-marker.end { 
              right: 51.5%; 
              left: auto;
@@ -282,7 +279,7 @@
             }
         }
         
-        /* Décalage des blocs et réduction de la largeur à 44% */
+        /* Décalage des blocs et réduction de la largeur à 44% (Inchangés) */
         .milestone-content {
             background: white;
             padding: 2.5rem;
@@ -299,7 +296,7 @@
             box-shadow: 0 25px 50px rgba(0,0,0,0.15);
         }
         
-        /* Largeur des conteneurs d'images */
+        /* Largeur des conteneurs d'images (Inchangés) */
         .milestone-image-group-wrapper {
             position: absolute;
             width: 44%; 
@@ -308,7 +305,7 @@
             z-index: 2;
         }
 
-        /* LOGIQUE D'ALTERNANCE */
+        /* LOGIQUE D'ALTERNANCE (Inchangée) */
         
         /* Jalon Impair (Fondations, Vision) : Contenu à DROITE */
         .milestone:nth-child(odd) .milestone-content {
@@ -336,7 +333,7 @@
              display: none !important; 
         }
 
-        /* Styles de contenu (conservés) */
+        /* Styles de contenu (Inchangés) */
         .period-badge {
             display: inline-flex;
             align-items: center;
@@ -439,7 +436,7 @@
             border-color: #4caf50;
         }
 
-        /* Styles de la section Engagement et Action (Conservés) */
+        /* Styles de la section Engagement et Action (Inchangés) */
         .engagement-section {
             max-width: 1000px; 
             margin: 4rem auto; 
@@ -521,7 +518,7 @@
              color: #c8e6c9; 
         }
         
-        /* Responsive */
+        /* Responsive (Inchangés sauf pour la bannière) */
         @media (max-width: 1200px) {
              /* Rangement des images dans le flow pour les petits écrans */
             .milestone-image-group-wrapper {
@@ -577,23 +574,20 @@
                 width: calc(100% - 70px);
                 margin-left: 70px !important;
             }
-            /* ✅ CORRECTION RESPONSIVE : Laisser l'image déterminer sa hauteur */
+            
+            /* ✅ CORRECTION RESPONSIVE : Hauteur plus petite sur mobile, toujours centrée */
             .header-banner {
+                max-height: 100px;
                 margin-bottom: 1rem;
             }
         }
     </style>
 </head>
 <body>
-    
-    <div class="compass" id="scroll-compass" title="Remonter en haut de page">
-        <img src="classic-compass-vector.png" alt="Boussole" id="compass-image">
-    </div>
-    
     <div class="container">
         <div class="header">
             <div class="header-banner">
-                <img src="citation_carte.png" alt="Bannière de citation cartographique">
+                <img src="citation_carte.jpg" alt="Bannière de citation cartographique">
             </div>
             
             <h1>Projet Professionnel</h1>
@@ -606,6 +600,8 @@
         </div>
 
         <div class="map-container">
+            <div class="compass" id="scroll-compass" title="Remonter en haut de page">🧭</div>
+
             <div class="journey-path">
                 <div class="scale-marker start">1 km</div>
 
@@ -787,36 +783,9 @@
 
     <script>
         const scrollCompass = document.getElementById('scroll-compass');
-        const compassImage = document.getElementById('compass-image'); // ✅ Récupère l'élément image pour la rotation
 
-        if (scrollCompass && compassImage) {
-            
-            // Fonction pour calculer et appliquer la rotation du PNG
-            function rotateCompassOnScroll() {
-                // Hauteur totale du contenu scrollable (la hauteur de la page moins la hauteur visible de la fenêtre)
-                const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
-
-                // Position de défilement actuelle
-                const scrolled = window.scrollY;
-
-                // Calcul du pourcentage de défilement (de 0.0 en haut à 1.0 en bas)
-                const scrollPercentage = scrolled / scrollHeight;
-
-                // Calcul de l'angle de rotation : de 0° (en haut) à 360° (en bas)
-                const rotationAngle = Math.min(scrollPercentage, 1) * 360; 
-
-                // Application de la transformation CSS à l'image
-                compassImage.style.transform = `rotate(${rotationAngle}deg)`;
-            }
-
-            // Écoute des événements de défilement et appel de la fonction de rotation
-            window.addEventListener('scroll', rotateCompassOnScroll);
-
-            // Appel initial pour s'assurer que la boussole est bien positionnée au chargement
-            rotateCompassOnScroll();
-
-
-            // L'action au clic reste la même (retour en haut)
+        if (scrollCompass) {
+            // L'action de scroll au top reste.
             scrollCompass.addEventListener('click', function() {
                 window.scrollTo({
                     top: 0,
