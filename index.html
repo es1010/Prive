@@ -252,10 +252,10 @@
         
         /* Marqueur de Début et Fin (Restent à gauche de la ligne) */
         .scale-marker.start, .scale-marker.end { 
-             right: 51.5%; 
-             left: auto;
-             text-align: right;
-             width: 85px;
+              right: 51.5%; 
+              left: auto;
+              text-align: right;
+              width: 85px;
         }
         .scale-marker.start { top: -25px; margin-top: 0; }
         .scale-marker.end { bottom: -25px; margin-top: 0; }
@@ -309,32 +309,42 @@
             z-index: 2;
         }
 
-        /* LOGIQUE D'ALTERNANCE */
+        /* LOGIQUE D'ALTERNANCE (GÉNÉRALE) */
         
-        /* Jalon Impair (Fondations, Vision) : Contenu à DROITE */
+        /* Jalon Impair (Fondations, Vision) : Contenu à GAUCHE (par défaut dans le HTML initial) */
         .milestone:nth-child(odd) .milestone-content {
-            margin-left: 54%; 
+             margin-left: 0; /* Position par défaut à gauche (corrigé) */
         }
-
-        /* Jalon Pair (Expertise) : Contenu à GAUCHE */
+        /* Jalon Pair (Expertise) : Contenu à DROITE */
         .milestone:nth-child(even) .milestone-content {
-             margin-left: 0; 
+             margin-left: 54%; /* Contenu à droite */
         }
 
-        /* Jalon Impair (Fondations, Vision) : Images GAUCHE */
+        /* Jalon Impair (Fondations, Vision) : Images DROITE (par défaut dans le HTML initial) */
         .milestone:nth-child(odd) .milestone-image-group-wrapper {
-            left: 0; 
-            right: auto;
+             right: 0; /* Position par défaut à droite (corrigé) */
+             left: auto;
         }
-        /* Jalon Pair (Expertise) : Images DROITE */
+        /* Jalon Pair (Expertise) : Images GAUCHE */
         .milestone:nth-child(even) .milestone-image-group-wrapper {
-            right: 0; 
-            left: auto;
+             left: 0; /* Images à gauche */
+             right: auto;
+        }
+
+        /* INVERSION SPÉCIFIQUE DU PREMIER JALON (Fondations) */
+        /* Fondations (milestone-inverse) : Contenu à DROITE */
+        .milestone-inverse .milestone-content {
+             margin-left: 54%;
+        }
+        /* Fondations (milestone-inverse) : Images GAUCHE */
+        .milestone-inverse .milestone-image-group-wrapper {
+             left: 0;
+             right: auto;
         }
 
         /* Suppression des icônes de jalon */
         .milestone-icon {
-             display: none !important; 
+              display: none !important; 
         }
 
         /* Styles de contenu (conservés) */
@@ -669,14 +679,8 @@
             <div class="journey-path">
                 <div class="scale-marker start">1 km</div>
 
-                <div class="milestone past">
-                    <div class="milestone-image-group-wrapper">
-                        <div class="milestone-image-group">
-                            <div class="photo-placeholder">Image Fond. 1</div>
-                            <div class="photo-placeholder">Image Fond. 2</div>
-                            <div class="photo-placeholder">Image Fond. 3</div>
-                        </div>
-                    </div>
+                <div class="milestone past milestone-inverse">
+                    
                     <div class="milestone-content">
                         <span class="period-badge">🕰️ Fondations</span>
                         <h3>🎓 Formation & Premiers Terrains</h3>
@@ -701,6 +705,14 @@
                             <div class="skill-category"><h4>🌐 Langues & Outils</h4>
                                 <div class="skill-tags"><span class="skill-tag">Anglais (TOEIC 985)</span><span class="skill-tag">Espagnol A2</span><span class="skill-tag">Microsoft Office</span><span class="skill-tag">Illustrator/Photoshop</span></div>
                             </div>
+                        </div>
+                    </div>
+                    
+                    <div class="milestone-image-group-wrapper">
+                        <div class="milestone-image-group">
+                            <div class="photo-placeholder">Image Fond. 1</div>
+                            <div class="photo-placeholder">Image Fond. 2</div>
+                            <div class="photo-placeholder">Image Fond. 3</div>
                         </div>
                     </div>
                 </div>
@@ -770,10 +782,10 @@
                                 <div class="skill-tags"><span class="skill-tag">Socio-écosystèmes forestiers</span><span class="skill-tag">Agroforesterie</span><span class="skill-tag">Coexistence homme-faune</span><span class="skill-tag">Justice environnementale</span></div>
                             </div>
                              <div class="skill-category"><h4>💼 Postes cibles</h4>
-                                <div class="skill-tags"><span class="skill-tag">Responsable SIG & environnement</span><span class="skill-tag">Coordinatrice cartographie participative</span><span class="skill-tag">Ingénieure télédétection/LiDAR</span><span class="skill-tag">Consultante diagnostic territorial</span></div>
+                                 <div class="skill-tags"><span class="skill-tag">Responsable SIG & environnement</span><span class="skill-tag">Coordinatrice cartographie participative</span><span class="skill-tag">Ingénieure télédétection/LiDAR</span><span class="skill-tag">Consultante diagnostic territorial</span></div>
                             </div>
                              <div class="skill-category"><h4>📈 Compétences en développement</h4>
-                                <div class="skill-tags"><span class="skill-tag">Python avancé (priorité haute)</span><span class="skill-tag">LiDAR & imagerie (priorité haute)</span><span class="skill-tag">Webmapping open source</span><span class="skill-tag">IA géospatiale</span></div>
+                                 <div class="skill-tags"><span class="skill-tag">Python avancé (priorité haute)</span><span class="skill-tag">LiDAR & imagerie (priorité haute)</span><span class="skill-tag">Webmapping open source</span><span class="skill-tag">IA géospatiale</span></div>
                             </div>
                             <div class="skill-category"><h4>🎯 Organismes Visés (Vignettes cliquables)</h4>
                                 <div class="organization-grid">
@@ -805,105 +817,4 @@
                     </div>
                 </div>
                 <div class="network-category">
-                    <h3>🗺️ Géomatique Solidaire</h3>
-                    <div class="network-items">
-                        <div class="network-tag"><a href="#" target="_blank">HOTOSM – Latin America Caribbean hub</a></div>
-                        <div class="network-tag"><a href="#" target="_blank">CARTONG</a></div>
-                        <div class="network-tag"><a href="#" target="_blank">UN Risk & Disaster Network LatAm</a></div>
-                    </div>
-                </div>
-                 <div class="network-category">
-                    <h3>🌍 Justice Environnementale</h3>
-                    <div class="network-items">
-                        <div class="network-tag"><a href="#" target="_blank">Amnesty International</a></div>
-                        <div class="network-tag"><a href="#" target="_blank">CYEN</a></div>
-                        <div class="network-tag"><a href="#" target="_blank">WYCJ (climate justice youth)</a></div>
-                        <div class="network-tag"><a href="#" target="_blank">Caribaea Initiative</a></div>
-                    </div>
-                </div>
-                </div>
-        </div>
-
-        <div class="action-panel">
-            <h2>🤝 Construisons ensemble l'avenir des territoires tropicaux</h2>
-            <p>Passionnée par la géographie appliquée et la coopération Sud-Sud, je recherche des collaborations stimulantes pour des projets à impact positif.</p>
-            <div class="cta-buttons">
-                <a href="mailto:votre.email@exemple.com" class="cta-button" id="cta-contact">
-                    <i class="fas fa-envelope"></i> Échanger sur un projet
-                </a>
-                <a href="#portfolio-section" class="cta-button" id="cta-portfolio">
-                    <i class="fas fa-folder-open"></i> Découvrir mes réalisations
-                </a>
-                </div>
-            
-            <div class="social-links">
-                <a href="[URL_LinkedIn]" target="_blank" class="social-link" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
-                <a href="[URL_GitHub]" target="_blank" class="social-link" title="GitHub"><i class="fab fa-github-square"></i></a>
-                <a href="[URL_ResearchGate]" target="_blank" class="social-link" title="ResearchGate"><i class="fab fa-researchgate"></i></a>
-                <a href="[URL_Bluesky]" target="_blank" class="social-link" title="Bluesky">
-                    <img src="bluesky_logo.png" alt="Logo Bluesky" class="social-logo">
-                </a>
-            </div>
-
-        </div>
-    </div>
-    
-    <script>
-        // Fonction pour le défilement vers le haut
-        document.getElementById('scroll-compass').addEventListener('click', function() {
-            window.scrollTo({
-                top: 0,
-                behavior: 'smooth'
-            });
-        });
-        
-        // Observez le défilement pour animer les jalons
-        const milestones = document.querySelectorAll('.milestone');
-        const observerOptions = {
-            root: null,
-            rootMargin: '0px',
-            threshold: 0.2 // Déclenche quand 20% du jalon est visible
-        };
-
-        const milestoneObserver = new IntersectionObserver((entries, observer) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.style.animationPlayState = 'running';
-                    observer.unobserve(entry.target); // Arrête l'observation une fois que l'animation est lancée
-                }
-            });
-        }, observerOptions);
-
-        milestones.forEach(milestone => {
-            milestoneObserver.observe(milestone);
-            milestone.style.animationPlayState = 'paused'; // Assure que l'animation n'est pas jouée au chargement
-        });
-
-        // Rotation de la boussole lors du défilement (selon la demande précédente)
-        window.addEventListener('scroll', function() {
-            const compassImage = document.getElementById('compass-image');
-            
-            // Hauteur totale de la page défilable
-            const totalHeight = document.documentElement.scrollHeight - window.innerHeight;
-            
-            // Position de défilement actuelle
-            const scrollPosition = window.scrollY;
-            
-            // Calcul du pourcentage de défilement (de 0 à 1)
-            const scrollPercent = scrollPosition / totalHeight;
-            
-            // Définir la rotation maximale (360 degrés)
-            const maxRotation = 360; 
-            
-            // Calcul de la rotation en degrés
-            const rotationDegrees = scrollPercent * maxRotation;
-            
-            // Appliquer la transformation CSS
-            if (compassImage) {
-                 compassImage.style.transform = `rotate(${rotationDegrees}deg)`;
-            }
-        });
-
-    </script>
-</body>
-</html>
+                    <h3>🗺️ Géomatique Solidaire<
