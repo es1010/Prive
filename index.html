@@ -995,16 +995,17 @@
                     </div>
                 </div>
                  <div class="network-category">
-                    <h3>🌍 Justice Environnementale</h3>
-                    <div class="network-items">
-                        <div class="network-tag"><a href="#" target="_blank">Amnesty International</a></div>
-                        <div class="network-tag"><a href="#" target="_blank">CYEN</a></div>
-                        <div class="network-tag"><a href="#" target="_blank">WYCJ (climate justice youth)</a></div>
-                        <div class="network-tag"><a href="#" target="_blank">Caribaea Initiative</a></div>
-                    </div>
-                </div>
-                </div>
-        </div>
+    <h3>🌍 Justice Environnementale</h3>
+    <div class="network-items">
+        <div class="network-tag"><a href="#" target="_blank">Amnesty International</a></div>
+        <div class="network-tag"><a href="#" target="_blank">CYEN</a></div>
+        <div class="network-tag"><a href="#" target="_blank">Other Org</a></div>
+    </div>
+</div>
+
+    </div> <!-- .networks-grid -->
+    </div> <!-- .engagement-section -->
+</div> <!-- .container -->
 
         <div class="action-panel">
             <h2>🤝 Construisons ensemble l'avenir des territoires tropicaux</h2>
@@ -1161,6 +1162,27 @@ bubbles.forEach(bubble=>{
 
 popupClose.addEventListener("click", ()=>{ popup.style.display = "none"; });
 popup.addEventListener("click", (e)=>{ if(e.target === popup) popup.style.display = "none"; });
+
+const openBtn = document.getElementById('openProjet');
+const popup = document.getElementById('popup');
+const popupContent = document.getElementById('popupContent');
+const popupClose = document.getElementById('popupClose');
+
+// Ouvrir le modal avec contenu HTML (par exemple, la timeline)
+openBtn.addEventListener('click', () => {
+    popupContent.innerHTML = document.getElementById('timelineSVG').outerHTML;
+    popup.style.display = 'flex';
+});
+
+// Fermer le modal
+popupClose.addEventListener('click', () => {
+    popup.style.display = 'none';
+});
+
+// Fermer au clic en dehors du contenu
+popup.addEventListener('click', (e) => {
+    if (e.target === popup) popup.style.display = 'none';
+});
     </script>
 </body>
 </html>
