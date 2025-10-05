@@ -126,7 +126,7 @@
             /* Placeholder Background pour la photo de profil */
             background: rgba(255, 255, 255, 0.1); 
         }
-         /* Style pour l'image de profil réelle */
+          /* Style pour l'image de profil réelle */
         #profile-photo img {
             width: 100%;
             height: 100%;
@@ -163,7 +163,7 @@
             transition: all 0.3s ease;
         }
 
-         /* Style pour les images réelles dans les jalons */
+          /* Style pour les images réelles dans les jalons */
         .milestone-image-group .photo-placeholder img {
             width: 100%;
             height: 100%;
@@ -266,20 +266,20 @@
         }
 
         .scale-marker.start, .scale-marker.end { 
-             right: 51.5%; 
-             left: auto;
-             text-align: right;
-             width: 85px;
-         }
-         .scale-marker.start { top: -25px; margin-top: 0; }
-         .scale-marker.end { bottom: -25px; margin-top: 0; }
-         .scale-marker.middle {
-             top: 50%; 
-             transform: translateY(-50%);
-             left: 51.5%; 
-             right: auto;
-             width: 60px; 
-         }
+              right: 51.5%; 
+              left: auto;
+              text-align: right;
+              width: 85px;
+           }
+           .scale-marker.start { top: -25px; margin-top: 0; }
+           .scale-marker.end { bottom: -25px; margin-top: 0; }
+           .scale-marker.middle {
+               top: 50%; 
+               transform: translateY(-50%);
+               left: 51.5%; 
+               right: auto;
+               width: 60px; 
+           }
 
 
         /* Styles des Jalons (Milestones) */
@@ -305,9 +305,9 @@
         }
 
         .milestone-content:hover {
-             transform: translateY(-8px) scale(1.01);
-             box-shadow: 0 25px 50px rgba(0,0,0,0.15);
-         }
+              transform: translateY(-8px) scale(1.01);
+              box-shadow: 0 25px 50px rgba(0,0,0,0.15);
+           }
 
         /* Groupes d'images dans les jalons */
         .milestone-image-group-wrapper {
@@ -323,6 +323,11 @@
         .milestone:nth-child(even) .milestone-content { margin-left: 0; } /* Contenu Gauche */
         .milestone:nth-child(odd) .milestone-image-group-wrapper { left: 0; right: auto; } /* Images Gauche */
         .milestone:nth-child(even) .milestone-image-group-wrapper { right: 0; left: auto; } /* Images Droite */
+
+        /* CORRECTION : FORCE L'ALTERNANCE INVERSÉE POUR LE PREMIER JALON (Contenu à Gauche, Images à Droite) */
+        .milestone:nth-child(1) .milestone-content { margin-left: 0; } /* Force Contenu Gauche */
+        .milestone:nth-child(1) .milestone-image-group-wrapper { right: 0; left: auto; } /* Force Images Droite */
+        /* ==================================================================================================== */
 
         /* Styles de contenu (conservés) */
         .period-badge {
@@ -373,8 +378,8 @@
         }
         
         .milestone.future .skills-grid {
-             grid-template-columns: repeat(2, 1fr); 
-         }
+              grid-template-columns: repeat(2, 1fr); 
+           }
 
         .skill-category {
             background: #f1f8e9;
@@ -408,24 +413,24 @@
         }
         
         .organization-tags a {
-             text-decoration: none;
-             color: #2e7d32;
-             display: inline-block;
-             padding: 0.5rem 1rem;
-             border-radius: 10px;
-             font-size: 0.9rem;
-             font-weight: normal;
-             background: #e8f5e8;
-             border: 1px solid #a5d6a7;
-             transition: all 0.3s ease;
-             margin: 0.3rem 0.3rem 0.3rem 0;
-         }
+              text-decoration: none;
+              color: #2e7d32;
+              display: inline-block;
+              padding: 0.5rem 1rem;
+              border-radius: 10px;
+              font-size: 0.9rem;
+              font-weight: normal;
+              background: #e8f5e8;
+              border: 1px solid #a5d6a7;
+              transition: all 0.3s ease;
+              margin: 0.3rem 0.3rem 0.3rem 0;
+           }
 
-         .organization-tags a:hover {
-             background: #c8e6c9;
-             transform: translateY(-1px);
-             border-color: #4caf50;
-         }
+           .organization-tags a:hover {
+              background: #c8e6c9;
+              transform: translateY(-1px);
+              border-color: #4caf50;
+           }
 
         /* Styles de la section Engagement et Action (Conservés) */
         .engagement-section {
@@ -497,7 +502,7 @@
         
         .social-links {
              margin-top: 1rem; 
-         }
+           }
 
         /* Styles pour les liens sociaux */
         .social-links a {
@@ -540,8 +545,8 @@
         }
         
         .social-links a:hover i {
-             color: #4caf50;
-        }
+              color: #4caf50;
+         }
 
         .social-links img.social-logo {
             width: 1.6rem; 
@@ -558,7 +563,7 @@
         }
         
         /* Responsive */
-         @media (max-width: 1200px) {
+          @media (max-width: 1200px) {
             .milestone-image-group-wrapper {
                 position: static;
                 width: 100%;
@@ -572,7 +577,7 @@
                 padding-left: 2.5rem;
                 padding-right: 2.5rem;
             }
-             .scale-marker { right: 52%; left: auto; text-align: right; width: 100px; }
+              .scale-marker { right: 52%; left: auto; text-align: right; width: 100px; }
             .compass { top: 20px; right: 20px; }
         }
         
@@ -580,7 +585,7 @@
             .networks-grid { grid-template-columns: 1fr; }
             .milestone.future .skills-grid { grid-template-columns: 1fr; }
             .journey-path::before { left: 30px; }
-             .scale-marker { left: 45px; right: auto; text-align: left; width: 80px; } 
+              .scale-marker { left: 45px; right: auto; text-align: left; width: 80px; } 
             .scale-marker.middle { left: 45px; }
             .milestone-content {
                 width: calc(100% - 70px);
@@ -790,14 +795,11 @@
         // La rotation de la boussole est conservée
         window.addEventListener('scroll', function() {
             const compassImage = document.getElementById('compass-image');
-            const totalHeight = document.documentElement.scrollHeight - window.innerHeight;
-            const scrollPosition = window.scrollY;
-            const scrollPercent = scrollPosition / totalHeight;
-            const rotationDegrees = scrollPercent * 360;
-            
-            if (compassImage) {
-                 compassImage.style.transform = `rotate(${rotationDegrees}deg)`;
-            }
+            // Calcul du pourcentage de défilement (0 à 1)
+            const scrollPercent = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight));
+            // Rotation de 360 degrés basée sur le pourcentage de défilement
+            const rotation = scrollPercent * 360;
+            compassImage.style.transform = `rotate(${rotation}deg)`;
         });
     </script>
 </body>
