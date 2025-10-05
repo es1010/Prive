@@ -1,909 +1,851 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Parcours Cartographique - Géographie Tropicale</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <style>
-        /* CSS GENERAL (Gardé le même pour la cohérence) */
-        body {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #1a4d3a 0%, #2d5a27 50%, #0f3460 100%);
-            min-height: 100vh;
-            color: #333;
-            position: relative;
-            overflow-x: hidden;
-        }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Parcours Cartographique - Géographie Tropicale</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* CSS GENERAL (Gardé le même pour la cohérence) */
+        body {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1a4d3a 0%, #2d5a27 50%, #0f3460 100%);
+            min-height: 100vh;
+            color: #333;
+            position: relative;
+            overflow-x: hidden;
+        }
 
-        body::before {
-            content: '';
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-image: 
-                radial-gradient(circle at 20% 80%, rgba(46, 125, 50, 0.1) 0%, transparent 50%),
-                radial-gradient(circle at 80% 20%, rgba(27, 94, 32, 0.1) 0%, transparent 50%),
-                radial-gradient(circle at 40% 40%, rgba(56, 142, 60, 0.05) 0%, transparent 50%);
-            z-index: -1;
-        }
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                radial-gradient(circle at 20% 80%, rgba(46, 125, 50, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(27, 94, 32, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 40% 40%, rgba(56, 142, 60, 0.05) 0%, transparent 50%);
+            z-index: -1;
+        }
 
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 2rem;
-            position: relative;
-        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+            position: relative;
+        }
 
-        .header {
-            text-align: center;
-            margin-bottom: 4rem;
-            color: white;
-            position: relative;
-        }
+        .header {
+            text-align: center;
+            margin-bottom: 4rem;
+            color: white;
+            position: relative;
+        }
 
-        /* MODIFICATIONS CSS MAJEURES POUR L'IMAGE HEADER (corrigées) */
-        .header-banner {
-            width: 100vw; 
-            max-width: none; 
-            margin-left: calc(50% - 50vw); 
-            max-height: 400px; 
-            height: 30vw; 
-            min-height: 200px; 
-            overflow: hidden; 
-            margin-bottom: 2rem;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.5);
-        }
+        /* MODIFICATIONS CSS MAJEURES POUR L'IMAGE HEADER (corrigées) */
+        .header-banner {
+            width: 100vw; 
+            max-width: none; 
+            margin-left: calc(50% - 50vw); 
+            max-height: 400px; 
+            height: 30vw; 
+            min-height: 200px; 
+            overflow: hidden; 
+            margin-bottom: 2rem;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+        }
 
-        .header-banner img {
-            width: 100%;
-            height: 100%; 
-            object-fit: cover; 
-            object-position: center; 
-            display: block;
-        }
-        /* FIN DES MODIFICATIONS CSS MAJEURES */
+        .header-banner img {
+            width: 100%;
+            height: 100%; 
+            object-fit: cover; 
+            object-position: center; 
+            display: block;
+        }
+        /* FIN DES MODIFICATIONS CSS MAJEURES */
 
-        .header h1 {
-            font-size: 3.5rem;
-            margin-bottom: 1rem;
-            color: white;
-            font-family: 'Georgia', 'Times New Roman', serif;
-            font-weight: 700;
-            letter-spacing: 2px;
-        }
+        .header h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            color: white;
+            font-family: 'Georgia', 'Times New Roman', serif;
+            font-weight: 700;
+            letter-spacing: 2px;
+        }
 
-        .header .subtitle {
-            font-size: 2rem;
-            opacity: 0.95;
-            margin-bottom: 0.8rem;
-            font-weight: 600;
-            color: #81c784;
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
-        }
+        .header .subtitle {
+            font-size: 2rem;
+            opacity: 0.95;
+            margin-bottom: 0.8rem;
+            color: #81c784;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+        }
 
-        .header .speciality-line {
-            font-size: 1.2rem;
-            opacity: 0.9;
-            margin-bottom: 0.5rem;
-            font-weight: 500;
-        }
+        .header .speciality-line {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
 
-        .header .speciality {
-            font-size: 1rem;
-            opacity: 0.8;
-            font-style: italic;
-        }
+        .header .speciality {
+            font-size: 1rem;
+            opacity: 0.8;
+            font-style: italic;
+        }
 
-        .photo-placeholder {
-            margin: 1.5rem auto;
-            width: 150px;
-            height: 150px;
-            border: 3px dashed rgba(255,255,255,0.5);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: rgba(255,255,255,0.7);
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-size: 0.9rem;
-            text-align: center;
-            padding: 1rem;
-            overflow: hidden;
-            position: relative; 
-        }
+        .photo-placeholder {
+            margin: 1.5rem auto;
+            width: 150px;
+            height: 150px;
+            border: 3px dashed rgba(255,255,255,0.5);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: rgba(255,255,255,0.7);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+            text-align: center;
+            padding: 1rem;
+            overflow: hidden;
+            position: relative; 
+        }
 
-        /* Styles VIGNETTES DANS LES JALONS */
-        .milestone-image-group {
-            flex-direction: column;
-            display: flex;
-            gap: 15px;
-            padding: 1rem;
-            border: 1px solid #c8e6c9;
-            border-radius: 15px;
-            background: #f1f8e9;
-            margin: 0;
-        }
-        
-        .milestone-image-group .photo-placeholder {
-            margin: 0;
-            width: 100%; 
-            height: 150px;
-            border: 3px solid #81c784; 
-            border-radius: 10px;
-            color: rgba(0,0,0,0.5);
-            background: white; 
-        }
+        /* Styles VIGNETTES DANS LES JALONS */
+        .milestone-image-group {
+            flex-direction: column;
+            display: flex;
+            gap: 15px;
+            padding: 1rem;
+            border: 1px solid #c8e6c9;
+            border-radius: 15px;
+            background: #f1f8e9;
+            margin: 0;
+        }
+        
+        .milestone-image-group .photo-placeholder {
+            margin: 0;
+            width: 100%; 
+            height: 150px;
+            border: 3px solid #81c784; 
+            border-radius: 10px;
+            color: rgba(0,0,0,0.5);
+            background: white; 
+        }
 
-        .milestone-image-group .photo-placeholder:hover {
-            border-color: #4caf50;
-            transform: scale(1.03);
-            color: rgba(0,0,0,0.8);
-        }
+        .milestone-image-group .photo-placeholder:hover {
+            border-color: #4caf50;
+            transform: scale(1.03);
+            color: rgba(0,0,0,0.8);
+        }
 
-        .map-container {
-            position: relative;
-            max-width: 1000px;
-            margin: 0 auto;
-            background: rgba(255,255,255,0.95);
-            border-radius: 20px;
-            padding: 3rem;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
-            backdrop-filter: blur(10px);
-        }
+        .map-container {
+            position: relative;
+            max-width: 1000px;
+            margin: 0 auto;
+            background: rgba(255,255,255,0.95);
+            border-radius: 20px;
+            padding: 3rem;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            backdrop-filter: blur(10px);
+        }
 
-        /* BOUSSOLE FIXÉE EN HAUT À DROITE ET AGRANDIE */
-        .compass {
-            position: fixed; 
-            top: 20px; 
-            right: 20px;
-            width: 80px; 
-            height: 80px; 
-            background: rgba(129, 199, 132, 0.9); 
-            border: 3px solid #1b5e20; 
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: transparent; 
-            font-size: 0; 
-            z-index: 100;
-            cursor: pointer;
-            transition: background-color 0.3s ease, transform 0.1s ease; 
-            box-shadow: 0 5px 15px rgba(0,0,0,0.4); 
-            transform: none !important; 
-            overflow: hidden;
-        }
-        .compass:hover {
-            background: #81c784; 
-            transform: scale(1.05); 
-        }
-        .compass::before {
-            content: none !important;
-        }
-        
-        /* Style pour le PNG de la boussole */
-        #compass-image {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-        @media (max-width: 1040px) {
-            .compass {
-                right: 10px;
-                top: 10px;
-                position: fixed;
-            }
-        }
+        /* BOUSSOLE FIXÉE EN HAUT À DROITE ET AGRANDIE */
+        .compass {
+            position: fixed; 
+            top: 20px; 
+            right: 20px;
+            width: 80px; 
+            height: 80px; 
+            background: rgba(129, 199, 132, 0.9); 
+            border: 3px solid #1b5e20; 
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: transparent; 
+            font-size: 0; 
+            z-index: 100;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.1s ease; 
+            box-shadow: 0 5px 15px rgba(0,0,0,0.4); 
+            transform: none !important; 
+            overflow: hidden;
+        }
+        .compass:hover {
+            background: #81c784; 
+            transform: scale(1.05); 
+        }
+        .compass::before {
+            content: none !important;
+        }
+        
+        /* Style pour le PNG de la boussole */
+        #compass-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        @media (max-width: 1040px) {
+            .compass {
+                right: 10px;
+                top: 10px;
+                position: fixed;
+            }
+        }
 
-        .journey-path {
-            position: relative;
-            margin: 2rem 0;
-            padding-bottom: 2rem; 
-        }
+        .journey-path {
+            position: relative;
+            margin: 2rem 0;
+            padding-bottom: 2rem; 
+        }
 
-        /* BARRE D'ÉCHELLE (Effet strié/gradué) */
-        .journey-path::before {
-            content: '';
-            position: absolute;
-            left: 50%;
-            top: 0;
-            bottom: 0;
-            width: 12px; 
-            background: repeating-linear-gradient(
-                to bottom,
-                #8bc34a,
-                #8bc34a 10px,
-                #2e7d32 10px,
-                #2e7d32 20px
-            ); 
-            transform: translateX(-50%);
-            border-radius: 0;
-            box-shadow: 0 0 10px rgba(76, 175, 80, 0.5);
-            z-index: 1; 
-            border: 1px solid #1b5e20;
-        }
-        
-        /* Ajustements Marqueurs d'Échelle */
-        .scale-marker {
-            position: absolute;
-            left: 51.5%; 
-            right: auto; 
-            transform: none; 
-            width: 60px; 
-            text-align: left; 
-            color: white;
-            font-weight: bold;
-            font-size: 0.9rem; 
-            background: #1b5e20;
-            padding: 4px 8px;
-            border-radius: 5px;
-            border: 1px solid #a5d6a7;
-            z-index: 5;
-            pointer-events: none;
-            margin-top: 15px; 
-        }
-        
-        /* Marqueur de Début et Fin (Restent à gauche de la ligne) */
-        .scale-marker.start, .scale-marker.end { 
-             right: 51.5%; 
-             left: auto;
-             text-align: right;
-             width: 85px;
-        }
-        .scale-marker.start { top: -25px; margin-top: 0; }
-        .scale-marker.end { bottom: -25px; margin-top: 0; }
-        .scale-marker.middle {
-            top: 50%; 
-            transform: translateY(-50%);
-            left: 51.5%; 
-            right: auto;
-            width: 60px; 
-        }
+        /* BARRE D'ÉCHELLE (Effet strié/gradué) */
+        .journey-path::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 12px; 
+            background: repeating-linear-gradient(
+                to bottom,
+                #8bc34a,
+                #8bc34a 10px,
+                #2e7d32 10px,
+                #2e7d32 20px
+            ); 
+            transform: translateX(-50%);
+            border-radius: 0;
+            box-shadow: 0 0 10px rgba(76, 175, 80, 0.5);
+            z-index: 1; 
+            border: 1px solid #1b5e20;
+        }
+        
+        /* Ajustements Marqueurs d'Échelle */
+        .scale-marker {
+            position: absolute;
+            left: 51.5%; 
+            right: auto; 
+            transform: none; 
+            width: 60px; 
+            text-align: left; 
+            color: white;
+            font-weight: bold;
+            font-size: 0.9rem; 
+            background: #1b5e20;
+            padding: 4px 8px;
+            border-radius: 5px;
+            border: 1px solid #a5d6a7;
+            z-index: 5;
+            pointer-events: none;
+            margin-top: 15px; 
+        }
+        
+        /* Marqueur de Début et Fin (Restent à gauche de la ligne) */
+        .scale-marker.start, .scale-marker.end { 
+             right: 51.5%; 
+             left: auto;
+             text-align: right;
+             width: 85px;
+        }
+        .scale-marker.start { top: -25px; margin-top: 0; }
+        .scale-marker.end { bottom: -25px; margin-top: 0; }
+        .scale-marker.middle {
+            top: 50%; 
+            transform: translateY(-50%);
+            left: 51.5%; 
+            right: auto;
+            width: 60px; 
+        }
 
 
-        .milestone {
-            position: relative;
-            margin: 4rem 0;
-            opacity: 0;
-            transform: translateY(30px);
-            animation: fadeInUp 1s ease forwards;
-        }
+        .milestone {
+            position: relative;
+            margin: 4rem 0;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 1s ease forwards;
+        }
 
-        @keyframes fadeInUp {
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-        
-        /* Décalage des blocs et réduction de la largeur à 44% */
-        .milestone-content {
-            background: white;
-            padding: 2.5rem;
-            border-radius: 20px;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
-            width: 44%; 
-            position: relative;
-            transition: all 0.4s ease;
-            z-index: 2;
-        }
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        /* Décalage des blocs et réduction de la largeur à 44% */
+        .milestone-content {
+            background: white;
+            padding: 2.5rem;
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            width: 44%; 
+            position: relative;
+            transition: all 0.4s ease;
+            z-index: 2;
+        }
 
-        .milestone-content:hover {
-            transform: translateY(-8px) scale(1.01);
-            box-shadow: 0 25px 50px rgba(0,0,0,0.15);
-        }
-        
-        /* Largeur des conteneurs d'images */
-        .milestone-image-group-wrapper {
-            position: absolute;
-            width: 44%; 
-            top: 50%;
-            transform: translateY(-50%);
-            z-index: 2;
-        }
+        .milestone-content:hover {
+            transform: translateY(-8px) scale(1.01);
+            box-shadow: 0 25px 50px rgba(0,0,0,0.15);
+        }
+        
+        /* Largeur des conteneurs d'images */
+        .milestone-image-group-wrapper {
+            position: absolute;
+            width: 44%; 
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 2;
+        }
 
-        /* LOGIQUE D'ALTERNANCE */
-        
-        /* Jalon Impair (Fondations, Vision) : Contenu à DROITE */
-        .milestone:nth-child(odd) .milestone-content {
-            margin-left: 54%; 
-        }
+        /* LOGIQUE D'ALTERNANCE CORRIGÉE */
+        
+        /* Jalon Impair (1er, 3e, etc.) : Contenu à DROITE */
+        .milestone:nth-of-type(odd) .milestone-content { /* CORRECTION APPLIQUÉE ICI */
+            margin-left: 54%; 
+        }
 
-        /* Jalon Pair (Expertise) : Contenu à GAUCHE */
-        .milestone:nth-child(even) .milestone-content {
-             margin-left: 0; 
-        }
+        /* Jalon Pair (2e, 4e, etc.) : Contenu à GAUCHE */
+        .milestone:nth-of-type(even) .milestone-content { /* CORRECTION APPLIQUÉE ICI */
+             margin-left: 0; 
+        }
 
-        /* Jalon Impair (Fondations, Vision) : Images GAUCHE */
-        .milestone:nth-child(odd) .milestone-image-group-wrapper {
-            left: 0; 
-            right: auto;
-        }
-        /* Jalon Pair (Expertise) : Images DROITE */
-        .milestone:nth-child(even) .milestone-image-group-wrapper {
-            right: 0; 
-            left: auto;
-        }
+        /* Jalon Impair (1er, 3e, etc.) : Images GAUCHE */
+        .milestone:nth-of-type(odd) .milestone-image-group-wrapper { /* CORRECTION APPLIQUÉE ICI */
+            left: 0; 
+            right: auto;
+        }
+        /* Jalon Pair (2e, 4e, etc.) : Images DROITE */
+        .milestone:nth-of-type(even) .milestone-image-group-wrapper { /* CORRECTION APPLIQUÉE ICI */
+            right: 0; 
+            left: auto;
+        }
 
-        /* Suppression des icônes de jalon */
-        .milestone-icon {
-             display: none !important; 
-        }
+        /* Suppression des icônes de jalon */
+        .milestone-icon {
+             display: none !important; 
+        }
 
-        /* Styles de contenu (conservés) */
-        .period-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            padding: 0.8rem 1.5rem;
-            border-radius: 25px;
-            font-size: 0.9rem;
-            font-weight: bold;
-            margin-bottom: 1.5rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
+        /* Styles de contenu (conservés) */
+        .period-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.8rem 1.5rem;
+            border-radius: 25px;
+            font-size: 0.9rem;
+            font-weight: bold;
+            margin-bottom: 1.5rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
 
-        .past .period-badge { background: linear-gradient(135deg, #c8e6c9, #a5d6a7); color: #1b5e20; }
-        .present .period-badge { background: linear-gradient(135deg, #a5d6a7, #81c784); color: #1b5e20; }
-        .future .period-badge { background: linear-gradient(135deg, #81c784, #66bb6a); color: #1b5e20; }
+        .past .period-badge { background: linear-gradient(135deg, #c8e6c9, #a5d6a7); color: #1b5e20; }
+        .present .period-badge { background: linear-gradient(135deg, #a5d6a7, #81c784); color: #1b5e20; }
+        .future .period-badge { background: linear-gradient(135deg, #81c784, #66bb6a); color: #1b5e20; }
 
-        .milestone-content h3 {
-            font-size: 1.8rem;
-            margin-bottom: 1.5rem;
-            color: #1b5e20;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
+        .milestone-content h3 {
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            color: #1b5e20;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
 
-        .milestone-content p {
-            line-height: 1.7;
-            margin-bottom: 1.2rem;
-            color: #2e7d32;
-        }
+        .milestone-content p {
+            line-height: 1.7;
+            margin-bottom: 1.2rem;
+            color: #2e7d32;
+        }
 
-        .highlight {
-            background: linear-gradient(120deg, #e8f5e8 0%, #c8e6c9 100%);
-            padding: 1.5rem;
-            border-radius: 15px;
-            margin: 1rem 0;
-            border-left: 4px solid #4caf50;
-        }
+        .highlight {
+            background: linear-gradient(120deg, #e8f5e8 0%, #c8e6c9 100%);
+            padding: 1.5rem;
+            border-radius: 15px;
+            margin: 1rem 0;
+            border-left: 4px solid #4caf50;
+        }
 
-        .skills-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1rem;
-            margin-top: 1.5rem;
-        }
-        
-        .milestone.future .skills-grid {
-            grid-template-columns: repeat(2, 1fr); 
-        }
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+        
+        .milestone.future .skills-grid {
+            grid-template-columns: repeat(2, 1fr); 
+        }
 
-        .skill-category {
-            background: #f1f8e9;
-            padding: 1rem;
-            border-radius: 12px;
-            border: 2px solid #c8e6c9;
-        }
+        .skill-category {
+            background: #f1f8e9;
+            padding: 1rem;
+            border-radius: 12px;
+            border: 2px solid #c8e6c9;
+        }
 
-        .skill-category h4 {
-            color: #2e7d32;
-            margin-bottom: 0.5rem;
-            font-size: 0.9rem;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
+        .skill-category h4 {
+            color: #2e7d32;
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
 
-        .skill-tags {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.4rem;
-        }
+        .skill-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.4rem;
+        }
 
-        .skill-tag {
-            background: white;
-            padding: 0.3rem 0.8rem;
-            border-radius: 15px;
-            font-size: 0.75rem;
-            color: #2e7d32;
-            border: 1px solid #a5d6a7;
-            transition: all 0.3s ease;
-        }
+        .skill-tag {
+            background: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 15px;
+            font-size: 0.75rem;
+            color: #2e7d32;
+            border: 1px solid #a5d6a7;
+            transition: all 0.3s ease;
+        }
 
-        .organization-tags a {
-            text-decoration: none;
-            color: #2e7d32;
-            display: inline-block;
-            padding: 0.5rem 1rem;
-            border-radius: 10px;
-            font-size: 0.9rem;
-            font-weight: normal;
-            background: #e8f5e8;
-            border: 1px solid #a5d6a7;
-            transition: all 0.3s ease;
-            margin: 0.3rem 0.3rem 0.3rem 0;
-        }
+        .organization-tags a {
+            text-decoration: none;
+            color: #2e7d32;
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            border-radius: 10px;
+            font-size: 0.9rem;
+            font-weight: normal;
+            background: #e8f5e8;
+            border: 1px solid #a5d6a7;
+            transition: all 0.3s ease;
+            margin: 0.3rem 0.3rem 0.3rem 0;
+        }
 
-        .organization-tags a:hover {
-            background: #c8e6c9;
-            transform: translateY(-1px);
-            border-color: #4caf50;
-        }
+        .organization-tags a:hover {
+            background: #c8e6c9;
+            transform: translateY(-1px);
+            border-color: #4caf50;
+        }
 
-        /* Styles de la section Engagement et Action (Conservés) */
-        .engagement-section {
-            max-width: 1000px; 
-            margin: 4rem auto; 
-            background: rgba(255,255,255,0.95);
-            padding: 3rem;
-            border-radius: 20px;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
-            backdrop-filter: blur(10px);
-        }
+        /* Styles de la section Engagement et Action (Conservés) */
+        .engagement-section {
+            max-width: 1000px; 
+            margin: 4rem auto; 
+            background: rgba(255,255,255,0.95);
+            padding: 3rem;
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            backdrop-filter: blur(10px);
+        }
 
-        .networks-grid {
-            display: grid; 
-            grid-template-columns: repeat(3, 1fr); 
-            gap: 2rem;
-            margin-top: 2rem;
-        }
+        .networks-grid {
+            display: grid; 
+            grid-template-columns: repeat(3, 1fr); 
+            gap: 2rem;
+            margin-top: 2rem;
+        }
 
-        .network-tag {
-            background: #e8f5e8; 
-            padding: 0.8rem 1rem;
-            border-radius: 10px;
-            font-size: 0.9rem;
-            border: 1px solid #a5d6a7;
-            transition: all 0.3s ease;
-        }
+        .network-tag {
+            background: #e8f5e8; 
+            padding: 0.8rem 1rem;
+            border-radius: 10px;
+            font-size: 0.9rem;
+            border: 1px solid #a5d6a7;
+            transition: all 0.3s ease;
+        }
 
-        .network-tag a {
-            color: #2e7d32; 
-            text-decoration: none; 
-            display: block; 
-        }
-        
-        .action-panel {
-            max-width: 1000px; 
-            margin: 4rem auto 2rem auto; 
-            background: linear-gradient(135deg, rgba(46, 125, 50, 0.9), rgba(27, 94, 32, 0.9));
-            padding: 3rem;
-            border-radius: 20px;
-            text-align: center;
-            backdrop-filter: blur(10px);
-            border: 2px solid rgba(255,255,255,0.1);
-        }
+        .network-tag a {
+            color: #2e7d32; 
+            text-decoration: none; 
+            display: block; 
+        }
+        
+        .action-panel {
+            max-width: 1000px; 
+            margin: 4rem auto 2rem auto; 
+            background: linear-gradient(135deg, rgba(46, 125, 50, 0.9), rgba(27, 94, 32, 0.9));
+            padding: 3rem;
+            border-radius: 20px;
+            text-align: center;
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255,255,255,0.1);
+        }
 
-        .cta-button {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            padding: 1rem 2rem;
-            background: white;
-            color: #1b5e20;
-            text-decoration: none;
-            border-radius: 30px;
-            font-weight: bold;
-            transition: all 0.3s ease;
-            border: 2px solid #1b5e20;
-            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
-            margin: 0.5rem;
-        }
+        .cta-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 1rem 2rem;
+            background: white;
+            color: #1b5e20;
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            border: 2px solid #1b5e20;
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+            margin: 0.5rem;
+        }
 
-        .cta-button:hover {
-            background: #e8f5e8; 
-            color: #1b5e20;
-            border-color: #4caf50;
-            transform: translateY(-3px);
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
-        }
-        
-        .social-links {
-            margin-top: 1rem; 
-        }
+        .cta-button:hover {
+            background: #e8f5e8; 
+            color: #1b5e20;
+            border-color: #4caf50;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+        }
+        
+        .social-links {
+            margin-top: 1rem; 
+        }
 
-        /* Styles pour les liens sociaux */
-        .social-links a {
-            display: inline-block; 
-            margin: 0 0.5rem; 
-            text-decoration: none;
-            position: relative; 
-            width: 2.2rem; /* Taille de l'encadré */
-            height: 2.2rem;
-            display: inline-flex; 
-            align-items: center;
-            justify-content: center;
-        }
+        /* Styles pour les liens sociaux */
+        .social-links a {
+            display: inline-block; 
+            margin: 0 0.5rem; 
+            text-decoration: none;
+            position: relative; 
+            width: 2.2rem; /* Taille de l'encadré */
+            height: 2.2rem;
+            display: inline-flex; 
+            align-items: center;
+            justify-content: center;
+        }
 
-        /* Cadre blanc CARRÉ pour TOUTES les icônes */
-        .social-links a::before {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 2.2rem; /* Taille du cadre */
-            height: 2.2rem;
-            border-radius: 5px; /* ✅ Changé à Carré */
-            background: white; /* ✅ Changé à Blanc Opaque */
-            transition: all 0.3s ease;
-            z-index: 1; 
-            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-        }
-        
-        .social-links a:hover::before {
-            background: #e8f5e8; /* Légèrement plus clair au survol */
-        }
-        
-        /* Couleur des icônes Font Awesome */
-        .social-links a i {
-            font-size: 1.8rem; /* Légèrement réduit pour être mieux centré dans l'encadré */
-            color: #1b5e20; /* ✅ Changé à Vert Foncé */
-            transition: color 0.3s ease;
-            position: relative; 
-            z-index: 2;
-        }
-        
-        .social-links a:hover i {
-             color: #4caf50; /* Vert clair au survol */
-        }
+        /* Cadre blanc CARRÉ pour TOUTES les icônes */
+        .social-links a::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 2.2rem; /* Taille du cadre */
+            height: 2.2rem;
+            border-radius: 5px; /* ✅ Changé à Carré */
+            background: white; /* ✅ Changé à Blanc Opaque */
+            transition: all 0.3s ease;
+            z-index: 1; 
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+        
+        .social-links a:hover::before {
+            background: #e8f5e8; /* Légèrement plus clair au survol */
+        }
+        
+        /* Couleur des icônes Font Awesome */
+        .social-links a i {
+            font-size: 1.8rem; /* Légèrement réduit pour être mieux centré dans l'encadré */
+            color: #1b5e20; /* ✅ Changé à Vert Foncé */
+            transition: color 0.3s ease;
+            position: relative; 
+            z-index: 2;
+        }
+        
+        .social-links a:hover i {
+             color: #4caf50; /* Vert clair au survol */
+        }
 
-        /* Styles spécifiques pour l'image Bluesky (réduction taille et recoloration en vert) */
-        .social-links img.social-logo {
-            width: 1.6rem; /* Taille du logo PNG */
-            height: 1.6rem;
-            object-fit: contain; 
-            position: relative;
-            z-index: 2;
-            /* Recolor le PNG en vert foncé (la cible de la couleur pour #1b5e20 est complexe) */
-            filter: brightness(0) saturate(100%) invert(18%) sepia(87%) saturate(1478%) hue-rotate(106deg) brightness(97%) contrast(93%);
-            transition: filter 0.3s ease;
-        }
+        /* Styles spécifiques pour l'image Bluesky (réduction taille et recoloration en vert) */
+        .social-links img.social-logo {
+            width: 1.6rem; /* Taille du logo PNG */
+            height: 1.6rem;
+            object-fit: contain; 
+            position: relative;
+            z-index: 2;
+            /* Recolor le PNG en vert foncé (la cible de la couleur pour #1b5e20 est complexe) */
+            filter: brightness(0) saturate(100%) invert(18%) sepia(87%) saturate(1478%) hue-rotate(106deg) brightness(97%) contrast(93%);
+            transition: filter 0.3s ease;
+        }
 
-        .social-links a:hover img.social-logo {
-            /* Changement de couleur au survol (vert clair #4caf50) */
-            filter: brightness(0) saturate(100%) invert(39%) sepia(61%) saturate(543%) hue-rotate(85deg) brightness(97%) contrast(95%);
-        }
-        
-        /* Responsive */
-        @media (max-width: 1200px) {
-             /* Rangement des images dans le flow pour les petits écrans */
-            .milestone-image-group-wrapper {
-                position: static;
-                width: 100%;
-                top: auto;
-                transform: none;
-                margin-bottom: 1.5rem; 
-            }
-            .milestone-content {
-                width: 100%;
-                margin-left: 0 !important;
-                padding-left: 2.5rem;
-                padding-right: 2.5rem;
-            }
-             /* L'échelle doit être à gauche même en responsive */
-            .scale-marker { 
-                right: 52%; 
-                left: auto;
-                text-align: right; 
-                width: 100px; 
-            }
-             /* La boussole reste fixe en haut à droite */
-            .compass { 
-                top: 20px; 
-                right: 20px;
-            }
-        }
-        
-        @media (max-width: 768px) {
-            .networks-grid {
-                grid-template-columns: 1fr;
-            }
-            .milestone.future .skills-grid {
-                grid-template-columns: 1fr;
-            }
-            /* Adaptation du chemin pour mobile */
-            .journey-path::before {
-                left: 30px;
-            }
-            /* Adaptation du marqueur d'échelle sur mobile */
-             .scale-marker { 
-                left: 45px; 
-                right: auto;
-                text-align: left; 
-                width: 80px; 
-            } 
-            /* On s'assure que le 50km est bien à droite de la ligne mobile (s'il est présent) */
-            .scale-marker.middle { 
-                left: 45px;
-            }
-            .milestone-content {
-                width: calc(100% - 70px);
-                margin-left: 70px !important;
-            }
-            /* RESPONSIVE MODIFIÉ : Hauteur ajustée sur mobile, position centrale */
-            .header-banner {
-                max-height: 250px; 
-                min-height: 150px;
-                height: 40vw; 
-                margin-bottom: 1rem;
-            }
-            .header-banner img {
-                 object-position: center; 
-            }
-        }
-    </style>
+        .social-links a:hover img.social-logo {
+            /* Changement de couleur au survol (vert clair #4caf50) */
+            filter: brightness(0) saturate(100%) invert(39%) sepia(61%) saturate(543%) hue-rotate(85deg) brightness(97%) contrast(95%);
+        }
+        
+        /* Responsive */
+        @media (max-width: 1200px) {
+             /* Rangement des images dans le flow pour les petits écrans */
+            .milestone-image-group-wrapper {
+                position: static;
+                width: 100%;
+                top: auto;
+                transform: none;
+                margin-bottom: 1.5rem; 
+            }
+            .milestone-content {
+                width: 100%;
+                margin-left: 0 !important;
+                padding-left: 2.5rem;
+                padding-right: 2.5rem;
+            }
+             /* L'échelle doit être à gauche même en responsive */
+            .scale-marker { 
+                right: 52%; 
+                left: auto;
+                text-align: right; 
+                width: 100px; 
+            }
+             /* La boussole reste fixe en haut à droite */
+            .compass { 
+                top: 20px; 
+                right: 20px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .networks-grid {
+                grid-template-columns: 1fr;
+            }
+            .milestone.future .skills-grid {
+                grid-template-columns: 1fr;
+            }
+            /* Adaptation du chemin pour mobile */
+            .journey-path::before {
+                left: 30px;
+            }
+            /* Adaptation du marqueur d'échelle sur mobile */
+             .scale-marker { 
+                left: 45px; 
+                right: auto;
+                text-align: left; 
+                width: 80px; 
+            } 
+            /* On s'assure que le 50km est bien à droite de la ligne mobile (s'il est présent) */
+            .scale-marker.middle { 
+                left: 45px;
+            }
+            .milestone-content {
+                width: calc(100% - 70px);
+                margin-left: 70px !important;
+            }
+            /* RESPONSIVE MODIFIÉ : Hauteur ajustée sur mobile, position centrale */
+            .header-banner {
+                max-height: 250px; 
+                min-height: 150px;
+                height: 40vw; 
+                margin-bottom: 1rem;
+            }
+            .header-banner img {
+                 object-position: center; 
+            }
+        }
+    </style>
 </head>
 <body>
-    
-    <div class="compass" id="scroll-compass" title="Remonter en haut de page">
-        <img src="classic-compass-vector.png" alt="Boussole" id="compass-image"> 
-    </div>
-    
-    <div class="container">
-        <div class="header">
-            <div class="header-banner">
-                <img src="citation_carte.png" alt="Bannière de citation cartographique">
-            </div>
-            
-            <h1>Projet Professionnel</h1>
-            <div class="subtitle">Prénom Nom</div>
-            <div class="speciality-line">SIGiste & Géographe - Socio-écosystèmes Forestiers Intertropicaux</div>
-            <div class="speciality">Spécialisée dans la gouvernance environnementale • Développement humain • Transition écologique</div>
-            <div class="photo-placeholder" id="profile-photo">
-                <img src="https://images.unsplash.com/photo-1627581515901-52627e382d63?fit=crop&w=150&h=150" alt="Photo de profil">
-            </div>
-        </div>
+    
+    <div class="compass" id="scroll-compass" title="Remonter en haut de page">
+        <img src="classic-compass-vector.png" alt="Boussole" id="compass-image"> 
+    </div>
+    
+    <div class="container">
+        <div class="header">
+            <div class="header-banner">
+                <img src="citation_carte.png" alt="Bannière de citation cartographique">
+            </div>
+            
+            <h1>Projet Professionnel</h1>
+            <div class="subtitle">Prénom Nom</div>
+            <div class="speciality-line">SIGiste & Géographe - Socio-écosystèmes Forestiers Intertropicaux</div>
+            <div class="speciality">Spécialisée dans la gouvernance environnementale • Développement humain • Transition écologique</div>
+            <div class="photo-placeholder" id="profile-photo">
+                <img src="https://images.unsplash.com/photo-1627581515901-52627e382d63?fit=crop&w=150&h=150" alt="Photo de profil">
+            </div>
+        </div>
 
-        <div class="map-container">
-            <div class="journey-path">
-                <div class="scale-marker start">1 km</div>
+        <div class="map-container">
+            <div class="journey-path">
+                <div class="scale-marker start">1 km</div>
 
-                <div class="milestone past">
-                    <div class="milestone-image-group-wrapper">
-                        <div class="milestone-image-group">
-                            <div class="photo-placeholder">Image Fond. 1</div>
-                            <div class="photo-placeholder">Image Fond. 2</div>
-                            <div class="photo-placeholder">Image Fond. 3</div>
-                        </div>
-                    </div>
-                    <div class="milestone-content">
-                        <span class="period-badge">🕰️ Fondations</span>
-                        <h3>🎓 Formation & Premiers Terrains</h3>
-                        
-                        <p><strong>2018-2022 :</strong> Construction de ma base technique et découverte des territoires tropicaux.</p>
+                <div class="milestone past">
+                    <div class="milestone-image-group-wrapper">
+                        <div class="milestone-image-group">
+                            <div class="photo-placeholder">Image Fond. 1</div>
+                            <div class="photo-placeholder">Image Fond. 2</div>
+                            <div class="photo-placeholder">Image Fond. 3</div>
+                        </div>
+                    </div>
+                    <div class="milestone-content">
+                        <span class="period-badge">🕰️ Fondations</span>
+                        <h3>🎓 Formation & Premiers Terrains</h3>
+                        
+                        <p><strong>2018-2022 :</strong> Construction de ma base technique et découverte des territoires tropicaux.</p>
 
-                        <div class="highlight">
-                            <p><strong>Formations académiques :</strong> Licence Géographie & Aménagement (Sorbonne Université), M1 Gouvernance des Territoires (Paris-Saclay), M2 Dynamiques des Pays Émergents (Panthéon-Sorbonne).</p>
-                            <p><strong>Premières expériences :</strong> Bureau du Développement Touristique CANGT Guadeloupe (2018), découverte des enjeux territoriaux ultramarins et développement de ma sensibilité aux questions de développement local.</p>
-                        </div>
+                        <div class="highlight">
+                            <p><strong>Formations académiques :</strong> Licence Géographie & Aménagement (Sorbonne Université), M1 Gouvernance des Territoires (Paris-Saclay), M2 Dynamiques des Pays Émergents (Panthéon-Sorbonne).</p>
+                            <p><strong>Premières expériences :</strong> Bureau du Développement Touristique CANGT Guadeloupe (2018), découverte des enjeux territoriaux ultramarins et développement de ma sensibilité aux questions de développement local.</p>
+                        </div>
 
-                        <div class="skills-grid">
-                            <div class="skill-category"><h4>🛰️ SIG & Cartographie</h4>
-                                <div class="skill-tags"><span class="skill-tag">QGIS</span><span class="skill-tag">ArcGIS Pro & Apps</span><span class="skill-tag">Production cartographique</span><span class="skill-tag">Collecte données terrain</span></div>
-                            </div>
-                            <div class="skill-category"><h4>📊 Analyse & Programmation</h4>
-                                <div class="skill-tags"><span class="skill-tag">Python</span><span class="skill-tag">R</span><span class="skill-tag">SQL</span><span class="skill-tag">Analyse statistique</span></div>
-                            </div>
-                            <div class="skill-category"><h4>🎓 Enseignement & Communication</h4>
-                                <div class="skill-tags"><span class="skill-tag">TP universitaire SIG</span><span class="skill-tag">Accompagnement pédagogique</span><span class="skill-tag">Création vidéos</span></div>
-                            </div>
-                            <div class="skill-category"><h4>🌐 Langues & Outils</h4>
-                                <div class="skill-tags"><span class="skill-tag">Anglais (TOEIC 985)</span><span class="skill-tag">Espagnol A2</span><span class="skill-tag">Microsoft Office</span><span class="skill-tag">Illustrator/Photoshop</span></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="scale-marker middle">50km</div>
+                        <div class="skills-grid">
+                            <div class="skill-category"><h4>🛰️ SIG & Cartographie</h4>
+                                <div class="skill-tags"><span class="skill-tag">QGIS</span><span class="skill-tag">ArcGIS Pro & Apps</span><span class="skill-tag">Production cartographique</span><span class="skill-tag">Collecte données terrain</span></div>
+                            </div>
+                            <div class="skill-category"><h4>📊 Analyse & Programmation</h4>
+                                <div class="skill-tags"><span class="skill-tag">Python</span><span class="skill-tag">R</span><span class="skill-tag">SQL</span><span class="skill-tag">Analyse statistique</span></div>
+                            </div>
+                            <div class="skill-category"><h4>🎓 Enseignement & Communication</h4>
+                                <div class="skill-tags"><span class="skill-tag">TP universitaire SIG</span><span class="skill-tag">Accompagnement pédagogique</span><span class="skill-tag">Création vidéos</span></div>
+                            </div>
+                            <div class="skill-category"><h4>🌐 Langues & Outils</h4>
+                                <div class="skill-tags"><span class="skill-tag">Anglais (TOEIC 985)</span><span class="skill-tag">Espagnol A2</span><span class="skill-tag">Microsoft Office</span><span class="skill-tag">Illustrator/Photoshop</span></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="scale-marker middle">50km</div>
 
-                <div class="milestone present">
-                    <div class="milestone-image-group-wrapper">
-                        <div class="milestone-image-group">
-                            <div class="photo-placeholder">Image Exp. 1</div>
-                            <div class="photo-placeholder">Image Exp. 2</div>
-                            <div class="photo-placeholder">Image Exp. 3</div>
-                        </div>
-                    </div>
-                    <div class="milestone-content">
-                        <span class="period-badge">⚡ Expertise</span>
-                        <h3>🌳 Consolidation & Innovation</h3>
-                        
-                        <p><strong>2022-2024 :</strong> Montée en expertise et développement d'approches participatives.</p>
+                <div class="milestone present">
+                    <div class="milestone-image-group-wrapper">
+                        <div class="milestone-image-group">
+                            <div class="photo-placeholder">Image Exp. 1</div>
+                            <div class="photo-placeholder">Image Exp. 2</div>
+                            <div class="photo-placeholder">Image Exp. 3</div>
+                        </div>
+                    </div>
+                    <div class="milestone-content">
+                        <span class="period-badge">⚡ Expertise</span>
+                        <h3>🌳 Consolidation & Innovation</h3>
+                        
+                        <p><strong>2022-2024 :</strong> Montée en expertise et développement d'approches participatives.</p>
 
-                        <div class="highlight">
-                            <p><strong>Mastère Spécialisé SIG (AgroParisTech, 2025-présent) :</strong> Formation de "manager de projets géomatique/SIG", placettes LiDAR et soutien SIG pour le service Forêts et Territoires.</p>
+                        <div class="highlight">
+                            <p><strong>Mastère Spécialisé SIG (AgroParisTech, 2025-présent) :</strong> Formation de "manager de projets géomatique/SIG", placettes LiDAR et soutien SIG pour le service Forêts et Territoires.</p>
 
-                            <p><strong>Expériences terrain marquantes :</strong></p>
-                            <p>• <strong>Alternatives Durables (Cameroun, 2023) :</strong> Chargée d'étude sur la modélisation participative des conflits Homme-Faune, 4 villages périphériques du parc national de Campo Ma'an</p>
-                            <p>• <strong>Agence TROPISME (Guadeloupe, 2021) :</strong> État des lieux et conception de réhabilitation d'une RD, création SIG pour recensement ZAE</p>
-                        </div>
+                            <p><strong>Expériences terrain marquantes :</strong></p>
+                            <p>• <strong>Alternatives Durables (Cameroun, 2023) :</strong> Chargée d'étude sur la modélisation participative des conflits Homme-Faune, 4 villages périphériques du parc national de Campo Ma'an</p>
+                            <p>• <strong>Agence TROPISME (Guadeloupe, 2021) :</strong> État des lieux et conception de réhabilitation d'une RD, création SIG pour recensement ZAE</p>
+                        </div>
 
-                        <div class="skills-grid">
-                            <div class="skill-category"><h4>🌳 Écologie & Environnement</h4>
-                                <div class="skill-tags"><span class="skill-tag">Écologie tropicale</span><span class="skill-tag">Botanique tropicale</span><span class="skill-tag">Conflits Homme-Faune</span><span class="skill-tag">Évaluation environnementale</span></div>
-                            </div>
-                            <div class="skill-category"><h4>📊 Études & Diagnostics</h4>
-                                <div class="skill-tags"><span class="skill-tag">Faisabilité socio-économique</span><span class="skill-tag">Modélisation participative</span><span class="skill-tag">Diagnostics territoriaux</span><span class="skill-tag">Géographie physique & sociale</span></div>
-                            </div>
-                            <div class="skill-category"><h4>🎯 Management & Événementiel</h4>
-                                <div class="skill-tags"><span class="skill-tag">Gestion de projet</span><span class="skill-tag">Organisation conférences</span><span class="skill-tag">Ciné-débats</span><span class="skill-tag">Ateliers participatifs</span></div>
-                            </div>
-                            <div class="skill-category"><h4>🤝 Engagement Associatif</h4>
-                                <div class="skill-tags"><span class="skill-tag">Amnesty International (2020-2023)</span><span class="skill-tag">Climate Justice Camp Tunisie</span><span class="skill-tag">Secrétaire générale</span><span class="skill-tag">Mobilisation droits humains</span></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                        <div class="skills-grid">
+                            <div class="skill-category"><h4>🌳 Écologie & Environnement</h4>
+                                <div class="skill-tags"><span class="skill-tag">Écologie tropicale</span><span class="skill-tag">Botanique tropicale</span><span class="skill-tag">Conflits Homme-Faune</span><span class="skill-tag">Évaluation environnementale</span></div>
+                            </div>
+                            <div class="skill-category"><h4>📊 Études & Diagnostics</h4>
+                                <div class="skill-tags"><span class="skill-tag">Faisabilité socio-économique</span><span class="skill-tag">Modélisation participative</span><span class="skill-tag">Diagnostics territoriaux</span><span class="skill-tag">Géographie physique & sociale</span></div>
+                            </div>
+                            <div class="skill-category"><h4>🎯 Management & Événementiel</h4>
+                                <div class="skill-tags"><span class="skill-tag">Gestion de projet</span><span class="skill-tag">Organisation conférences</span><span class="skill-tag">Ciné-débats</span><span class="skill-tag">Ateliers participatifs</span></div>
+                            </div>
+                            <div class="skill-category"><h4>🤝 Engagement Associatif</h4>
+                                <div class="skill-tags"><span class="skill-tag">Amnesty International (2020-2023)</span><span class="skill-tag">Climate Justice Camp Tunisie</span><span class="skill-tag">Secrétaire générale</span><span class="skill-tag">Mobilisation droits humains</span></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
-                <div class="milestone future">
-                    <div class="milestone-image-group-wrapper">
-                        <div class="milestone-image-group">
-                            <div class="photo-placeholder">Image Vis. 1</div>
-                            <div class="photo-placeholder">Image Vis. 2</div>
-                            <div class="photo-placeholder">Image Vis. 3</div>
-                        </div>
-                    </div>
-                    <div class="milestone-content">
-                        <span class="period-badge">🌟 Vision</span>
-                        <h3>🌍 Coopération Sud-Sud & Impact</h3>
-                        
-                        <p><strong>2024-2030 :</strong> Développement de projets d'envergure et coopération internationale.</p>
+                <div class="milestone future">
+                    <div class="milestone-image-group-wrapper">
+                        <div class="milestone-image-group">
+                            <div class="photo-placeholder">Image Vis. 1</div>
+                            <div class="photo-placeholder">Image Vis. 2</div>
+                            <div class="photo-placeholder">Image Vis. 3</div>
+                        </div>
+                    </div>
+                    <div class="milestone-content">
+                        <span class="period-badge">🌟 Vision</span>
+                        <h3>🌍 Coopération Sud-Sud & Impact</h3>
+                        
+                        <p><strong>2024-2030 :</strong> Développement de projets d'envergure et coopération internationale.</p>
 
-                        <div class="highlight">
-                            <p><strong>Vision professionnelle :</strong> Mettre en œuvre mes compétences au service d'une organisation innovante dans des projets de développement humain et de transition écologique.</p>
-                            <p><strong>Ambitions à moyen terme :</strong> Rejoindre ou créer une structure axée sur la coopération Sud-Sud, Contribuer à des projets à fort impact local mobilisant des outils spatiaux, Développer le lien entre numérique, nature et société.</p>
-                        </div>
+                        <div class="highlight">
+                            <p><strong>Vision professionnelle :</strong> Mettre en œuvre mes compétences au service d'une organisation innovante dans des projets de développement humain et de transition écologique.</p>
+                            <p><strong>Ambitions à moyen terme :</strong> Rejoindre ou créer une structure axée sur la coopération Sud-Sud, Contribuer à des projets à fort impact local mobilisant des outils spatiaux, Développer le lien entre numérique, nature et société.</p>
+                        </div>
 
-                        <div class="skills-grid">
-                            <div class="skill-category"><h4>🎯 Domaines d'expertise visés</h4>
-                                <div class="skill-tags"><span class="skill-tag">Socio-écosystèmes forestiers</span><span class="skill-tag">Agroforesterie</span><span class="skill-tag">Coexistence homme-faune</span><span class="skill-tag">Justice environnementale</span></div>
-                            </div>
-                             <div class="skill-category"><h4>💼 Postes cibles</h4>
-                                <div class="skill-tags"><span class="skill-tag">Responsable SIG & environnement</span><span class="skill-tag">Coordinatrice cartographie participative</span><span class="skill-tag">Ingénieure télédétection/LiDAR</span><span class="skill-tag">Consultante diagnostic territorial</span></div>
-                            </div>
-                             <div class="skill-category"><h4>📈 Compétences en développement</h4>
-                                <div class="skill-tags"><span class="skill-tag">Python avancé (priorité haute)</span><span class="skill-tag">LiDAR & imagerie (priorité haute)</span><span class="skill-tag">Webmapping open source</span><span class="skill-tag">IA géospatiale</span></div>
-                            </div>
-                            <div class="skill-category"><h4>🎯 Organismes Visés (Vignettes cliquables)</h4>
-                                <div class="organization-grid">
-                                    <div class="organization-tags"><a href="[URL_INRAE]" target="_blank">INRAE</a></div>
-                                    <div class="organization-tags"><a href="[URL_CIRAD]" target="_blank">CIRAD</a></div>
-                                    <div class="organization-tags"><a href="[URL_HOTOSM]" target="_blank">HOTOSM</a></div>
-                                    <div class="organization-tags"><a href="[URL_AMNESTY]" target="_blank">Amnesty International</a></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="scale-marker end">100 km</div>
-            </div>
-        </div>
+                        <div class="skills-grid">
+                            <div class="skill-category"><h4>🎯 Domaines d'expertise visés</h4>
+                                <div class="skill-tags"><span class="skill-tag">Socio-écosystèmes forestiers</span><span class="skill-tag">Agroforesterie</span><span class="skill-tag">Coexistence homme-faune</span><span class="skill-tag">Justice environnementale</span></div>
+                            </div>
+                             <div class="skill-category"><h4>💼 Postes cibles</h4>
+                                <div class="skill-tags"><span class="skill-tag">Responsable SIG & environnement</span><span class="skill-tag">Coordinatrice cartographie participative</span><span class="skill-tag">Ingénieure télédétection/LiDAR</span><span class="skill-tag">Consultante diagnostic territorial</span></div>
+                            </div>
+                             <div class="skill-category"><h4>📈 Compétences en développement</h4>
+                                <div class="skill-tags"><span class="skill-tag">Python avancé (priorité haute)</span><span class="skill-tag">LiDAR & imagerie (priorité haute)</span><span class="skill-tag">Webmapping open source</span><span class="skill-tag">IA géospatiale</span></div>
+                            </div>
+                            <div class="skill-category"><h4>🎯 Organismes Visés (Vignettes cliquables)</h4>
+                                <div class="organization-grid">
+                                    <div class="organization-tags"><a href="[URL_INRAE]" target="_blank">INRAE</a></div>
+                                    <div class="organization-tags"><a href="[URL_CIRAD]" target="_blank">CIRAD</a></div>
+                                    <div class="organization-tags"><a href="[URL_HOTOSM]" target="_blank">HOTOSM</a></div>
+                                    <div class="organization-tags"><a href="[URL_AMNESTY]" target="_blank">Amnesty International</a></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="scale-marker end">100 km</div>
+            </div>
+        </div>
 
-        <div class="engagement-section">
-            <h2>🌐 Engagements & Réseaux Actifs</h2>
-            <p>Mon engagement dépasse le cadre professionnel et nourrit ma pratique à travers des réseaux de solidarité et d'innovation cartographique.</p>
+        <div class="engagement-section">
+            <h2>🌐 Engagements & Réseaux Actifs</h2>
+            <p>Mon engagement dépasse le cadre professionnel et nourrit ma pratique à travers des réseaux de solidarité et d'innovation cartographique.</p>
 
-            <div class="networks-grid">
-                <div class="network-category">
-                    <h3>🎬 Culture & Éducation</h3>
-                    <div class="network-items">
-                        <div class="network-tag"><a href="#" target="_blank">APCAG (cinéma Antilles-Guyane)</a></div>
-                        <div class="network-tag"><a href="#" target="_blank">Rézylians 971 (éducation populaire)</a></div>
-                        <div class="network-tag"><a href="#" target="_blank">Terra Festival (ciné-débats transition)</a></div>
-                    </div>
-                </div>
-                <div class="network-category">
-                    <h3>🗺️ Géomatique Solidaire</h3>
-                    <div class="network-items">
-                        <div class="network-tag"><a href="#" target="_blank">HOTOSM – Latin America Caribbean hub</a></div>
-                        <div class="network-tag"><a href="#" target="_blank">CARTONG</a></div>
-                        <div class="network-tag"><a href="#" target="_blank">UN Risk & Disaster Network LatAm</a></div>
-                    </div>
-                </div>
-                 <div class="network-category">
-                    <h3>🌍 Justice Environnementale</h3>
-                    <div class="network-items">
-                        <div class="network-tag"><a href="#" target="_blank">Amnesty International</a></div>
-                        <div class="network-tag"><a href="#" target="_blank">CYEN</a></div>
-                        <div class="network-tag"><a href="#" target="_blank">WYCJ (climate justice youth)</a></div>
-                        <div class="network-tag"><a href="#" target="_blank">Caribaea Initiative</a></div>
-                    </div>
-                </div>
-                </div>
-        </div>
+            <div class="networks-grid">
+                <div class="network-category">
+                    <h3>🎬 Culture & Éducation</h3>
+                    <div class="network-items">
+                        <div class="network-tag"><a href="#" target="_blank">APCAG (cinéma Antilles-Guyane)</a></div>
+                        <div class="network-tag"><a href="#" target="_blank">Rézylians 971 (éducation populaire)</a></div>
+                        <div class="network-tag"><a href="#" target="_blank">Terra Festival (ciné-débats transition)</a></div>
+                    </div>
+                </div>
+                <div class="network-category">
+                    <h3>🗺️ Géomatique Solidaire</h3>
+                    <div class="network-items">
+                        <div class="network-tag"><a href="https://www.hotosm.org/" target="_blank">Humanitarian OSM Team (HOTOSM)</a></div>
+                        <div class="network-tag"><a href="#" target="_blank">GeoGirls France</a></div>
+                        <div class="network-tag"><a href="#" target="_blank">OpenStreetMap Antilles</a></div>
+                    </div>
+                </div>
+                <div class="network-category">
+                    <h3>✊ Droits Humains & Climat</h3>
+                    <div class="network-items">
+                        <div class="network-tag"><a href="https://www.amnesty.fr/" target="_blank">Amnesty International (Groupe local)</a></div>
+                        <div class="network-tag"><a href="#" target="_blank">Youth For Climate (Observatrice)</a></div>
+                        <div class="network-tag"><a href="#" target="_blank">Collectif Climat & Société</a></div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-        <div class="action-panel">
-            <h2>🤝 Construisons ensemble l'avenir des territoires tropicaux</h2>
-            <p>Passionnée par la géographie appliquée et la coopération Sud-Sud, je recherche des collaborations stimulantes pour des projets à impact positif.</p>
-            <div class="cta-buttons">
-                <a href="mailto:votre.email@exemple.com" class="cta-button" id="cta-contact">
-                    <i class="fas fa-envelope"></i> Échanger sur un projet
-                </a>
-                <a href="#portfolio-section" class="cta-button" id="cta-portfolio">
-                    <i class="fas fa-folder-open"></i> Découvrir mes réalisations
-                </a>
-                </div>
-            
-            <div class="social-links">
-                <a href="[URL_LinkedIn]" target="_blank" class="social-link" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
-                <a href="[URL_GitHub]" target="_blank" class="social-link" title="GitHub"><i class="fab fa-github-square"></i></a>
-                <a href="[URL_ResearchGate]" target="_blank" class="social-link" title="ResearchGate"><i class="fab fa-researchgate"></i></a>
-                <a href="[URL_Bluesky]" target="_blank" class="social-link" title="Bluesky">
-                    <img src="bluesky_logo.png" alt="Logo Bluesky" class="social-logo">
-                </a>
-            </div>
+        <div class="action-panel">
+            <h2 style="color: white; margin-bottom: 1.5rem;">Prête à cartographier de nouveaux territoires ensemble ?</h2>
+            <a href="mailto:votre.email@domaine.com" class="cta-button"><i class="fas fa-envelope"></i> Contactez-moi</a>
+            <a href="[URL_DE_VOTRE_CV_PDF]" target="_blank" class="cta-button"><i class="fas fa-file-alt"></i> Télécharger mon CV</a>
+            
+            <div class="social-links">
+                <a href="[URL_LINKEDIN]" target="_blank" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                <a href="[URL_RESEARCHGATE]" target="_blank" title="ResearchGate"><i class="fab fa-researchgate"></i></a>
+                <a href="[URL_GITHUB]" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
+                <a href="[URL_BLUESKY]" target="_blank" title="Bluesky (via logo)">
+                    <img src="bluesky-logo.png" alt="Bluesky" class="social-logo"> 
+                </a>
+            </div>
+        </div>
+    </div>
 
-        </div>
-    </div>
-    
-    <script>
-        // Fonction pour le défilement vers le haut
-        document.getElementById('scroll-compass').addEventListener('click', function() {
-            window.scrollTo({
-                top: 0,
-                behavior: 'smooth'
-            });
-        });
-        
-        // Observez le défilement pour animer les jalons
-        const milestones = document.querySelectorAll('.milestone');
-        const observerOptions = {
-            root: null,
-            rootMargin: '0px',
-            threshold: 0.2 // Déclenche quand 20% du jalon est visible
-        };
-
-        const milestoneObserver = new IntersectionObserver((entries, observer) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.style.animationPlayState = 'running';
-                    observer.unobserve(entry.target); // Arrête l'observation une fois que l'animation est lancée
-                }
-            });
-        }, observerOptions);
-
-        milestones.forEach(milestone => {
-            milestoneObserver.observe(milestone);
-            milestone.style.animationPlayState = 'paused'; // Assure que l'animation n'est pas jouée au chargement
-        });
-
-        // Rotation de la boussole lors du défilement (selon la demande précédente)
-        window.addEventListener('scroll', function() {
-            const compassImage = document.getElementById('compass-image');
-            
-            // Hauteur totale de la page défilable
-            const totalHeight = document.documentElement.scrollHeight - window.innerHeight;
-            
-            // Position de défilement actuelle
-            const scrollPosition = window.scrollY;
-            
-            // Calcul du pourcentage de défilement (de 0 à 1)
-            const scrollPercent = scrollPosition / totalHeight;
-            
-            // Définir la rotation maximale (360 degrés)
-            const maxRotation = 360; 
-            
-            // Calcul de la rotation en degrés
-            const rotationDegrees = scrollPercent * maxRotation;
-            
-            // Appliquer la transformation CSS
-            if (compassImage) {
-                 compassImage.style.transform = `rotate(${rotationDegrees}deg)`;
-            }
-        });
-
-    </script>
+    <script>
+        // Script de remontée en haut de page pour la boussole (non demandé, mais gardé)
+        document.getElementById('scroll-compass').addEventListener('click', function() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+    </script>
 </body>
 </html>
