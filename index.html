@@ -325,6 +325,41 @@
     		right: 0;
     		left: auto;
 	}
+.milestone.alt-both .milestone-content {
+    width: 100%;
+    margin-left: 0 !important;
+    padding: 2rem;
+}
+
+.milestone.alt-both .bubble {
+    position: absolute;
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background: #4caf50;
+    color: #fff;
+    text-align: center;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Distribuer les bulles de part et d’autre de la ligne */
+.milestone.alt-both .bubble:nth-child(odd) {
+    left: 20%; /* côté gauche */
+}
+
+.milestone.alt-both .bubble:nth-child(even) {
+    left: 60%; /* côté droit */
+}
+
+/* Garder la ligne verte au centre */
+.milestone.alt-both .timeline-svg {
+    left: 50%;
+    transform: translateX(-50%);
+}
+
 
         /* Suppression des icônes de jalon */
         .milestone-icon {
@@ -922,14 +957,11 @@
                                     <div class="organization-tags"><a href="[URL_AMNESTY]" target="_blank">Amnesty International</a></div>
                                 </div>
                             </div>
-<!-- Bouton pour ouvrir la timeline du projet -->
-<div class="vision-btn-container" style="text-align:center; margin:20px 0;">
-  <button id="openProjet" class="btn" style="padding:15px 30px; font-size:18px; border-radius:10px; cursor:pointer;">
-    Découvrir mon projet professionnel en détails
-  </button>
-</div>
-
-<!-- Timeline ondulée -->
+<div class="milestone professional-project alt-both">
+    <div class="milestone-content" style="width: 100%; margin-left: 0; padding: 2rem;">
+        <!-- Contenu complet du modal Projet Professionnel -->
+        <h3>🌐 Mon projet professionnel détaillé</h3>
+        <!-- Timeline ondulée -->
 <div class="timeline-container">
   <svg class="timeline-svg" id="timelineSVG"></svg>
 
@@ -965,9 +997,10 @@
   <div class="popup-close" id="popupClose">&times;</div>
   <div class="popup-content" id="popupContent"></div>
 </div>
-                        </div>
-                    </div>
-                </div>
+
+        </div>
+    </div>
+</div>
                 
                 <div class="scale-marker end">100 km</div>
             </div>
@@ -1089,27 +1122,6 @@
                  compassImage.style.transform = `rotate(${rotationDegrees}deg)`;
             }
         });
-// Sélection des éléments
-const modal = document.getElementById("projetModal");
-const openBtn = document.getElementById("openProjet");
-const closeBtn = document.querySelector(".close");
-
-// Ouvrir le modal
-openBtn.onclick = function() {
-  modal.style.display = "block";
-}
-
-// Fermer le modal
-closeBtn.onclick = function() {
-  modal.style.display = "none";
-}
-
-// Fermer si clic à l’extérieur
-window.onclick = function(event) {
-  if (event.target == modal) {
-    modal.style.display = "none";
-  }
-}
 const svg = document.getElementById("timelineSVG");
 const width = svg.clientWidth;
 const height = svg.clientHeight;
