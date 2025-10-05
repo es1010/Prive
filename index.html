@@ -681,6 +681,50 @@
     		transform: translateY(-3px);
     		box-shadow: 0 6px 15px rgba(0,0,0,0.3);
 	}
+/* Fenêtre modale */
+.modal {
+  display: none; /* caché par défaut */
+  position: fixed;
+  z-index: 1000;
+  left: 0; top: 0;
+  width: 100%; height: 100%;
+  overflow: auto;
+  background-color: rgba(0,0,0,0.7); /* fondu semi-transparent */
+}
+
+/* Contenu du modal */
+.modal-content {
+  background-color: #fff;
+  margin: 10% auto;
+  padding: 20px;
+  border-radius: 10px;
+  width: 80%;
+  max-width: 800px;
+  overflow-y: auto;
+  max-height: 80vh;
+}
+
+/* Bouton fermer */
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.close:hover { color: #000; }
+
+/* Style des étapes du projet */
+.project-step {
+  margin-bottom: 20px;
+}
+.project-step h3 {
+  margin-bottom: 5px;
+}
+.project-step p {
+  margin: 0;
+}
     </style>
 </head>
 <body>
@@ -822,6 +866,77 @@
                                     <div class="organization-tags"><a href="[URL_AMNESTY]" target="_blank">Amnesty International</a></div>
                                 </div>
                             </div>
+<!-- Bouton pour ouvrir les détail du projet -->
+<button id="openProjet" class="btn">Découvrir mon projet professionel en détail</button>
+<div id="projetModal" class="modal">
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    <h2>Mon Projet Professionnel</h2>
+    <div class="project-steps">
+
+      <!-- Partie 1 -->
+      <div class="project-step">
+        <h3>1. Connaissances sur le sujet</h3>
+        <p>Je suis cartographe et géographe junior spécialisée dans les outils géospatiaux appliqués aux territoires tropicaux. Mon parcours m'a permis d'acquérir une expertise technique en SIG, télédétection, LiDAR, modélisation spatiale et cartographie participative. J’ai exploré la relation entre les données spatiales, les savoirs locaux et les dynamiques socio-écologiques, en combinant des approches scientifiques et participatives. Mes expériences sur le terrain, notamment en Guadeloupe et au Cameroun, m’ont permis de comprendre concrètement comment les territoires répondent aux risques climatiques et à la gestion de la biodiversité. En parallèle, mon engagement associatif et mes travaux universitaires m’ont conduit à approfondir la justice climatique, la gouvernance participative et les politiques environnementales dans les contextes tropicaux et ultramarins.</p>
+      </div>
+
+      <!-- Partie 2 -->
+      <div class="project-step">
+        <h3>2. Situation non satisfaisante à améliorer</h3>
+        <p>Les territoires ultramarins et tropicaux présentent une vulnérabilité accrue aux catastrophes climatiques, aux pertes de biodiversité et aux risques socio-environnementaux. Les réponses actuelles sont souvent limitées par le manque de coordination entre acteurs, des ressources financières et techniques insuffisantes, et une intégration partielle des savoirs locaux. Les expériences en Guadeloupe, dans d'autres DROM et dans les PEID de la Caraïbe, montrent que les réponses institutionnelles ne suffisent pas toujours à protéger les communautés locales, notamment face aux crises comme celle des sargasses ou aux cyclones Maria et Irma. Ces problématiques mettent en évidence la nécessité d’une approche territoriale, participative et intégrée.</p>
+      </div>
+
+      <!-- Partie 3 -->
+      <div class="project-step">
+        <h3>3. Situation souhaitée</h3>
+        <p>Je souhaite contribuer à une gouvernance locale renforcée et à la co-construction de solutions socio-écologiques. L’objectif est d’instaurer des projets de conservation et de développement durable qui soient adaptés aux réalités locales, tout en appliquant les principes de justice climatique. Il s’agit de combiner analyse spatiale, concertation et expertise technique pour soutenir les territoires face aux impacts du changement climatique, à la perte de biodiversité et aux enjeux de transition écologique. Mon ambition est de proposer des solutions efficaces, justes et durables, qui tiennent compte des disparités entre territoires et des contraintes géopolitiques et financières.</p>
+      </div>
+
+      <!-- Partie 4 -->
+      <div class="project-step">
+        <h3>4. Objet d’étude</h3>
+        <p>Mon étude porte sur les territoires ultramarins et tropicaux, avec un focus sur la Guadeloupe et la Caraïbe. Les thématiques principales concernent la gestion de la biodiversité, la résilience aux risques climatiques, la participation citoyenne et la gouvernance environnementale. Je m’intéresse également à l’interaction entre les politiques publiques et les savoirs locaux, ainsi qu’au rôle des collectivités, ONG et institutions internationales. L’objectif est d’analyser comment les données géospatiales et participatives peuvent être mobilisées pour soutenir la planification, la gestion et la transition écologique dans ces territoires.</p>
+      </div>
+
+      <!-- Partie 5 -->
+      <div class="project-step">
+        <h3>5. Problématique à traiter et méthodologie</h3>
+        <p>La question centrale est : comment améliorer la résilience socio-écologique des territoires ultramarins et tropicaux via des outils géomatiques et participatifs ? Pour y répondre, j’adopte une méthodologie combinant analyses spatiales, relevés terrain et concertation avec les acteurs locaux. Cette approche permet de produire des solutions adaptées aux réalités locales, en tenant compte des enjeux de justice climatique, des disparités socio-économiques et des contraintes institutionnelles. Les exemples concrets incluent la mise en place de placettes LiDAR en Guadeloupe, la cartographie participative de zones vulnérables aux sargasses et la modélisation des risques socio-environnementaux au Cameroun.</p>
+      </div>
+
+      <!-- Partie 6 -->
+      <div class="project-step">
+        <h3>6. Connaissances et données à mobiliser</h3>
+        <p>Les données mobilisées incluent : LiDAR, SIG, cartographie participative, données socio-environnementales locales et internationales. Ces informations permettent d’analyser la vulnérabilité des territoires, de cartographier les risques et de planifier des interventions adaptées. Elles sont également utiles pour soutenir la prise de décision et la concertation entre acteurs publics, associatifs et communautaires. La combinaison des données techniques et des savoirs locaux est cruciale pour produire des analyses pertinentes et actionnables.</p>
+      </div>
+
+      <!-- Partie 7 -->
+      <div class="project-step">
+        <h3>7. Acteurs concernés</h3>
+        <p>Les principaux acteurs incluent : l’ONF, les collectivités locales, les ONG, les communautés locales, ainsi que les institutions internationales. La coopération multi-acteurs est essentielle pour garantir la pertinence et la durabilité des solutions proposées. Les enjeux concernent à la fois les projets scientifiques, la gestion territoriale et la participation citoyenne. Mon rôle est de relier les dimensions techniques, politiques et humaines pour construire des outils utiles et adaptés aux besoins des communautés.</p>
+      </div>
+
+      <!-- Partie 8 -->
+      <div class="project-step">
+        <h3>8. Connaissances à acquérir et actions à mener</h3>
+        <p>Je souhaite approfondir mes connaissances en justice climatique, financement international, intégration des savoirs locaux et suivi terrain. Les actions concrètes incluent la réalisation d’études spatiales, la mise en place de projets collaboratifs, l’animation d’ateliers de cartographie participative et la production de livrables utiles pour les politiques locales et projets socio-environnementaux. Ces compétences permettront de renforcer l’impact de mes travaux et de favoriser l’autonomie des acteurs locaux dans la gestion de leur territoire.</p>
+      </div>
+
+      <!-- Partie 9 -->
+      <div class="project-step">
+        <h3>9. Points durs à traiter</h3>
+        <p>Les principaux défis incluent : limitations financières et techniques, complexité géopolitique, disparités entre territoires et coordination multi-acteurs. Il faut également tenir compte des enjeux liés à la centralisation ou à l’autonomie des territoires, aux dépendances financières extérieures et aux contraintes institutionnelles locales. La crise des sargasses, la vulnérabilité face aux cyclones et les disparités socio-économiques entre les îles de la Caraïbe illustrent la complexité de ces enjeux.</p>
+      </div>
+
+      <!-- Partie 10 -->
+      <div class="project-step">
+        <h3>10. Livrables attendus</h3>
+        <p>Les livrables attendus incluent : cartes et atlas participatifs, rapports de synthèse, recommandations pour les politiques locales et projets socio-environnementaux. Ces documents visent à soutenir la prise de décision, la participation citoyenne et la gestion durable des ressources. Ils reflètent à la fois l’analyse technique, les savoirs locaux et les dynamiques territoriales observées, et permettent de créer des outils pratiques pour les acteurs locaux et institutionnels.</p>
+      </div>
+
+    </div>
+  </div>
+</div>
                         </div>
                     </div>
                 </div>
@@ -945,7 +1060,27 @@
                  compassImage.style.transform = `rotate(${rotationDegrees}deg)`;
             }
         });
+// Sélection des éléments
+const modal = document.getElementById("projetModal");
+const openBtn = document.getElementById("openProjet");
+const closeBtn = document.querySelector(".close");
 
+// Ouvrir le modal
+openBtn.onclick = function() {
+  modal.style.display = "block";
+}
+
+// Fermer le modal
+closeBtn.onclick = function() {
+  modal.style.display = "none";
+}
+
+// Fermer si clic à l’extérieur
+window.onclick = function(event) {
+  if (event.target == modal) {
+    modal.style.display = "none";
+  }
+}
     </script>
 </body>
 </html>
