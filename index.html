@@ -275,26 +275,27 @@
     border-radius: 50%; /* ✅ suit la forme du cadre */
     display: block;
     background-color: white; /* optionnel, pour éviter un fond transparent */
-
-	/* ✅ Style spécifique aux images des jalons */
+}
+	
+/* ✅ Image des jalons qui remplit totalement le cadre */
 .photo {
   position: relative;
   overflow: hidden;
-  height: 180px;
   width: 100%;
+  height: 250px; /* 🔹 Augmente la hauteur (tu peux ajuster : 200, 250, 300...) */
   border-radius: 10px;
   border: 2px solid #81c784;
   background-color: #fff;
-  display: flex;
-  justify-content: center;
-  align-items: center;
 }
 
 .photo img {
+  position: absolute;     /* ✅ L’image occupe tout l’espace disponible */
+  top: 0;
+  left: 0;
   width: 100%;
   height: 100%;
-  object-fit: cover;  /* L’image remplit tout le cadre */
-  object-position: center;
+  object-fit: cover;       /* ✅ Remplit sans déformation */
+  object-position: center; /* ✅ Centre l’image verticalement et horizontalement */
   border-radius: 0;
 }
 
@@ -304,14 +305,12 @@
   left: 8px;
   background: rgba(0, 0, 0, 0.5);
   color: #fff;
-  font-size: 0.8rem;
+  font-size: 0.9rem;
   padding: 4px 8px;
   border-radius: 5px;
-  max-width: 80%;
   text-align: left;
 }
 
-}
         .milestone {
             position: relative;
             margin: 4rem 0;
