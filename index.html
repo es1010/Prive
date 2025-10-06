@@ -311,11 +311,13 @@
   text-align: left;
 }
 
-		/* ✅ Style spécial pour les images à "dézoomer" */
+/* ✅ Effet "dézoom léger" uniquement pour ces deux images */
 .photo img.photo-contain {
-  object-fit: contain !important;   /* Affiche toute l’image sans crop */
-  background-color: #fff;           /* Remplit l’espace autour si besoin */
+  object-fit: cover;          /* On garde le plein cadre */
+  transform: scale(0.9);      /* 🔹 Zoom arrière de 10 % */
+  transform-origin: center;   /* Centré au milieu */
 }
+
 
         .milestone {
             position: relative;
