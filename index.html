@@ -275,6 +275,42 @@
     border-radius: 50%; /* ✅ suit la forme du cadre */
     display: block;
     background-color: white; /* optionnel, pour éviter un fond transparent */
+
+	/* ✅ Style spécifique aux images des jalons */
+.photo {
+  position: relative;
+  overflow: hidden;
+  height: 180px;
+  width: 100%;
+  border-radius: 10px;
+  border: 2px solid #81c784;
+  background-color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;  /* L’image remplit tout le cadre */
+  object-position: center;
+  border-radius: 0;
+}
+
+.photo span {
+  position: absolute;
+  bottom: 8px;
+  left: 8px;
+  background: rgba(0, 0, 0, 0.5);
+  color: #fff;
+  font-size: 0.8rem;
+  padding: 4px 8px;
+  border-radius: 5px;
+  max-width: 80%;
+  text-align: left;
+}
+
 }
         .milestone {
             position: relative;
@@ -897,8 +933,10 @@
                 <div class="milestone present alt-left">
                     <div class="milestone-image-group-wrapper">
                         <div class="milestone-image-group">
-                            <div class="photo-placeholder"> "Mesures pour placettes de calibration LiDAR">
-                <img src="(2).jpg" alt="Image Exp. 1"></div>
+                            <div class="photo-placeholder photo">
+    							<img src="(2).jpg" alt="Mesures pour placettes de calibration LiDAR">
+    								<span>Mesures pour placettes de calibration LiDAR</span>
+							</div>
                             <div class="photo-placeholder">Image Exp. 2</div>
                             <div class="photo-placeholder">Image Exp. 3</div>
                         </div>
@@ -922,7 +960,7 @@
                                 <div class="skill-tags"><span class="skill-tag">Écologie tropicale</span><span class="skill-tag">Botanique tropicale</span><span class="skill-tag">Conflits Homme-Faune</span><span class="skill-tag">Évaluation environnementale</span></div>
                             </div>
                             <div class="skill-category"><h4>📊 Études & Diagnostics</h4>
-                                <div class="skill-tags"><span class="skill-tag">Faisabilité socio-économique</span><span class="skill-tag">Modélisation participative</span><span class="skill-tag">Diagnostics territoriaux</span><span class="skill-tag">Géographie physique & sociale</span><span class="skill-tag">Python/Javascript</span><span class="skill-tag">PostgreSQL</span></div>
+                                <div class="skill-tags"><span class="skill-tag">Faisabilité socio-économique</span><span class="skill-tag">Modélisation participative</span><span class="skill-tag">Diagnostics territoriaux</span><span class="skill-tag">Géographie physique & sociale</span><span class="skill-tag">Python/Javascript/CSS/HTML</span><span class="skill-tag">PostgreSQL</span></div>
                             </div>
                             <div class="skill-category"><h4>🎯 Management & Événementiel</h4>
                                 <div class="skill-tags"><span class="skill-tag">Gestion de projet</span><span class="skill-tag">Animation de TD/ateliers SIG</span><span class="skill-tag">Organisation conférences</span><span class="skill-tag">Ciné-débats</span><span class="skill-tag">Ateliers participatifs</span></div>
