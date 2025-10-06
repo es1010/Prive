@@ -311,6 +311,12 @@
   text-align: left;
 }
 
+		/* ✅ Style spécial pour les images à "dézoomer" */
+.photo img.photo-contain {
+  object-fit: contain !important;   /* Affiche toute l’image sans crop */
+  background-color: #fff;           /* Remplit l’espace autour si besoin */
+}
+
         .milestone {
             position: relative;
             margin: 4rem 0;
@@ -946,7 +952,7 @@
     								<span>Mesures pour placettes de calibration LiDAR</span>
 							</div>
                             <div class="photo-placeholder photo">
-    							<img src="HOTOSM_workshop.jpeg" alt="Animation d'atelier d'initiation à OpenStreetMap à Saint-Martin">
+    							<img src="HOTOSM_workshop.jpeg" alt="Animation d'atelier d'initiation à OpenStreetMap à Saint-Martin" class="photo-contain">
     								<span>Animation d'atelier d'initiation à OpenStreetMap à Saint-Martin</span>
 							</div>
                            <div class="photo-placeholder photo">
@@ -998,7 +1004,7 @@
     								<span>Ecosystème</span>
 							</div>
                              <div class="photo-placeholder photo">
-    							<img src="20230524_173100.jpg" alt="Point de vue campo">
+    							<img src="20230524_173100.jpg" alt="Point de vue campo" class="photo-contain">
     								<span>Complexité</span>
 							</div>
                         </div>
