@@ -311,12 +311,12 @@
   text-align: left;
 }
 
-/* ✅ Effet "dézoom léger" uniquement pour ces deux images */
+/* ✅ Fait "remonter" légèrement certaines images dans leur cadre */
 .photo img.photo-contain {
-  object-fit: cover;          /* On garde le plein cadre */
-  transform: scale(0.9);      /* 🔹 Zoom arrière de 10 % */
-  transform-origin: center;   /* Centré au milieu */
+  object-fit: cover;
+  object-position: center top;  /* 🔹 Centre horizontalement, mais aligne vers le haut */
 }
+
 
 
         .milestone {
