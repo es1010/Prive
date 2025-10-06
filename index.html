@@ -267,7 +267,15 @@
             width: 60px; 
         }
 
-
+.photo-placeholder img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain; /* ✅ réduit l'image pour qu'elle tienne entièrement */
+    object-position: center; /* ✅ reste centrée */
+    border-radius: 50%; /* ✅ suit la forme du cadre */
+    display: block;
+    background-color: white; /* optionnel, pour éviter un fond transparent */
+}
         .milestone {
             position: relative;
             margin: 4rem 0;
