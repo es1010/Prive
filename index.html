@@ -244,43 +244,58 @@
             border: 1px solid #1b5e20;
         }
         
-        /* Ajustements Marqueurs d'Échelle */
-        .scale-marker {
-            position: absolute;
-            left: 51.5%; 
-            right: auto; 
-            transform: none; 
-            width: 60px; 
-            text-align: left; 
-            color: white;
-            font-weight: bold;
-            font-size: 0.9rem; 
-            background: #1b5e20;
-            padding: 4px 8px;
-            border-radius: 5px;
-            border: 1px solid #a5d6a7;
-            z-index: 5;
-            pointer-events: none;
-            margin-top: 15px; 
-        }
-        
-        /* Marqueur de Début et Fin (Restent à gauche de la ligne) */
-        .scale-marker.start, .scale-marker.end { 
-             right: 51.5%; 
-             left: auto;
-             text-align: right;
-             width: 85px;
-        }
-        .scale-marker.start { top: -25px; margin-top: 0; }
-        .scale-marker.end { bottom: -25px; margin-top: 0; }
-        .scale-marker.middle {
-            top: 50%; 
-            transform: translateY(-50%);
-            left: 51.5%; 
-            right: auto;
-            width: 60px; 
-        }
+      /* Ajustements Marqueurs d'Échelle - POSITIONNEMENT PROPORTIONNEL */
+.scale-marker {
+    position: absolute;
+    left: 51.5%; 
+    right: auto; 
+    transform: none; 
+    width: 60px; 
+    text-align: left; 
+    color: white;
+    font-weight: bold;
+    font-size: 0.9rem; 
+    background: #1b5e20;
+    padding: 4px 8px;
+    border-radius: 5px;
+    border: 1px solid #a5d6a7;
+    z-index: 5;
+    pointer-events: none;
+}
 
+/* Marqueurs positionnés proportionnellement sur la timeline */
+.scale-marker.start { 
+    top: 0%; /* 1 km = début */
+    right: 51.5%; 
+    left: auto;
+    text-align: right;
+    width: 85px;
+}
+
+.scale-marker.middle {
+    top: 49%; /* 50 km = environ milieu (49% pour tenir compte de la taille du badge) */
+    left: 51.5%; 
+    right: auto;
+    width: 60px;
+}
+
+/* Nouveau marqueur à 66% pour 100 km */
+.scale-marker.end {
+    top: 66%; /* 100 km = aux 2/3 de la timeline */
+    right: 51.5%; 
+    left: auto;
+    text-align: right;
+    width: 85px;
+}
+
+/* Marqueur infini tout en bas */
+.scale-marker.infinity {
+    bottom: 0%;
+    right: 51.5%; 
+    left: auto;
+    text-align: right;
+    width: 85px;
+}
 .photo-placeholder img {
     width: 100%;
     height: 100%;
@@ -811,6 +826,12 @@
     .scale-marker.end {
         bottom: -20px;
     }
+
+	.scale-marker.infinity {
+    left: 35px;
+    right: auto;
+    text-align: left;
+}
 
     /* Milestones */
     .milestone {
@@ -1349,7 +1370,7 @@
     </div>
 </div>
 <!-- Fin Jalon Vision -->
-			<div class="scale-marker end">∞ km</div>
+			<div class="scale-marker infinity">∞ km</div>
             </div>
         </div>
                 
